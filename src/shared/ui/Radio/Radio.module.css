@@ -1,0 +1,40 @@
+.custom-radio {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-base);
+  user-select: none;
+  color: #253017;
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+.circle {
+  height: 20px;
+  width: 20px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #508826; /* Цвет неактивного кружка */
+  border-radius: 50%; /* Делаем круглым */
+  transition: all 0.2s ease; /* Плавность анимации */
+  display: inline-block;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.active {
+  border: 1px solid #508826;
+}
