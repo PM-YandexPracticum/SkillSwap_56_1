@@ -1,83 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 .primary {
   height: 48px;
-  border-radius: 12px;
+  border-radius: var(--radius-default), 12px;
   padding: 12px 23px;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  background-color: #ABD27A;
-  color: #253017;
+  font-family: var(--font-family-body), sans-serif;
+  font-weight: var(--font-weight-regular), 400;
+  font-size: var(--font-size-body), 16px;
+  line-height: var(--line-height-body), 24px;
+  background-color: var(--color-accent-light), #ABD27A;
+  color: var(--color-text), #253017;
 }
 
 .primary:hover {
-  background-color: #DEEBC5;
+  background-color: var(--color-accent-hover), #DEEBC5;
 }
 
 .primary:active {
-  background-color: #508826;
-  color: #FFF;
+  background-color: var(--color-accent), #508826;
+  color: var(--color-white), #FFF;
 }
 
 .primary:disabled {
-  background-color: #E4E8DF;
-  color: #69735D;
+  background-color: var(--color-disabled-background), #E4E8DF;
+  color: var(--color-text-secondary), #69735D;
 }
 
 .secondary {
   height: 48px;
-  border-radius: 12px;
+  border-radius: var(--radius-default), 12px;
   padding: 12px 23px;
-  border: 1px solid #ABD27A;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  background-color: #fff;
-  color: #253017;
+  border: 1px solid var(--color-accent-light), #ABD27A;
+  font-family: var(--font-family-body), sans-serif;
+  font-weight: var(--font-weight-regular), 400;
+  font-size: var(--font-size-body), 16px;
+  line-height: var(--line-height-body), 24px;
+  background-color: var(--color-white), #fff;
+  color: var(--color-text), #253017;
 }
 
 .secondary:hover {
-  color: #69735D;
-  border-color: #DEEBC5;
+  color: var(--color-text-secondary), #69735D;
+  border-color: var(--color-accent-hover), #DEEBC5;
 }
 
 .secondary:active {
-  border-color: #508826;
-  color: #253017;
+  border-color: var(--color-accent), #508826;
+  color: var(--color-text), #253017;
 }
 
 .secondary:disabled {
-  border-color: #E4E8DF;
-  color: #9CA197;
+  border-color: var(--color-disabled-background), #E4E8DF;
+  color: var(--color-text-disabled), #9CA197;
 }
 
 .tertiary {
   height: 48px;
-  border-radius: 12px;
+  border-radius: var(--radius-default), 12px;
   padding: 12px 23px;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  background-color: #fff;
-  color: #253017;
+  font-family: var(--font-family-body), sans-serif;
+  font-weight: var(--font-weight-regular), 400;
+  font-size: var(--font-size-body), 16px;
+  line-height: var(--line-height-body), 24px;
+  background-color: var(--color-white), #fff;
+  color: var(--color-text), #253017;
 }
 
 .socialLogin {
   height: 48px;
   width: 436px;
-  border-radius: 12px;
+  border-radius: var(--radius-default), 12px;
   padding: 12px 23px;
-  border: 1px solid #69735D;
-  font-family: Roboto, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  background-color: #fff;
-  color: #253017;
+  border: 1px solid var(--color-text-secondary), #69735D;
+  font-family: var(--font-family-body), sans-serif;
+  font-weight: var(--font-weight-regular), 400;
+  font-size: var(--font-size-body), 16px;
+  line-height: var(--line-height-body), 24px;
+  background-color: var(--color-white), #fff;
+  color: var(--color-text), #253017;
   display: flex;
   align-items: center;
   justify-content: center;
