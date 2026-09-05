@@ -1,0 +1,24 @@
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #69735d;
+  border-radius: 12px;
+  padding: 12px 20px;
+  color: #253017;
+  caret-color: #508826;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  resize: vertical;
+}
+
+.textarea::placeholder {
+  color: #69735d;
+  opacity: 1;
+}
+
+.textarea:focus {
+  outline: none;
+}
