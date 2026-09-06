@@ -1,0 +1,46 @@
+import styles from './Checkmox.module.css'
+
+type TCheckBoxProps = {
+  name: string
+  value: string
+  text: string
+  checked: boolean
+  onChange: () => void
+}
+
+export const CheckboxUI = (props: TCheckBoxProps) => {
+  // Безопасно собираем классы: всегда есть .box, добавляем .checked если нужно
+  const boxClasses = [styles['box']]
+  if (props.checked) {
+    boxClasses.push(styles['checked'])
+  }
+
+  return (
+    <div className={styles['custom-checkbox']}>
+      <input
+        type="checkbox"
+        checked={props.checked}
+        name={props.name}
+        id={`checkbox-${props.value}`}
+        onChange={props.onChange}
+      />
+      <label className={styles['checkbox-label']} htmlFor={`checkbox-${props.value}`}>
+        <svg
+          className={`${props.checked ? styles['checked'] : ''}`.trim()}
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            className={styles['path']}
+            fill="none"
+            stroke="#000"
+            d="M9.209 2.5h5.582c2.468 0 4.11.53 5.145 1.564S21.5 6.741 21.5 9.21v5.582c0 2.468-.53 4.11-1.564 5.145S17.259 21.5 14.79 21.5H9.209c-2.468 0-4.11-.53-5.145-1.564S2.5 17.259 2.5 14.79V9.209c0-2.468.53-4.11 1.564-5.145S6.741 2.5 9.21 2.5Zm0 .396c-2.18 0-3.805.382-4.868 1.445S2.896 7.03 2.896 9.209v5.582c0 2.18.382 3.805 1.445 4.868s2.689 1.446 4.868 1.446h5.582c2.18 0 3.805-.383 4.868-1.446s1.446-2.689 1.446-4.868V9.209c0-2.18-.383-3.805-1.446-4.868s-2.689-1.445-4.868-1.445z"
+          />
+        </svg>
+        {props.text}
+      </label>
+    </div>
+  )
+}
