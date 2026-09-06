@@ -1,4 +1,4 @@
-import styles from './Checkmox.module.css'
+import styles from './Checkbox.module.css'
 
 type TCheckBoxProps = {
   name: string
