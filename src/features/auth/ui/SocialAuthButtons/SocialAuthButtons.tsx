@@ -1,4 +1,4 @@
-import { Button, buttonStyles } from '@/shared/ui/Button/Button';
+import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import AppleLogo from '@/shared/assets/apple.png';
 import GoogleLogo from '@/shared/assets/google.png';
 
