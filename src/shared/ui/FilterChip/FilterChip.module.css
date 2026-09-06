@@ -1,0 +1,38 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #253017;
+  letter-spacing: 2%;
+  white-space: nowrap;
+}
+
+.removeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #253017;
+  cursor: pointer;
+}
+
+.removeButton:active {
+  transform: scale(0.9);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
