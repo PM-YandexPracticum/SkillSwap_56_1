@@ -69,6 +69,9 @@
   --radius-default: 12px;
   --radius-tag: 20px;
   --radius-avatar: 100px;
+
+  /* Spacing */
+  --space-sm: 8px;
 }
 
 [data-theme='dark'] {
