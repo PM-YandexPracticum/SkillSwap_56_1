@@ -1,81 +1,83 @@
 .primary {
   height: 48px;
-  border-radius: var(--radius-default), 12px;
+  border-radius: var(--radius-default, 12px);
   padding: 12px 23px;
-  font-family: var(--font-family-body), sans-serif;
-  font-weight: var(--font-weight-regular), 400;
-  font-size: var(--font-size-body), 16px;
-  line-height: var(--line-height-body), 24px;
-  background-color: var(--color-accent-light), #ABD27A;
-  color: var(--color-text), #253017;
+  border: none;
+  font-family: var(--font-family-body, Roboto), sans-serif;
+  font-weight: var(--font-weight-regular, 400);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 24px);
+  background-color: var(--color-accent-light, #ABD27A);
+  color: var(--color-text, #253017);
 }
 
 .primary:hover {
-  background-color: var(--color-accent-hover), #DEEBC5;
+  background-color: var(--color-accent-hover, #DEEBC5);
 }
 
 .primary:active {
-  background-color: var(--color-accent), #508826;
-  color: var(--color-white), #FFF;
+  background-color: var(--color-accent, #508826);
+  color: var(--color-white, #FFF);
 }
 
 .primary:disabled {
-  background-color: var(--color-disabled-background), #E4E8DF;
-  color: var(--color-text-secondary), #69735D;
+  background-color: var(--color-disabled-background, #E4E8DF);
+  color: var(--color-text-secondary, #69735D);
 }
 
 .secondary {
   height: 48px;
-  border-radius: var(--radius-default), 12px;
+  border-radius: var(--radius-default, 12px);
   padding: 12px 23px;
-  border: 1px solid var(--color-accent-light), #ABD27A;
-  font-family: var(--font-family-body), sans-serif;
-  font-weight: var(--font-weight-regular), 400;
-  font-size: var(--font-size-body), 16px;
-  line-height: var(--line-height-body), 24px;
-  background-color: var(--color-white), #fff;
-  color: var(--color-text), #253017;
+  border: 1px solid var(--color-accent-light, #ABD27A);
+  font-family: var(--font-family-body, Roboto), sans-serif;
+  font-weight: var(--font-weight-regular, 400);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 24px);
+  background-color: var(--color-white, #fff);
+  color: var(--color-text, #253017);
 }
 
 .secondary:hover {
-  color: var(--color-text-secondary), #69735D;
-  border-color: var(--color-accent-hover), #DEEBC5;
+  color: var(--color-text-secondary, #69735D);
+  border-color: var(--color-accent-hover, #DEEBC5);
 }
 
 .secondary:active {
-  border-color: var(--color-accent), #508826;
-  color: var(--color-text), #253017;
+  border-color: var(--color-accent, #508826);
+  color: var(--color-text, #253017);
 }
 
 .secondary:disabled {
-  border-color: var(--color-disabled-background), #E4E8DF;
-  color: var(--color-text-disabled), #9CA197;
+  border-color: var(--color-disabled-background, #E4E8DF);
+  color: var(--color-text-disabled, #9CA197);
 }
 
 .tertiary {
   height: 48px;
-  border-radius: var(--radius-default), 12px;
+  border-radius: var(--radius-default, 12px);
   padding: 12px 23px;
-  font-family: var(--font-family-body), sans-serif;
-  font-weight: var(--font-weight-regular), 400;
-  font-size: var(--font-size-body), 16px;
-  line-height: var(--line-height-body), 24px;
-  background-color: var(--color-white), #fff;
-  color: var(--color-text), #253017;
+  border: none;
+  font-family: var(--font-family-body, Roboto), sans-serif;
+  font-weight: var(--font-weight-regular, 400);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 24px);
+  background-color: var(--color-white, #fff);
+  color: var(--color-text, #253017);
 }
 
 .socialLogin {
   height: 48px;
   width: 436px;
-  border-radius: var(--radius-default), 12px;
+  border-radius: var(--radius-default, 12px);
   padding: 12px 23px;
-  border: 1px solid var(--color-text-secondary), #69735D;
-  font-family: var(--font-family-body), sans-serif;
-  font-weight: var(--font-weight-regular), 400;
-  font-size: var(--font-size-body), 16px;
-  line-height: var(--line-height-body), 24px;
-  background-color: var(--color-white), #fff;
-  color: var(--color-text), #253017;
+  border: 1px solid var(--color-text-secondary, #69735D);
+  font-family: var(--font-family-body, Roboto), sans-serif;
+  font-weight: var(--font-weight-regular, 400);
+  font-size: var(--font-size-body, 16px);
+  line-height: var(--line-height-body, 24px);
+  background-color: var(--color-white, #fff);
+  color: var(--color-text, #253017);
   display: flex;
   align-items: center;
   justify-content: center;
