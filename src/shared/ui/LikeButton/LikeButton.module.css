@@ -1,0 +1,72 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border: 1.5px solid var(--color-border, #e5e7eb);
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--color-text-secondary, #6b7280);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+  outline: none;
+}
+
+.root:hover {
+  border-color: #a8d08d;
+  background-color: rgb(168 208 141 / 8%);
+  color: #7cb342;
+}
+
+.root:focus-visible {
+  box-shadow: 0 0 0 3px rgb(168 208 141 / 35%);
+}
+
+.root:active {
+  transform: scale(0.9);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.heart {
+  stroke: currentcolor;
+  stroke-width: 1.8;
+  fill: transparent;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.active {
+  border-color: #a8d08d;
+  background-color: rgb(168 208 141 / 12%);
+  color: #6b9e4e;
+}
+
+.active .heart {
+  fill: #a8d08d;
+  stroke: #a8d08d;
+}
+
+.active:hover {
+  border-color: #8bc46a;
+  background-color: rgb(139 196 106 / 18%);
+}
+
+.active:hover .heart {
+  fill: #8bc46a;
+  stroke: #8bc46a;
+}
+
+.active .icon {
+  transform: scale(1.15);
+}
