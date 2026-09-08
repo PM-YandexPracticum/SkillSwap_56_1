@@ -1,5 +1,5 @@
 import { ROUTES } from '@/shared/lib/constants'
-import { Button } from '@/shared/ui/Button'
+import { Button } from '../../shared/ui/button'
 import { useNavigate } from 'react-router-dom'
 
 const errorImage = '/assets/icons/page-error-404.svg'
