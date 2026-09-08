@@ -1,0 +1,38 @@
+.skillcard {
+  display: flex;
+  flex-direction: column;
+  width: 324px;
+  gap: 20px;
+  padding: 20px;
+  position: relative;
+}
+
+.like {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  background-color: black;
+}
+
+.skillbox {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.learnbox {
+  display: flex;
+  gap: 4px;
+  width: 284px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tag {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
