@@ -2,12 +2,14 @@ import { useCallback, type MouseEvent } from 'react'
 
 export interface LikeButtonProps {
   liked: boolean
+  count?: number
   onToggle?: (liked: boolean) => void
   className?: string
 }
 
 export const LikeButton = ({
   liked,
+  count,
   onToggle,
   className = '',
 }: LikeButtonProps) => {
@@ -24,16 +26,19 @@ export const LikeButton = ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '48px',
-    height: '48px',
-    padding: '8px',
+    gap: '6px',
+    padding: count !== undefined ? '8px 14px' : '8px',
     border: liked ? '1.5px solid #a8d08d' : '1.5px solid #e5e7eb',
-    borderRadius: '50%',
+    borderRadius: count !== undefined ? '20px' : '50%',
     backgroundColor: liked ? 'rgb(168 208 141 / 12%)' : 'transparent',
     color: liked ? '#6b9e4e' : '#6b7280',
     cursor: 'pointer',
     transition: 'all 0.2s ease',
     outline: 'none',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    fontSize: '14px',
+    fontWeight: 500,
+    lineHeight: 1,
   }
 
   const iconStyle: React.CSSProperties = {
@@ -72,6 +77,12 @@ export const LikeButton = ({
           style={heartStyle}
         />
       </svg>
+
+      {count !== undefined && (
+        <span style={{ minWidth: '1ch', textAlign: 'center', userSelect: 'none' }}>
+          {count}
+        </span>
+      )}
     </button>
   )
 }
