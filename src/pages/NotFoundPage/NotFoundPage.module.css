@@ -32,7 +32,7 @@
 
 .title {
   margin: 0 0 16px;
-  font-family: 'Jost', sans-serif;
+  font-family: Jost, sans-serif;
   font-size: 24px;
   font-weight: 500;
   line-height: 1.2;
@@ -41,7 +41,7 @@
 .description {
   margin: 0;
   max-width: 420px;
-  font-family: 'Roboto', sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -59,7 +59,7 @@
   min-height: 48px;
   padding: 12px 20px;
   border-radius: 12px;
-  font-family: 'Roboto', sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
