@@ -26,7 +26,8 @@ interface SkillCardProps {
   },
   moreTagColor: string,
   withButton: boolean,
-  isLiked: boolean
+  isLiked: boolean,
+  likesCount: number
 }
 
 export const SkillCard = (props: SkillCardProps) => {
@@ -71,7 +72,7 @@ export const SkillCard = (props: SkillCardProps) => {
   return (
     <div className={styles.skillcard}>
       <div className={styles.like}>
-        <LikeButton liked={props.isLiked} />
+        <LikeButton liked={props.isLiked} count={props.likesCount} />
       </div>
       <UserInfo name={props.user.name} city={props.user.city} age={props.user.age} avatarUrl={props.user.avatarUrl} />
       <p>{props.user.description}</p>
