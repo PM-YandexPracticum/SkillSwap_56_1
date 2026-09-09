@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0 0 0 / 40%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,19 +11,19 @@
 .modalContainer {
   width: 556px;
   max-width: 90vw;
-  background-color: #ffffff;
+  background-color: #fff;
   border-radius: 12px;
   padding: 64px 40px;
   text-align: center;
   position: relative;
 }
 
-/* container-wrapper 4 lays positioning (square outside the circle) */
+/* container-wrapper for positioning (square outside the circle) */
 .iconWrapper {
   position: relative;
   width: 75px;
   height: 75px;
-  margin: 0 auto 32px auto;
+  margin: 0 auto 32px;
 }
 
 /* circle */
@@ -38,7 +38,6 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  /* shift on a half of its length/width */
   transform: translate(-50%, -50%);
   width: 28px;
   height: 16px;
@@ -63,7 +62,6 @@
   margin-bottom: 40px;
 }
 
-
 .button {
   width: 436px;
   height: 48px;
@@ -71,7 +69,7 @@
   background-color: #ABD27A;
   color: #253017;
   border: none;
-  padding: 0; /* the height is specified so del paddings */
+  padding: 0;
   font-weight: 500;
   font-size: 16px;
   line-height: 48px;
