@@ -1,0 +1,98 @@
+.sidebar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resetButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.allCategoriesButton,
+.allCitiesButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.categoryTitle {
+  color: var(--color-text);
+  margin: 0;
+}
+
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subcategories {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 20px;
+}
+
+.categoryOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.categoryToggle {
+  border: none;
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.categoryArrow {
+  transition: transform 0.35s ease-in-out;
+}
+
+.categoryArrowOpen {
+  transform: rotate(180deg);
+}
