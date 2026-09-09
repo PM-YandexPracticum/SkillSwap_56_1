@@ -13,5 +13,6 @@ export const mock = {
   learn: {
     learnValue: ['Водить машину', 'Читать', 'Чинить авто', 'Играть на гитаре'],
     learnTagColor: 'yellow'
-  }
+  },
+  isLiked: true
 }

@@ -1,7 +1,7 @@
 import styles from './SkillCard.module.css';
 import { UserInfo } from '@/entities/user/ui/UserInfo/UserInfo';
 import { SkillTag } from '@/shared/ui/SkillTag/SkillTag';
-//import { LikeButton } from '@/features/favorites/ui/LikeButton/LikeButton';
+import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
 import { Button, buttonStyles } from '@/shared/ui/button/Button';
 import { mock } from './mock';
 import { useState, useEffect, useRef } from 'react';
@@ -25,7 +25,8 @@ interface SkillCardProps {
     learnTagColor: string
   },
   moreTagColor: string,
-  withButton: boolean
+  withButton: boolean,
+  isLiked: boolean
 }
 
 export const SkillCard = (props: SkillCardProps) => {
@@ -69,7 +70,9 @@ export const SkillCard = (props: SkillCardProps) => {
 
   return (
     <div className={styles.skillcard}>
-      <div className={styles.like}></div>
+      <div className={styles.like}>
+        <LikeButton liked={props.isLiked} />
+      </div>
       <UserInfo name={props.user.name} city={props.user.city} age={props.user.age} avatarUrl={props.user.avatarUrl} />
       <p>{props.user.description}</p>
       <div className={styles.skillbox}>
