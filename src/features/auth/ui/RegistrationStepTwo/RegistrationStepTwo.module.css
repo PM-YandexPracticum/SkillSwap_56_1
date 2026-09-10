@@ -1,0 +1,196 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 36px 0;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 12px 23px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-default);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: var(--color-text-secondary);
+  border-color: var(--color-accent-hover);
+}
+
+.closeButton:active {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.closeButton:disabled {
+  border-color: var(--color-disabled-background);
+  color: var(--color-text-disabled);
+}
+
+.stepIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepText {
+  color: var(--color-text);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+}
+
+.stepProgress {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.stepProgressActive,
+.stepProgressInactive {
+  width: 60px;
+  height: 4px;
+  border-radius: 8px;
+}
+
+.stepProgressActive {
+  background-color: var(--color-accent-light);
+}
+
+.stepProgressInactive {
+  background-color: var(--color-disabled-background);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 0 152px 172px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.formColumn,
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-white);
+  border-radius: var(--radius-default);
+}
+
+.formColumn {
+  padding: 40px 60px;
+  gap: 16px;
+}
+
+.infoColumn {
+  justify-content: center;
+  padding: 132px 80px;
+  gap: 40px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.fieldGroup,
+.dateField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.avatarButton {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.avatarButton:hover {
+  opacity: 0.8;
+}
+
+.avatarButton:active {
+  opacity: 0.6;
+}
+
+.dateInput {
+  position: relative;
+  width: 100%;
+}
+
+.dateInput input {
+  padding-right: 48px;
+}
+
+.calendarButton {
+  position: absolute;
+  top: 50%;
+  right: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.calendarButton:hover {
+  opacity: 0.8;
+}
+
+.calendarButton:active {
+  opacity: 0.6;
+}
+
+.calendarButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
