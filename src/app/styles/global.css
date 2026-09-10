@@ -37,6 +37,7 @@
   --color-background: #f9faf7;
   --color-alarm: #e0796e;
   --color-error: #bf3920;
+  --color-border: #e5e7eb;
 
   /* Category tags */
   --color-tag-business: #eee7f7;
@@ -69,9 +70,16 @@
   --radius-default: 12px;
   --radius-tag: 20px;
   --radius-avatar: 100px;
+  --radius-sm: 4px;
 
   /* Spacing */
   --space-sm: 8px;
+  --space-xs: 4px;
+  --space-md: 16px;
+
+  /* Shadow */
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 7%);
+
 }
 
 [data-theme='dark'] {
