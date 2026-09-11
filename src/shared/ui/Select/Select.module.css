@@ -12,11 +12,6 @@
   line-height: var(--line-height-body);
   letter-spacing: 0.32px;
   color: var(--color-text);
-  font-family: var(--font-family-body);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  letter-spacing: 2%;
 }
 
 .field {
@@ -53,7 +48,6 @@
   min-width: 0;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  border: none;
   background: transparent;
   color: var(--color-text);
   font: inherit;
