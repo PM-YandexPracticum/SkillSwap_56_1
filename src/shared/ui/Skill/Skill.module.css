@@ -1,0 +1,73 @@
+.skill {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 52px 40px;
+  background-color: #fff;
+}
+
+.headerButtons {
+  display: flex;
+  justify-content: end;
+  gap: 16px;
+  margin-block-end: 24px;
+}
+
+.imageButton {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  gap: 77px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-block-end: 4px;
+}
+
+.caption {
+  display: inline-block;
+  font-size: var(--font-size-caption, 12px);
+  line-height: var(--line-height-caption, 16px);
+  font-weight: var(--font-weight-regular, 400);
+  margin-block-end: 20px;
+}
+
+.text {
+  margin-block-end: 26px;
+}
+
+.images {
+  display: flex;
+  gap: 24px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.mainImage {
+  width: 324px;
+  height: 324px;
+}
+
+.captionImages {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.captionImages img {
+  width: 92px;
+  height: 92px;
+}

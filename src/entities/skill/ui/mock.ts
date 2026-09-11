@@ -3,7 +3,8 @@ export const mock = {
     name: 'Алексей',
     age: 20,
     city: 'Москва',
-    avatarUrl: null
+    avatarUrl: null,
+    description: 'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое'
   },
   moreTagColor: 'pink',
   teach: {
