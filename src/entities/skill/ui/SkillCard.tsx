@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export { mock as testMock };
 
-interface SkillCardProps {
+export interface SkillCardProps {
   user: {
     avatarUrl: string | null,
     name: string,
