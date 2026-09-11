@@ -1,0 +1,11 @@
+.new-skills {
+  width: 1020px;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-skills__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 324px);
+  gap: 24px;
+}
