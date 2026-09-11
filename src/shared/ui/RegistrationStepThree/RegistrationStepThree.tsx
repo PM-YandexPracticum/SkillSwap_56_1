@@ -91,7 +91,7 @@ export const RegistrationStepThree: React.FC = () => {
 
           {/* Загрузка фотографий */}
           <div className={styles.photoUpload}>
-            <p className={styles.photoText}>Перетащите или выберите изображения навыка</p>
+            <p className={styles.photoText}>Перетащите или выберите изображения навыка</p>
             <button type="button" className={styles.imgButton}>
               <svg
                 width="24"
@@ -138,8 +138,8 @@ export const RegistrationStepThree: React.FC = () => {
             <img src={onboardingImg} />
           </div>
           <div className={styles.onboardingText}>
-            <h2>Укажите, чем вы готовы поделиться</h2>
-            <p>Так другие люди смогут увидеть ваши предложения и предложить вам обмен!</p>
+            <h2>Укажите, чем вы готовы поделиться</h2>
+            <p>Так другие люди смогут увидеть ваши предложения и предложить вам обмен!</p>
           </div>
         </div>
       </div>
