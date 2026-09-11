@@ -1,5 +1,5 @@
 import LogoSvg from './logo.svg?react';
-import styles from './Logo.module.css';
+import styles from "./logo.module.css";
 
 export const Logo = () => {
   return (
