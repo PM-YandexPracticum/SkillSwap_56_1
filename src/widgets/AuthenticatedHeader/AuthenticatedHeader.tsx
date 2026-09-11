@@ -1,9 +1,9 @@
-import { Logo } from '../../shared/ui/Logo/logo';
-import { Input } from '../../shared/ui/Input/Input';
+import { Logo } from '@/shared/ui/Logo/logo';
+import { Input } from '@/shared/ui/Input/Input';
+import { NotificationsPanel } from '@/features/notifications/ui/NotificationsPanel';
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu';
 import SearchIcon from '../GuestHeader/search.svg?react';
 import MoonIcon from './moon.svg?react';
-import NotificationIcon from './notification.svg?react';
 import FavoriteIcon from './like.svg?react';
 import styles from './AuthenticatedHeader.module.css';
 
@@ -41,7 +41,6 @@ export const AuthenticatedHeader = ({
       </div>
 
       <div className={styles.actions}>
-
         <button
           type="button"
           aria-label="Переключить тему"
@@ -50,18 +49,7 @@ export const AuthenticatedHeader = ({
           <MoonIcon />
         </button>
 
-        <div className={styles.iconWrapper}>
-          <button
-            type="button"
-            aria-label="Уведомления"
-            className={styles.iconButton}
-          >
-            <NotificationIcon />
-          </button>
-          {notificationsCount > 0 && (
-            <span className={styles.badge}>{notificationsCount}</span>
-          )}
-        </div>
+        <NotificationsPanel />
 
         <div className={styles.iconWrapper}>
           <button
