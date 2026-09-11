@@ -5,6 +5,19 @@ import { Select } from '@/shared/ui/Select'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import { Textarea } from '@/shared/ui/Textarea'
 import onboardingImg from './step-three-img.svg'
+import { skillsData } from '../RegistrationStepTwo/mockData'
+
+const categoryOptions = skillsData.map((category) => ({
+  value: category.id,
+  label: category.title,
+}))
+
+const subcategoryOptions = skillsData.flatMap((category) =>
+  category.items.map((item) => ({
+    value: item,
+    label: item,
+  })),
+)
 
 export const RegistrationStepThree: React.FC = () => {
   return (
@@ -60,7 +73,7 @@ export const RegistrationStepThree: React.FC = () => {
               multiple
               label="Категория навыка"
               placeholder="Выберите категорию навыка"
-              options={[]}
+              options={categoryOptions}
               value={[]}
               onChange={() => {}}
             />
@@ -72,7 +85,7 @@ export const RegistrationStepThree: React.FC = () => {
               multiple
               label="Подкатегория навыка"
               placeholder="Выберите подкатегорию навыка"
-              options={[]}
+              options={subcategoryOptions}
               value={[]}
               onChange={() => {}}
             />
