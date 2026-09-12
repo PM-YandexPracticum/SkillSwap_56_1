@@ -14,7 +14,7 @@ export interface SkillCardProps {
     name: string,
     city: string,
     age: number,
-    description?: string
+    description: string
   },
   teach: {
     teachValue: string,
@@ -27,7 +27,9 @@ export interface SkillCardProps {
   moreTagColor: string,
   withButton: boolean,
   isLiked: boolean,
-  likesCount: number
+  likesCount?: number,
+  withLikeButton?: boolean,
+  withDescription?: boolean
 }
 
 export const SkillCard = (props: SkillCardProps) => {
@@ -72,19 +74,23 @@ export const SkillCard = (props: SkillCardProps) => {
   return (
     <div className={styles.skillcard}>
       <div className={styles.like}>
-        <LikeButton liked={props.isLiked} count={props.likesCount} />
+        {props.withLikeButton && <LikeButton liked={props.isLiked} count={props.likesCount} />}
       </div>
       <UserInfo name={props.user.name} city={props.user.city} age={props.user.age} avatarUrl={props.user.avatarUrl} />
-      <p>{props.user.description}</p>
+      {props.withDescription && <p>{props.user.description}</p>}
       <div className={styles.skillbox}>
-        <p>Может научить:</p>
         <div>
-          <SkillTag color={props.teach.teachTagColor} value={props.teach.teachValue} />
+          <p>Может научить:</p>
+          <div>
+            <SkillTag color={props.teach.teachTagColor} value={props.teach.teachValue} />
+          </div>
         </div>
-        <p>Хочет научиться:</p>
-        <div ref={learnBoxRef} className={styles.learnbox}>
-          {props.learn.learnValue.slice(0, visibleSkillsCount).map((item, i) => <SkillTag key={i} color={props.learn.learnTagColor} value={item} />)}
-          {moreSkills > 0 && <SkillTag color={props.moreTagColor} value={`+${moreSkills}`} />}
+        <div>
+          <p>Хочет научиться:</p>
+          <div ref={learnBoxRef} className={styles.learnbox}>
+            {props.learn.learnValue.slice(0, visibleSkillsCount).map((item, i) => <SkillTag key={i} color={props.learn.learnTagColor} value={item} />)}
+            {moreSkills > 0 && <SkillTag color={props.moreTagColor} value={`+${moreSkills}`} />}
+          </div>
         </div>
       </div>
       {props.withButton && <Button text='Подробнее' className={buttonStyles.primary} />}
