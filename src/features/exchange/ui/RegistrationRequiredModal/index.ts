@@ -1,0 +1,1 @@
+export { RegistrationRequiredModal } from './RegistrationRequiredModal'
