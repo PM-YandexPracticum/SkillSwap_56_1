@@ -1,19 +1,20 @@
-import { Logo } from '../../shared/ui/Logo/logo';
-import { Input } from '../../shared/ui/Input/Input';
-import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu';
-import SearchIcon from '../GuestHeader/search.svg?react';
-import MoonIcon from './moon.svg?react';
-import NotificationIcon from './notification.svg?react';
-import FavoriteIcon from './like.svg?react';
-import styles from './AuthenticatedHeader.module.css';
+import { Logo } from '../../shared/ui/Logo/logo'
+import { Input } from '../../shared/ui/Input/Input'
+import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
+import { UserMenu } from '../UserMenu/UserMenu'
+import SearchIcon from '../GuestHeader/search.svg?react'
+import MoonIcon from './moon.svg?react'
+import NotificationIcon from './notification.svg?react'
+import FavoriteIcon from './like.svg?react'
+import styles from './AuthenticatedHeader.module.css'
 
 interface AuthenticatedHeaderProps {
-  userName?: string;
-  userAvatar?: string | null;
-  notificationsCount?: number;
-  likesCount?: number;
-  isLiked?: boolean;
-  onLikeToggle?: () => void;
+  userName?: string
+  userAvatar?: string | null
+  notificationsCount?: number
+  likesCount?: number
+  isLiked?: boolean
+  onLikeToggle?: () => void
 }
 
 export const AuthenticatedHeader = ({
@@ -28,39 +29,27 @@ export const AuthenticatedHeader = ({
       <Logo />
 
       <nav className={styles.nav}>
-        <a href="#" className={styles.navLink}>О проекте</a>
+        <a href="#" className={styles.navLink}>
+          О проекте
+        </a>
         <AllSkillsMenu />
       </nav>
 
       <div className={styles.search}>
         <SearchIcon />
-        <Input
-          placeholder="Искать навык"
-          className={styles.searchInput}
-        />
+        <Input placeholder="Искать навык" className={styles.searchInput} />
       </div>
 
       <div className={styles.actions}>
-
-        <button
-          type="button"
-          aria-label="Переключить тему"
-          className={styles.iconButton}
-        >
+        <button type="button" aria-label="Переключить тему" className={styles.iconButton}>
           <MoonIcon />
         </button>
 
         <div className={styles.iconWrapper}>
-          <button
-            type="button"
-            aria-label="Уведомления"
-            className={styles.iconButton}
-          >
+          <button type="button" aria-label="Уведомления" className={styles.iconButton}>
             <NotificationIcon />
           </button>
-          {notificationsCount > 0 && (
-            <span className={styles.badge}>{notificationsCount}</span>
-          )}
+          {notificationsCount > 0 && <span className={styles.badge}>{notificationsCount}</span>}
         </div>
 
         <div className={styles.iconWrapper}>
@@ -72,20 +61,11 @@ export const AuthenticatedHeader = ({
           >
             <FavoriteIcon />
           </button>
-          {likesCount > 0 && (
-            <span className={styles.badge}>{likesCount}</span>
-          )}
+          {likesCount > 0 && <span className={styles.badge}>{likesCount}</span>}
         </div>
 
-        <div className={styles.userWrapper}>
-          <span className={styles.userName}>{userName}</span>
-          <img
-            src={userAvatar ?? '/src/shared/assets/defaultAvatar.svg'}
-            alt={userName}
-            className={styles.avatar}
-          />
-        </div>
+        <UserMenu userName={userName} userAvatar={userAvatar} />
       </div>
     </header>
-  );
-};
+  )
+}
