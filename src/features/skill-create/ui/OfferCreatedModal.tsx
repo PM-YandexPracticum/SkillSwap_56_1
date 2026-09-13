@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom'
 import FocusTrap from 'focus-trap-react'
 
-import { Button } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/Button/Button'
 
 import circleOutlineUrl from '@/shared/assets/circle-outline.svg'
 import checkmarkUrl from '@/shared/assets/checkmark.svg'

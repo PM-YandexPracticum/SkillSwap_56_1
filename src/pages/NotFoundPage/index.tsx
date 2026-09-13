@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/shared/lib/constants'
-import { Button } from '../../shared/ui/button/Button'
+import { Button } from '../../shared/ui/Button/Button'
 import errorImage from '../../shared/assets/page-error-404.svg'
 import styles from './NotFoundPage.module.css'
 

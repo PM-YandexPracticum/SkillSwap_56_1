@@ -1,4 +1,4 @@
-import { Button, buttonStyles } from '@/shared/ui/button/Button';
+import { Button, buttonStyles } from '@/shared/ui/Button/Button';
 import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
 import styles from './Skill.module.css';
 import More from '@/shared/assets/more-square.svg';

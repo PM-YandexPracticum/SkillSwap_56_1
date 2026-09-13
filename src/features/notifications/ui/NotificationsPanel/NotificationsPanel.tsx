@@ -10,7 +10,7 @@ export interface Notification {
   hasAction?: boolean
 }
 
-interface NotificationsPanelProps {
+export interface NotificationsPanelProps {
   notifications?: Notification[]
   onMarkAllAsRead?: () => void
   onClearRead?: () => void

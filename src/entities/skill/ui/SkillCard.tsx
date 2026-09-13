@@ -2,7 +2,7 @@ import styles from './SkillCard.module.css';
 import { UserInfo } from '@/entities/user/ui/UserInfo/UserInfo';
 import { SkillTag } from '@/shared/ui/SkillTag/SkillTag';
 import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
-import { Button, buttonStyles } from '@/shared/ui/button/Button';
+import { Button, buttonStyles } from '@/shared/ui/Button/Button';
 import { mock } from './mock';
 import { useState, useEffect, useRef } from 'react';
 

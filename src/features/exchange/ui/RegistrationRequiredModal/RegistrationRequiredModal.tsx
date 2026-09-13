@@ -1,4 +1,4 @@
-import { Button } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/Button/Button'
 import defaultAvatarUrl from '@/shared/assets/defaultAvatar.svg'
 import styles from './RegistrationRequiredModal.module.css'
 
