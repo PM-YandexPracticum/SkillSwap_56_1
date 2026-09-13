@@ -1,7 +1,6 @@
 import { Logo } from '@/shared/ui/Logo/logo';
 import { Input } from '@/shared/ui/Input/Input';
 import { NotificationsPanel } from '@/features/notifications/ui/NotificationsPanel';
-import { UserMenu } from '@/features/user/ui/UserMenu';
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu';
 import SearchIcon from '../GuestHeader/search.svg?react';
 import MoonIcon from './moon.svg?react';
@@ -63,8 +62,15 @@ export const AuthenticatedHeader = ({
             <span className={styles.badge}>{likesCount}</span>
           )}
         </div>
-        
-        <UserMenu userName={userName} userAvatar={userAvatar} />
+
+        <div className={styles.userWrapper}>
+          <span className={styles.userName}>{userName}</span>
+          <img
+            src={userAvatar ?? '/src/shared/assets/defaultAvatar.svg'}
+            alt={userName}
+            className={styles.avatar}
+          />
+        </div>
       </div>
     </header>
   );
