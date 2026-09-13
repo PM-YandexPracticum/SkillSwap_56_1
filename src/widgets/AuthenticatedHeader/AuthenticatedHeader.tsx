@@ -1,6 +1,6 @@
 import { Logo } from '@/shared/ui/Logo/logo';
 import { Input } from '@/shared/ui/Input/Input';
-import { NotificationsPanel } from '@/features/notifications/ui/NotificationsPanel';
+import { NotificationsPanel } from '@/shared/ui/NotificationsPanel';
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu';
 import SearchIcon from '../GuestHeader/search.svg?react';
 import MoonIcon from './moon.svg?react';
@@ -10,7 +10,6 @@ import styles from './AuthenticatedHeader.module.css';
 interface AuthenticatedHeaderProps {
   userName?: string;
   userAvatar?: string | null;
-  notificationsCount?: number;
   likesCount?: number;
   isLiked?: boolean;
   onLikeToggle?: () => void;
@@ -19,7 +18,6 @@ interface AuthenticatedHeaderProps {
 export const AuthenticatedHeader = ({
   userName = 'Ким',
   userAvatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg/500px-Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg',
-  notificationsCount = 0,
   likesCount = 5,
   onLikeToggle,
 }: AuthenticatedHeaderProps) => {

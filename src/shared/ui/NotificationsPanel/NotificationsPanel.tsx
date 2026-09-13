@@ -16,7 +16,7 @@ interface NotificationsPanelProps {
   onClearRead?: () => void
 }
 
-const defaultNotifications: Notification[] = [
+export const defaultNotifications: Notification[] = [
   {
     id: '1',
     title: 'Николай принял ваш обмен',
@@ -96,7 +96,6 @@ export const NotificationsPanel = ({
 
       {isOpen && (
         <div className={styles.panel}>
-          {/* Новые уведомления */}
           {unreadNotifications.length > 0 && (
             <div className={styles.section}>
               <div className={styles.sectionHeader}>
@@ -134,7 +133,6 @@ export const NotificationsPanel = ({
             </div>
           )}
 
-          {/* Просмотренные уведомления */}
           {readNotifications.length > 0 && (
             <div className={styles.section}>
               <div className={styles.sectionHeader}>
