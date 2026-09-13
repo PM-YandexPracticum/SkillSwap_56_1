@@ -16,3 +16,11 @@
 .input:focus {
   caret-color: #508826;
 }
+
+.inputError {
+  border-color: var(--color-alarm);
+}
+
+.inputError:focus {
+  caret-color: var(--color-alarm);
+}

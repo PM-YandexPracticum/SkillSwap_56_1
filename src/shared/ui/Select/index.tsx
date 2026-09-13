@@ -8,18 +8,12 @@ export interface SelectOption {
 }
 
 interface CommonSelectProps {
-  /** Подпись над полем */
   label?: string
-  /** Текст-подсказка, пока ничего не выбрано / не введено */
   placeholder?: string
-  /** Список доступных вариантов */
   options: SelectOption[]
-  /** Показывать строку поиска и фильтровать варианты по вводу (например, для города) */
   searchable?: boolean
-  /** Показывать кнопку очистки выбора. По умолчанию включена только для searchable */
   clearable?: boolean
   disabled?: boolean
-  /** Сообщение, когда поиск не дал результатов */
   emptyMessage?: string
   className?: string
 }
@@ -38,11 +32,6 @@ interface MultipleSelectProps extends CommonSelectProps {
 
 export type SelectProps = SingleSelectProps | MultipleSelectProps
 
-/**
- * Переиспользуемый выпадающий список: одиночный выбор (например, пол),
- * выбор с поиском по вводу (например, город) и мультивыбор с чекбоксами
- * (например, категория/подкатегория навыка) — через пропы `searchable`/`multiple`.
- */
 export function Select(props: SelectProps) {
   const {
     label,

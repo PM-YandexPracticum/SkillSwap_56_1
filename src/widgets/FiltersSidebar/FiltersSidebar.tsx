@@ -5,13 +5,8 @@ import { CheckboxUI } from '@/shared/ui/Checkbox/CheckboxUI'
 import { useState } from 'react'
 
 const FiltersSidebar = () => {
-  // Открытые категории навыков
   const [openCategories, setOpenCategories] = useState<string[]>([])
-
-  // Показывать все категории
   const [showAllCategories, setShowAllCategories] = useState(false)
-
-  // Показывать все города
   const [showAllCities, setShowAllCities] = useState(false)
 
   const toggleCategory = (categoryName: string) => {
@@ -24,7 +19,6 @@ const FiltersSidebar = () => {
 
   return (
     <aside className={styles.sidebar}>
-      {/* Шапка */}
       <div className={styles.header}>
         <h2 className={styles.title}>Фильтры</h2>
         <button type="button" className={styles.resetButton} aria-label="Сбросить фильтры">
@@ -32,7 +26,6 @@ const FiltersSidebar = () => {
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      {/* Тип взаимодействия */}
       <div className={styles.options}>
         <RadioButtonUI
           text="Всё"
@@ -58,7 +51,6 @@ const FiltersSidebar = () => {
           onChange={() => {}}
         />
       </div>
-      {/* Навыки */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Навыки</h3>
 
@@ -149,7 +141,6 @@ const FiltersSidebar = () => {
         </div>
       </div>
 
-      {/* Пол автора */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Пол автора</h3>
 
@@ -179,7 +170,6 @@ const FiltersSidebar = () => {
           />
         </div>
       </div>
-      {/* Города */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Город</h3>
 

@@ -9,12 +9,6 @@ type TCheckBoxProps = {
 }
 
 export const CheckboxUI = (props: TCheckBoxProps) => {
-  // Безопасно собираем классы: всегда есть .box, добавляем .checked если нужно
-  const boxClasses = [styles['box']]
-  if (props.checked) {
-    boxClasses.push(styles['checked'])
-  }
-
   return (
     <div className={styles['custom-checkbox']}>
       <input

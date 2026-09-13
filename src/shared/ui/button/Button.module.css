@@ -68,7 +68,8 @@
 
 .socialLogin {
   height: 48px;
-  width: 436px;
+  width: 100%;
+  max-width: 436px;
   border-radius: var(--radius-default, 12px);
   padding: 12px 23px;
   border: 1px solid var(--color-text-secondary, #69735D);

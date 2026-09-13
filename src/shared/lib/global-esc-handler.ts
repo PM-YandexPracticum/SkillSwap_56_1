@@ -8,7 +8,6 @@ export function setupGlobalEscHandler(closeModal: () => void) {
     }
   }
 
-  // Capture phase (true) - triggers before any handlers
   document.addEventListener('keydown', handler, true)
 
   return () => {

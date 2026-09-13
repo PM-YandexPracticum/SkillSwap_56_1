@@ -1,4 +1,3 @@
-/* ─── CSS Custom Properties ─────────────────────────────── */
 @font-face {
   font-family: Jost;
   src: url('../../shared/assets/fonts/Jost-Medium.ttf') format('truetype');
@@ -24,7 +23,6 @@
 }
 
 :root {
-  /* Colors */
   --color-text: #253017;
   --color-text-secondary: #69735d;
   --color-text-disabled: #9ca197;
@@ -39,7 +37,6 @@
   --color-error: #bf3920;
   --color-border: #e5e7eb;
 
-  /* Category tags */
   --color-tag-business: #eee7f7;
   --color-tag-creativity: #f7e7f2;
   --color-tag-languages: #ebe5c5;
@@ -48,7 +45,6 @@
   --color-tag-health: #e9f7e7;
   --color-tag-more: #e8ecf7;
 
-  /* Typography */
   --font-family-heading: jost, sans-serif;
   --font-family-body: roboto, sans-serif;
   --font-size-h1: 32px;
@@ -66,18 +62,15 @@
   --font-weight-regular: 400;
   --font-weight-medium: 500;
 
-  /* Border radius */
   --radius-default: 12px;
   --radius-tag: 20px;
   --radius-avatar: 100px;
   --radius-sm: 4px;
 
-  /* Spacing */
   --space-sm: 8px;
   --space-xs: 4px;
   --space-md: 16px;
 
-  /* Shadow */
   --shadow-md: 0 4px 6px rgb(0 0 0 / 7%);
 
 }
@@ -89,7 +82,6 @@
   --color-text-secondary: #94a3b8;
 }
 
-/* ─── Reset ──────────────────────────────────────────────── */
 *,
 *::before,
 *::after {

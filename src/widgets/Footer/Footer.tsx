@@ -15,8 +15,6 @@ export const Footer: React.FC = () => {
             <a href="#" className={styles.footer__link}>
               О проекте
             </a>
-            {/* сейчас оставил обычную ссылку, но в дальнейшем ссылки "О проекте" и "Все
-            навыки" следует обернуть в теги Link с соответствующими маршрутами на нужные страницы */}
           </li>
           <li className={styles.footer__item}>
             <a href="#" className={styles.footer__link}>

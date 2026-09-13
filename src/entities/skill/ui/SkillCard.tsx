@@ -37,7 +37,6 @@ export const SkillCard = (props: SkillCardProps) => {
   const [visibleSkillsCount, setVisibleSkillsCount] = useState(props.learn.learnValue.length);
 
   useEffect(() => {
-    // Измеренеие ширины плашки со скрытыми тэгами
     const moreTagWidth = () => {
       const moreTag = document.createElement('span');
       moreTag.style.display = 'inline-block'

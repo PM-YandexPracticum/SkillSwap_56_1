@@ -1,0 +1,219 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 36px 0;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: 48px;
+  padding: 12px 23px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-default);
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  color: var(--color-text-secondary);
+  border-color: var(--color-accent-hover);
+}
+
+.closeButton:active {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.stepIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepText {
+  color: var(--color-text);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+}
+
+.stepProgress {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.stepProgressActive,
+.stepProgressInactive {
+  width: 60px;
+  height: 4px;
+  border-radius: 8px;
+}
+
+.stepProgressActive {
+  background-color: var(--color-accent-light);
+}
+
+.stepProgressInactive {
+  background-color: var(--color-disabled-background);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 0 152px 80px;
+  align-items: stretch;
+}
+
+.formColumn,
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 680px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-default);
+}
+
+.formColumn {
+  justify-content: center;
+  padding: 80px 60px;
+}
+
+.infoColumn {
+  justify-content: center;
+  padding: 80px;
+  gap: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 436px;
+}
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  color: var(--color-text-secondary);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-disabled-background);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.passwordWrap {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrap input {
+  padding-right: 48px;
+}
+
+.eyeButton {
+  position: absolute;
+  top: 50%;
+  right: var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.eyeButton:hover {
+  opacity: 0.8;
+}
+
+.eyeButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.hint {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-text-secondary);
+}
+
+.errorText {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  color: var(--color-alarm);
+}
+
+.submit {
+  width: 100%;
+  cursor: pointer;
+}
+
+.infoImage {
+  display: flex;
+  justify-content: center;
+}
+
+.infoImage img {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.textContainer p {
+  color: var(--color-text);
+}
