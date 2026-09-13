@@ -1,17 +1,16 @@
 import { Logo } from '../../shared/ui/Logo/logo'
 import { Input } from '../../shared/ui/Input/Input'
+import { NotificationsPanel } from '../../features/notifications/ui/NotificationsPanel'
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
 import { UserMenu } from '../UserMenu/UserMenu'
 import SearchIcon from '../GuestHeader/search.svg?react'
 import MoonIcon from './moon.svg?react'
-import NotificationIcon from './notification.svg?react'
 import FavoriteIcon from './like.svg?react'
 import styles from './AuthenticatedHeader.module.css'
 
 interface AuthenticatedHeaderProps {
   userName?: string
   userAvatar?: string | null
-  notificationsCount?: number
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
@@ -20,7 +19,6 @@ interface AuthenticatedHeaderProps {
 export const AuthenticatedHeader = ({
   userName = 'Ким',
   userAvatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg/500px-Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg',
-  notificationsCount = 0,
   likesCount = 5,
   onLikeToggle,
 }: AuthenticatedHeaderProps) => {
@@ -45,12 +43,8 @@ export const AuthenticatedHeader = ({
           <MoonIcon />
         </button>
 
-        <div className={styles.iconWrapper}>
-          <button type="button" aria-label="Уведомления" className={styles.iconButton}>
-            <NotificationIcon />
-          </button>
-          {notificationsCount > 0 && <span className={styles.badge}>{notificationsCount}</span>}
-        </div>
+        {/* NotificationsPanel — окно открывается по колокольчику */}
+        <NotificationsPanel />
 
         <div className={styles.iconWrapper}>
           <button
