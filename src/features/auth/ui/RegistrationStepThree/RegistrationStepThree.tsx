@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import styles from './RegistrationStepThree.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
@@ -20,6 +21,9 @@ const subcategoryOptions = skillsData.flatMap((category) =>
 )
 
 export const RegistrationStepThree: React.FC = () => {
+  const [categories, setCategories] = useState<string[]>([])
+  const [subcategories, setSubcategories] = useState<string[]>([])
+
   return (
     <section>
       {/* Шапка */}
@@ -64,7 +68,7 @@ export const RegistrationStepThree: React.FC = () => {
           {/* Название навыка */}
           <div>
             <label>Название навыка</label>
-            <Input placeholder="Введите название вашего навыка" value={[]} onChange={() => {}} />
+            <Input type="text" placeholder="Введите название вашего навыка" />
           </div>
 
           {/* Категория */}
@@ -74,8 +78,8 @@ export const RegistrationStepThree: React.FC = () => {
               label="Категория навыка"
               placeholder="Выберите категорию навыка"
               options={categoryOptions}
-              value={[]}
-              onChange={() => {}}
+              value={categories}
+              onChange={(value: string[]) => setCategories(value)}
             />
           </div>
 
@@ -86,20 +90,15 @@ export const RegistrationStepThree: React.FC = () => {
               label="Подкатегория навыка"
               placeholder="Выберите подкатегорию навыка"
               options={subcategoryOptions}
-              value={[]}
-              onChange={() => {}}
+              value={subcategories}
+              onChange={(value: string[]) => setSubcategories(value)}
             />
           </div>
 
           {/* Описание навыка */}
           <div>
             <label>Описание</label>
-            <Textarea
-              placeholder="Коротко опишите, чему можете научить"
-              value={''}
-              onChange={() => {}}
-              rows={3}
-            />
+            <Textarea placeholder="Коротко опишите, чему можете научить" rows={3} />
           </div>
 
           {/* Загрузка фотографий */}
