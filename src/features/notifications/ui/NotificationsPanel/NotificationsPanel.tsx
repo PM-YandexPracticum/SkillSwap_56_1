@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import IdeaIcon from '@/shared/assets/idea.svg?react'
+import NotificationIcon from '@/shared/assets/notification.svg?react'
 import styles from './NotificationsPanel.module.css'
 
 export interface Notification {
@@ -58,6 +60,7 @@ export const NotificationsPanel = ({
 
   const unreadNotifications = notifications.filter((n) => !n.isRead)
   const readNotifications = notifications.filter((n) => n.isRead)
+  const hasUnread = unreadNotifications.length > 0
 
   const togglePanel = () => setIsOpen(!isOpen)
 
@@ -70,27 +73,8 @@ export const NotificationsPanel = ({
         aria-label="Уведомления"
         aria-expanded={isOpen}
       >
-        <svg
-          className={styles.bellIcon}
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M13.73 21a2 2 0 0 1-3.46 0"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <NotificationIcon className={styles.bellIcon} />
+        {hasUnread && <span className={styles.badge} />}
       </button>
 
       {isOpen && (
@@ -111,20 +95,7 @@ export const NotificationsPanel = ({
                 {unreadNotifications.map((notification) => (
                   <li key={notification.id} className={styles.item}>
                     <div className={styles.itemIcon}>
-                      {/* Лампочка как на макете */}
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M9 18h6M10 22h4"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6v1h8v-1c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                      </svg>
+                      <IdeaIcon />
                     </div>
                     <div className={styles.itemContent}>
                       <p className={styles.itemTitle}>{notification.title}</p>
@@ -156,22 +127,9 @@ export const NotificationsPanel = ({
               </div>
               <ul className={styles.list}>
                 {readNotifications.map((notification) => (
-                  <li key={notification.id} className={`${styles.item} ${styles.itemRead}`}>
+                  <li key={notification.id} className={styles.item}>
                     <div className={styles.itemIcon}>
-                      {/* Лампочка как на макете */}
-                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M9 18h6M10 22h4"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6v1h8v-1c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                      </svg>
+                      <IdeaIcon />
                     </div>
                     <div className={styles.itemContent}>
                       <p className={styles.itemTitle}>{notification.title}</p>

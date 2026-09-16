@@ -4,6 +4,7 @@
 }
 
 .trigger {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +28,17 @@
   height: 24px;
 }
 
+/* Красный кружок — бейдж */
+.badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ef4444;
+}
+
 .panel {
   position: absolute;
   top: calc(100% + 8px);
@@ -45,8 +57,9 @@
   padding: 20px;
 }
 
+/* Убрана полоса между секциями */
 .section + .section {
-  border-top: 1px solid var(--color-border, #e5e7eb);
+  border-top: none;
 }
 
 .sectionHeader {
@@ -93,10 +106,6 @@
   gap: 12px;
 }
 
-.itemRead {
-  opacity: 0.7;
-}
-
 .itemIcon {
   flex-shrink: 0;
   width: 40px;
@@ -117,10 +126,11 @@
   min-width: 0;
 }
 
+/* Жирность и цвет как у заголовка секции */
 .itemTitle {
   margin: 0 0 4px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text, #111827);
   line-height: 1.4;
 }
@@ -128,6 +138,7 @@
 .itemDescription {
   margin: 0 0 8px;
   font-size: 13px;
+  font-weight: 400;
   color: var(--color-text-secondary, #6b7280);
   line-height: 1.4;
 }
@@ -154,6 +165,7 @@
 .itemDate {
   flex-shrink: 0;
   font-size: 13px;
+  font-weight: 400;
   color: var(--color-text-secondary, #6b7280);
   white-space: nowrap;
 }
