@@ -79,18 +79,17 @@ export const NotificationsPanel = ({
           <path
             d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
           <path
             d="M13.73 21a2 2 0 0 1-3.46 0"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <circle cx="18" cy="4" r="3" fill="#ef4444" />
         </svg>
       </button>
 
@@ -112,9 +111,19 @@ export const NotificationsPanel = ({
                 {unreadNotifications.map((notification) => (
                   <li key={notification.id} className={styles.item}>
                     <div className={styles.itemIcon}>
+                      {/* Лампочка как на макете */}
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
-                        <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        <path
+                          d="M9 18h6M10 22h4"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6v1h8v-1c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
                       </svg>
                     </div>
                     <div className={styles.itemContent}>
@@ -149,9 +158,19 @@ export const NotificationsPanel = ({
                 {readNotifications.map((notification) => (
                   <li key={notification.id} className={`${styles.item} ${styles.itemRead}`}>
                     <div className={styles.itemIcon}>
+                      {/* Лампочка как на макете */}
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
-                        <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        <path
+                          d="M9 18h6M10 22h4"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6v1h8v-1c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
                       </svg>
                     </div>
                     <div className={styles.itemContent}>
