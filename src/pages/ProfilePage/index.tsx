@@ -50,8 +50,8 @@ function ProfilePage() {
   const [gender, setGender] = useState('');
   const [city, setCity] = useState('');
   const [about, setAbout] = useState('');
-  const [avatar, setAvatar] = useState(defaultAvatar);
-
+  //const [avatar, setAvatar] = useState(defaultAvatar); - todo: use it when implement avatar change
+  const  avatar = defaultAvatar
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
   };
