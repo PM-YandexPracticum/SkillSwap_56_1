@@ -1,15 +1,13 @@
 import React from "react";
 import styles from './Button.module.css';
-export { styles as buttonStyles };
 
 interface ButtonProps extends  React.ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string,
-  icon?: React.ReactNode,
-  isDisabled?: boolean
+  isDisabled?: boolean,
+  variant: 'primary' | 'secondary' | 'tertiary' | 'socialLogin'
 }
 
-export function Button({ isDisabled, className, style, text, icon, onClick }: ButtonProps) {
+export function Button({ isDisabled, onClick, children, variant, ...restProps }: ButtonProps) {
   return (
-    <button disabled={isDisabled} className={className} style={style} onClick={onClick}>{icon}{text}</button>
+    <button disabled={isDisabled} className={`${styles[variant]}`} onClick={onClick} {...restProps}>{children}</button>
   )
 }

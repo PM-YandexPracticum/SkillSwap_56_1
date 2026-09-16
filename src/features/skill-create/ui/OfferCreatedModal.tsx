@@ -58,10 +58,10 @@ export const OfferCreatedModal = ({
           </p>
 
           <Button
-            className={styles.button}
-            text={buttonText}
+            variant='primary'
+            style={{ width: '436px', maxWidth: '100%'}}
             onClick={onClose}
-          />
+          >{buttonText}</Button>
         </div>
       </div>
     </FocusTrap>,

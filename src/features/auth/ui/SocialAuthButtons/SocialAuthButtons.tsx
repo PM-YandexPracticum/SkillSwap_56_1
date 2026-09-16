@@ -1,12 +1,12 @@
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import AppleLogo from '@/shared/assets/apple.png';
 import GoogleLogo from '@/shared/assets/google.png';
 
 export function SocialAuthButtons () {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <Button className={buttonStyles.socialLogin} text='Продолжить с Google' icon={<img src={GoogleLogo} alt='Google Icon' />} />
-      <Button className={buttonStyles.socialLogin} text='Продолжить с Apple' icon={<img src={AppleLogo} alt='Apple Icon' />} />
+      <Button variant='socialLogin'><img src={GoogleLogo} alt='Google Icon' />Продолжить с Google</Button>
+      <Button variant='socialLogin'><img src={AppleLogo} alt='Apple Icon' />Продолжить с Apple</Button>
     </div>
   )
 }

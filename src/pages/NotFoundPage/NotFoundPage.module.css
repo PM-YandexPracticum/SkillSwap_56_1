@@ -53,26 +53,3 @@
   display: flex;
   gap: 16px;
 }
-
-.button {
-  flex: 1;
-  min-height: 48px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-family: Roboto, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.secondaryButton {
-  border: 1px solid #253017;
-  background-color: transparent;
-  color: #253017;
-}
-
-.primaryButton {
-  border: none;
-  background-color: #abd27a;
-  color: #253017;
-}

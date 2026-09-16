@@ -1,4 +1,4 @@
-import { Button, buttonStyles } from '@/shared/ui/button/Button';
+import { Button } from '@/shared/ui/button/Button';
 import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
 import styles from './Skill.module.css';
 import More from '@/shared/assets/more-square.svg';
@@ -28,7 +28,7 @@ export const Skill = (props: SkillProps) => {
           <h1 className={styles.header}>{props.name}</h1>
           <span className={styles.caption}>{props.caption}</span>
           <p className={styles.text}>{props.text}</p>
-          <Button text='Предложить обмен' className={buttonStyles.primary} style={{ width: '100%' }} />
+          <Button variant='primary' style={{ width: '100%' }}>Предложить обмен</Button>
         </div>
         <div className={styles.images}>
           <div className={styles.mainImage}>

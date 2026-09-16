@@ -1,6 +1,6 @@
 import { Logo } from '../../shared/ui/Logo/logo';
 import { Input } from '../../shared/ui/Input/Input';
-import { Button, buttonStyles } from '../../shared/ui/button/Button';
+import { Button } from '../../shared/ui/button/Button';
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu';
 import styles from './GuestHeader.module.css';
 import MoonIcon from './moon.svg?react';
@@ -36,11 +36,8 @@ export const GuestHeader = () => {
       </button>
 
       <div className={styles.authButtons}>
-        <Button text="Войти" className={buttonStyles.secondary} />
-        <Button
-          text="Зарегистрироваться"
-          className={buttonStyles.primary}
-        />
+        <Button variant='secondary'>Войти</Button>
+        <Button variant='primary'>Зарегистрироваться</Button>
       </div>
     </header>
   );

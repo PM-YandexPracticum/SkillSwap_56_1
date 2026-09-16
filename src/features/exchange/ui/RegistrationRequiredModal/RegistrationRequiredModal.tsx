@@ -19,7 +19,7 @@ export const RegistrationRequiredModal = ({ onClose }: RegistrationRequiredModal
           Чтобы предложить обмен, войдите в систему или зарегистрируйтесь
         </p>
 
-        <Button className={styles.button} text="Зарегистрироваться" />
+        <Button variant='primary' style={{ width: '436px', maxWidth: '100%'}}>Зарегистрироваться</Button>
       </div>
     </div>
   )
