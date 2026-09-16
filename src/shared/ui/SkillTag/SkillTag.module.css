@@ -3,4 +3,9 @@
   margin: 0;
   padding: 8px 12px;
   border-radius: 20px;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 2%;
 }
