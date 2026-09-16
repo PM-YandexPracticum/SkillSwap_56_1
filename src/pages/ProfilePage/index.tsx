@@ -7,6 +7,8 @@ import { Textarea } from '@/shared/ui/Textarea';
 import { Button, buttonStyles } from '@/shared/ui/button/Button';
 import styles from './ProfilePage.module.css';
 import editIcon from '@/shared/assets/gallery-edit.svg';
+import editFieldIcon from '@/shared/assets/edit.svg';
+import defaultAvatar from '@/shared/assets/defaultAvatar.svg';
 
 import requestsIcon from '@/shared/assets/requests.svg';
 import exchangesIcon from '@/shared/assets/exchanges.svg';
@@ -17,7 +19,6 @@ import profileIcon from '@/shared/assets/profile.svg';
 const GENDER_OPTIONS = [
   { value: 'female', label: 'Женский' },
   { value: 'male', label: 'Мужской' },
-  { value: 'other', label: 'Другой' },
 ];
 
 const CITY_OPTIONS = [
@@ -49,10 +50,10 @@ function ProfilePage() {
   const [gender, setGender] = useState('');
   const [city, setCity] = useState('');
   const [about, setAbout] = useState('');
+  const [avatar, setAvatar] = useState(defaultAvatar);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    //console.log('Save clicked', { email, name, gender, city, about });
   };
 
   const handleChangePassword = () => {
@@ -98,13 +99,16 @@ function ProfilePage() {
             <form onSubmit={handleSave} className={styles.profileForm}>
               <div className={styles.fieldGroup}>
                 <label className={styles.label}>Почта</label>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="example@mail.ru"
-                  className={styles.input}
-                />
+                <div className={styles.inputWithIcon}>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@mail.ru"
+                    className={`${styles.input} ${styles.inputHasIcon}`}
+                  />
+                  <img src={editFieldIcon} alt="" className={styles.fieldEditIcon} />
+                </div>
                 <Button
                   type="button"
                   onClick={handleChangePassword}
@@ -115,13 +119,16 @@ function ProfilePage() {
 
               <div className={styles.fieldGroup}>
                 <label className={styles.label}>Имя</label>
-                <Input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Введите имя"
-                  className={styles.input}
-                />
+                <div className={styles.inputWithIcon}>
+                  <Input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Введите имя"
+                    className={`${styles.input} ${styles.inputHasIcon}`}
+                  />
+                  <img src={editFieldIcon} alt="" className={styles.fieldEditIcon} />
+                </div>
               </div>
 
               <div className={styles.rowGroup}>
@@ -163,12 +170,15 @@ function ProfilePage() {
 
               <div className={styles.fieldGroup}>
                 <label className={styles.label}>О себе</label>
-                <Textarea
-                  value={about}
-                  onChange={(e) => setAbout(e.target.value)}
-                  placeholder="Расскажите о себе..."
-                  className={styles.textarea}
-                />
+                <div className={styles.inputWithIcon}>
+                  <Textarea
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                    placeholder="Расскажите о себе..."
+                    className={`${styles.textarea} ${styles.inputHasIcon}`}
+                  />
+                  <img src={editFieldIcon} alt="" className={styles.fieldEditIcon} />
+                </div>
               </div>
 
               <Button
@@ -180,7 +190,7 @@ function ProfilePage() {
 
             <div className={styles.avatarWrapper}>
               <img
-                src=""
+                src={avatar}
                 alt="Avatar"
                 className={styles.avatar}
               />

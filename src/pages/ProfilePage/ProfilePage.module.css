@@ -22,7 +22,6 @@
   background-color: var(--color-white, #fff);
   padding: 40px;
   border-radius: 24px;
-  height: fit-content;
   box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
 }
 
@@ -45,14 +44,12 @@
   font-family: var(--font-family-body), sans-serif;
   font-size: 14px;
   font-weight: 400;
-  border-bottom: 1px solid var(--color-border);
   transition: all 0.2s ease;
 }
 
 .navItem:hover {
   background-color: var(--color-accent-light);
   color: var(--color-text);
-  border-bottom-color: transparent;
 }
 
 .sidebarIcon {
@@ -199,6 +196,25 @@
 .textarea:focus {
   outline: none;
   border-color: var(--color-accent);
+}
+
+.inputWithIcon {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inputHasIcon {
+  padding-right: 48px;
+}
+
+.fieldEditIcon {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
 }
 
 
