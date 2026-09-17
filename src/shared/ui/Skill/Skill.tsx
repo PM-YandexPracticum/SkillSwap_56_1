@@ -8,7 +8,7 @@ import Img2 from './Image (1).png';
 import Img3 from './Image (2).png';
 import Img4 from './+3.png';
 
-interface SkillProps {
+export interface SkillProps {
     name: string,
     caption: string,
     text: string,
