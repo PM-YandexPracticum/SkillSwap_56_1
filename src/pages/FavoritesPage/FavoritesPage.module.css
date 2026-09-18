@@ -11,12 +11,15 @@
 }
 
 .cards {
-  flex: 1;
-  width: 1020px;
-  background-color: var(--color-white, #fff);
-  padding: 60px;
-  border-radius: 24px 24px 0 0;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  max-width: 1020px;
+  max-height: 752px;
+  margin: 0;
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .sidebar {
@@ -50,7 +53,8 @@
   transition: all 0.2s ease;
 }
 
-.navItem:hover {
+.navItem:hover,
+.active {
   background-color: var(--color-accent-light);
   color: var(--color-text);
 }
