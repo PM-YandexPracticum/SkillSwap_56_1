@@ -110,7 +110,6 @@ function ProfilePage() {
                   <img src={editFieldIcon} alt="" className={styles.fieldEditIcon} />
                 </div>
                 <Button
-                  variant='null'
                   type="button"
                   onClick={handleChangePassword}
                   className={styles.changePasswordLink}
@@ -199,7 +198,6 @@ function ProfilePage() {
                 className={styles.avatar}
               />
               <Button
-                variant='null'
                 type="button"
                 onClick={handleChangeAvatar}
                 aria-label="Изменить аватар"

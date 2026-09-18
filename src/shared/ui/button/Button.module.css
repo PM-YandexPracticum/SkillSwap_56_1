@@ -98,3 +98,11 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
+.actionBtn:hover {
+  background-color: var(--color-background, #f9faf7);
+}
+
+.actionBtn:active {
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+}
