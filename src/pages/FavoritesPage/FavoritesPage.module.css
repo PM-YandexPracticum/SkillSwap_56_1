@@ -1,0 +1,56 @@
+.main {
+  display: flex;
+  flex: 1;
+  padding: 0 36px;
+  gap: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  margin-top: 32px;
+  margin-bottom: 60px;
+  width: 100%;
+}
+
+.cards {
+  flex: 1;
+  width: 1020px;
+  background-color: var(--color-white, #fff);
+  padding: 60px;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.sidebar {
+  width: 324px;
+  flex-shrink: 0;
+  background-color: var(--color-white, #fff);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 244px;
+  height: 48px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-family: var(--font-family-body), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.navItem:hover {
+  background-color: var(--color-accent-light);
+  color: var(--color-text);
+}
