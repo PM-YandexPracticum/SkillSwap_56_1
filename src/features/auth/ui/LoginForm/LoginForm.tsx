@@ -6,51 +6,17 @@ import { Input } from '@/shared/ui/Input/Input'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import { SocialAuthButtons } from '@/features/auth/ui/SocialAuthButtons/SocialAuthButtons'
 import { ROUTES } from '@/shared/lib/constants'
-import { saveAuthUser } from '@/features/auth/model/authUtils'
-import { generateId } from '@/shared/lib/helpers'
 import eyeIcon from '@/shared/assets/eye.svg'
 import lightBulbImage from '@/shared/assets/light-bulb.svg'
-
-const user = {
-  email: 'user@skillswap.ru',
-  password: 'skillswap',
-  name: 'Пользователь',
-}
 
 export function LoginForm() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [credentialsError, setCredentialsError] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-
-  const hasError = Boolean(credentialsError)
-
-  const clearError = () => {
-    if (credentialsError) {
-      setCredentialsError('')
-    }
-  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    const isValid =
-      email.trim().toLowerCase() === user.email && password === user.password
-
-    if (!isValid) {
-      setCredentialsError(
-        'Email или пароль введены неверно. Пожалуйста, проверьте введённые данные',
-      )
-      return
-    }
-
-    saveAuthUser({
-      id: generateId(),
-      name: user.name,
-      email: user.email,
-    })
-    navigate(ROUTES.HOME)
   }
 
   return (
@@ -95,7 +61,7 @@ export function LoginForm() {
 
               <div className={styles.divider}>или</div>
 
-              <form className={styles.fields} onSubmit={handleSubmit} noValidate>
+              <form className={styles.fields} onSubmit={handleSubmit}>
                 <div className={styles.fieldGroup}>
                   <label htmlFor="login-email">Email</label>
                   <Input
@@ -105,12 +71,7 @@ export function LoginForm() {
                     placeholder="Введите email"
                     autoComplete="email"
                     value={email}
-                    error={hasError}
-                    aria-invalid={hasError}
-                    onChange={(event) => {
-                      setEmail(event.target.value)
-                      clearError()
-                    }}
+                    onChange={(event) => setEmail(event.target.value)}
                   />
                 </div>
 
@@ -124,13 +85,7 @@ export function LoginForm() {
                       placeholder="Введите ваш пароль"
                       autoComplete="current-password"
                       value={password}
-                      error={hasError}
-                      aria-invalid={hasError}
-                      aria-describedby={hasError ? 'login-error' : undefined}
-                      onChange={(event) => {
-                        setPassword(event.target.value)
-                        clearError()
-                      }}
+                      onChange={(event) => setPassword(event.target.value)}
                     />
                     <button
                       type="button"
@@ -143,15 +98,9 @@ export function LoginForm() {
                       <img src={eyeIcon} alt="" />
                     </button>
                   </div>
-                  {hasError ? (
-                    <span id="login-error" className={styles.errorText}>
-                      {credentialsError}
-                    </span>
-                  ) : null}
                 </div>
 
                 <Button
-                  type="submit"
                   text="Войти"
                   className={`${buttonStyles.primary} ${styles.submit}`}
                 />

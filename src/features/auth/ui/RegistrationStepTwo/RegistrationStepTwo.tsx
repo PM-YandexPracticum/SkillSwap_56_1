@@ -34,6 +34,7 @@ const subcategoryOptions = skillsData.flatMap((category) =>
 export function RegistrationStepTwo() {
   return (
     <section className={styles.container}>
+      {/* Шапка */}
       <header className={styles.header}>
         <Logo />
         <button type="button" className={styles.closeButton}>
@@ -58,6 +59,7 @@ export function RegistrationStepTwo() {
         </button>
       </header>
       <div className={styles.content}>
+        {/* Индикатор */}
         <div className={styles.stepIndicator}>
           <span className={styles.stepText}>Шаг 2 из 3</span>
 
@@ -69,16 +71,19 @@ export function RegistrationStepTwo() {
         </div>
         <div className={styles.columns}>
           <div className={styles.formColumn}>
+            {/* Добавление аватарки */}
             <button type="button" className={styles.avatarButton} aria-label="Добавить аватар">
               <img src={avatarAddIcon} alt="" />
             </button>
 
             <div className={styles.form}>
+              {/* Имя */}
               <div className={styles.fieldGroup}>
                 <label htmlFor="name">Имя</label>
                 <Input id="name" type="text" placeholder="Введите имя" />
               </div>
 
+              {/* Дата рождения + Пол */}
               <div className={styles.formRow}>
                 <div className={styles.dateField}>
                   <label htmlFor="birthDate">Дата рождения</label>
@@ -103,6 +108,7 @@ export function RegistrationStepTwo() {
                 />
               </div>
 
+              {/* Город */}
               <Select
                 label="Город"
                 value={null}
@@ -112,6 +118,7 @@ export function RegistrationStepTwo() {
                 searchable
               />
 
+              {/* Категория навыка */}
               <Select
                 multiple
                 label="Категория навыка, которому хотите научиться"
@@ -121,6 +128,7 @@ export function RegistrationStepTwo() {
                 placeholder="Выберите категорию"
               />
 
+              {/* Подкатегория навыка */}
               <Select
                 multiple
                 label="Подкатегория навыка, которому хотите научиться"
@@ -130,6 +138,7 @@ export function RegistrationStepTwo() {
                 placeholder="Выберите подкатегорию"
               />
             </div>
+            {/* Кнопки */}
             <div className={styles.actions}>
               <Button type="button" text="Назад" className={buttonStyles.secondary} />
               <Button type="button" text="Продолжить" className={buttonStyles.primary} />

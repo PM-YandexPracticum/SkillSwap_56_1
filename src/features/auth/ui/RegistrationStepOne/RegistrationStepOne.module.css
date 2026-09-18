@@ -184,12 +184,6 @@
   color: var(--color-text-secondary);
 }
 
-.errorText {
-  font-size: var(--font-size-caption);
-  line-height: var(--line-height-caption);
-  color: var(--color-alarm);
-}
-
 .submit {
   width: 100%;
   cursor: pointer;

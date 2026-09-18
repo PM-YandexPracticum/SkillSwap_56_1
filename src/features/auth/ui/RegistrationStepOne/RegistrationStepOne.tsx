@@ -9,10 +9,6 @@ import { ROUTES } from '@/shared/lib/constants'
 import eyeIcon from '@/shared/assets/eye.svg'
 import lightBulbImage from '@/shared/assets/light-bulb.svg'
 
-const takenEmail = 'petrova@mail.ru'
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const minPasswordLength = 8
-
 interface RegistrationStepOneProps {
   onNext?: () => void
 }
@@ -21,49 +17,10 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [emailError, setEmailError] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-
-  const isPasswordStrong = password.length >= minPasswordLength
-  const passwordHint = isPasswordStrong
-    ? 'Надёжный'
-    : 'Пароль должен содержать не менее 8 знаков'
-
-  const validateEmail = (value: string) => {
-    const normalized = value.trim().toLowerCase()
-
-    if (!normalized) {
-      return 'Введите email'
-    }
-
-    if (!emailPattern.test(normalized)) {
-      return 'Некорректный email'
-    }
-
-    if (normalized === takenEmail) {
-      return 'Email уже используется'
-    }
-
-    return ''
-  }
-
-  const handleEmailChange = (value: string) => {
-    setEmail(value)
-    if (emailError) {
-      setEmailError('')
-    }
-  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    const nextEmailError = validateEmail(email)
-    setEmailError(nextEmailError)
-
-    if (nextEmailError || !isPasswordStrong) {
-      return
-    }
-
     onNext?.()
   }
 
@@ -116,7 +73,7 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
 
               <div className={styles.divider}>или</div>
 
-              <form className={styles.fields} onSubmit={handleSubmit} noValidate>
+              <form className={styles.fields} onSubmit={handleSubmit}>
                 <div className={styles.fieldGroup}>
                   <label htmlFor="email">Email</label>
                   <Input
@@ -126,16 +83,8 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
                     placeholder="Введите email"
                     autoComplete="email"
                     value={email}
-                    error={Boolean(emailError)}
-                    aria-invalid={Boolean(emailError)}
-                    aria-describedby={emailError ? 'email-error' : undefined}
-                    onChange={(event) => handleEmailChange(event.target.value)}
+                    onChange={(event) => setEmail(event.target.value)}
                   />
-                  {emailError ? (
-                    <span id="email-error" className={styles.errorText}>
-                      {emailError}
-                    </span>
-                  ) : null}
                 </div>
 
                 <div className={styles.fieldGroup}>
@@ -148,7 +97,6 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
                       placeholder="Придумайте надёжный пароль"
                       autoComplete="new-password"
                       value={password}
-                      aria-describedby="password-hint"
                       onChange={(event) => setPassword(event.target.value)}
                     />
                     <button
@@ -162,13 +110,12 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
                       <img src={eyeIcon} alt="" />
                     </button>
                   </div>
-                  <span id="password-hint" className={styles.hint}>
-                    {passwordHint}
+                  <span className={styles.hint}>
+                    Пароль должен содержать не менее 8 знаков
                   </span>
                 </div>
 
                 <Button
-                  type="submit"
                   text="Далее"
                   className={`${buttonStyles.primary} ${styles.submit}`}
                 />

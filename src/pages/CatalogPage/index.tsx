@@ -1,9 +1,10 @@
-import { GuestHeader } from '@/widgets/GuestHeader/GuestHeader'
+// TODO: реализовать страницу CatalogPage
 
 export default function CatalogPage() {
   return (
     <main>
-      <GuestHeader />
+      <h1>CatalogPage</h1>
+      <p>Страница в разработке</p>
     </main>
   )
 }

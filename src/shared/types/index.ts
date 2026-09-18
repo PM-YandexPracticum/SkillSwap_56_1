@@ -1,3 +1,4 @@
+// ─── Skill ───────────────────────────────────────────────
 export type SkillType = 'teach' | 'learn'
 
 export interface Skill {
@@ -12,6 +13,7 @@ export interface Skill {
   createdAt: string
 }
 
+// ─── User ────────────────────────────────────────────────
 export interface User {
   id: string
   name: string
@@ -20,6 +22,7 @@ export interface User {
   createdAt: string
 }
 
+// ─── Request ─────────────────────────────────────────────
 export type RequestStatus = 'pending' | 'accepted' | 'rejected' | 'inProgress' | 'done'
 
 export interface SwapRequest {
@@ -32,6 +35,7 @@ export interface SwapRequest {
   updatedAt: string
 }
 
+// ─── Auth ────────────────────────────────────────────────
 export interface AuthUser {
   id: string
   name: string

@@ -8,8 +8,8 @@ interface ButtonProps extends  React.ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabled?: boolean
 }
 
-export function Button({ isDisabled, className, style, text, icon, onClick, type }: ButtonProps) {
+export function Button({ isDisabled, className, style, text, icon, onClick }: ButtonProps) {
   return (
-    <button type={type} disabled={isDisabled} className={className} style={style} onClick={onClick}>{icon}{text}</button>
+    <button disabled={isDisabled} className={className} style={style} onClick={onClick}>{icon}{text}</button>
   )
 }

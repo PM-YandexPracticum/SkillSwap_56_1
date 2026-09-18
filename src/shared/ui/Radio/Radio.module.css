@@ -25,9 +25,9 @@ input[type='radio'] {
 .dot {
   height: 10px;
   width: 10px;
-  background-color: #508826;
-  border-radius: 50%;
-  transition: all 0.2s ease;
+  background-color: #508826; /* Цвет неактивного кружка */
+  border-radius: 50%; /* Делаем круглым */
+  transition: all 0.2s ease; /* Плавность анимации */
   display: inline-block;
 }
 

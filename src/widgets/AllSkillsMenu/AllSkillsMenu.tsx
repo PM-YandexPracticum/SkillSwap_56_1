@@ -1,3 +1,4 @@
+// src/widgets/AllSkillsMenu/AllSkillsMenu.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import './AllSkillsMenu.css';
 
@@ -9,6 +10,7 @@ interface SkillCategory {
 }
 
 const SKILLS_DATA: SkillCategory[] = [
+  // Левая колонка (3 блока)
   {
     id: 'business',
     title: 'Бизнес и карьера',
@@ -51,6 +53,7 @@ const SKILLS_DATA: SkillCategory[] = [
       'Хранение вещей',
     ],
   },
+  // Правая колонка (3 блока)
   {
     id: 'creativity',
     title: 'Творчество и искусство',
@@ -133,8 +136,9 @@ const AllSkillsMenu: React.FC<AllSkillsMenuProps> = ({
     };
   }, [isControlled]);
 
-  const leftColumn = SKILLS_DATA.slice(0, 3);
-  const rightColumn = SKILLS_DATA.slice(3, 6);
+  // Разделяем данные на левую и правую колонки
+  const leftColumn = SKILLS_DATA.slice(0, 3); // первые 3 — левая колонка
+  const rightColumn = SKILLS_DATA.slice(3, 6); // последние 3 — правая колонка
 
   return (
     <div className="all-skills-menu" ref={menuRef}>
@@ -161,6 +165,7 @@ const AllSkillsMenu: React.FC<AllSkillsMenuProps> = ({
         <div className="all-skills-menu__wrapper">
           <div className="all-skills-menu__container">
             <div className="all-skills-menu__columns">
+              {/* Левая колонка */}
               <div className="all-skills-menu__column">
                 {leftColumn.map((category) => (
                   <div key={category.id} className="all-skills-menu__category">
@@ -186,6 +191,7 @@ const AllSkillsMenu: React.FC<AllSkillsMenuProps> = ({
                 ))}
               </div>
 
+              {/* Правая колонка */}
               <div className="all-skills-menu__column">
                 {rightColumn.map((category) => (
                   <div key={category.id} className="all-skills-menu__category">
