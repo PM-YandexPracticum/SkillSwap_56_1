@@ -47,11 +47,11 @@
   min-width: 0;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  border: none;
   background: transparent;
   color: var(--color-text);
   font: inherit;
   text-align: left;
+  border: none;
 }
 
 .trigger:disabled {

@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 
 interface ButtonProps extends  React.ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabled?: boolean,
-  variant: 'primary' | 'secondary' | 'tertiary' | 'socialLogin'
+  variant: 'primary' | 'secondary' | 'tertiary' | 'socialLogin' | 'actionBtn' | 'null'
 }
 
 export function Button({ isDisabled, onClick, children, variant, ...restProps }: ButtonProps) {

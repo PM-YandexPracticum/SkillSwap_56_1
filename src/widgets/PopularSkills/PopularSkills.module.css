@@ -1,0 +1,8 @@
+.popularSkills {
+  width: 1020px;
+}
+
+.cards {
+  display: flex;
+  gap: 24px;
+}
