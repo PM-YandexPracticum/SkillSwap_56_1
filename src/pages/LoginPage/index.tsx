@@ -1,5 +1,5 @@
-import { LoginForm } from '@/features/auth/ui/LoginForm'
+import { RegistrationStepOne } from '@/features/auth/ui/RegistrationStepOne'
 
 export default function LoginPage() {
-  return <LoginForm />
+  return <RegistrationStepOne mode="login" />
 }

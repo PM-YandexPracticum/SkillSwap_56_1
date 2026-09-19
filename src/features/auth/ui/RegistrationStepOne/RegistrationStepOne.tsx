@@ -9,19 +9,30 @@ import { ROUTES } from '@/shared/lib/constants'
 import eyeIcon from '@/shared/assets/eye.svg'
 import lightBulbImage from '@/shared/assets/light-bulb.svg'
 
+type AuthMode = 'register' | 'login'
+
 interface RegistrationStepOneProps {
   onNext?: () => void
+  mode?: AuthMode
 }
 
-export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
+export function RegistrationStepOne({
+  onNext,
+  mode = 'register',
+}: RegistrationStepOneProps) {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
+  const isLogin = mode === 'login'
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    onNext?.()
+
+    if (!isLogin) {
+      onNext?.()
+    }
   }
 
   return (
@@ -55,14 +66,18 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
       </header>
 
       <div className={styles.content}>
-        <div className={styles.stepIndicator}>
-          <span className={styles.stepText}>Шаг 1 из 3</span>
-          <div className={styles.stepProgress} aria-hidden="true">
-            <span className={styles.stepProgressActive} />
-            <span className={styles.stepProgressInactive} />
-            <span className={styles.stepProgressInactive} />
+        {isLogin ? (
+          <h1 className={styles.pageTitle}>Вход</h1>
+        ) : (
+          <div className={styles.stepIndicator}>
+            <span className={styles.stepText}>Шаг 1 из 3</span>
+            <div className={styles.stepProgress} aria-hidden="true">
+              <span className={styles.stepProgressActive} />
+              <span className={styles.stepProgressInactive} />
+              <span className={styles.stepProgressInactive} />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className={styles.columns}>
           <div className={styles.formColumn}>
@@ -75,9 +90,9 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
 
               <form className={styles.fields} onSubmit={handleSubmit}>
                 <div className={styles.fieldGroup}>
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor={isLogin ? 'login-email' : 'email'}>Email</label>
                   <Input
-                    id="email"
+                    id={isLogin ? 'login-email' : 'email'}
                     type="email"
                     name="email"
                     placeholder="Введите email"
@@ -88,14 +103,18 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label htmlFor="password">Пароль</label>
+                  <label htmlFor={isLogin ? 'login-password' : 'password'}>
+                    Пароль
+                  </label>
                   <div className={styles.passwordWrap}>
                     <Input
-                      id="password"
+                      id={isLogin ? 'login-password' : 'password'}
                       type={isPasswordVisible ? 'text' : 'password'}
                       name="password"
-                      placeholder="Придумайте надёжный пароль"
-                      autoComplete="new-password"
+                      placeholder={
+                        isLogin ? 'Введите ваш пароль' : 'Придумайте надёжный пароль'
+                      }
+                      autoComplete={isLogin ? 'current-password' : 'new-password'}
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
                     />
@@ -110,15 +129,24 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
                       <img src={eyeIcon} alt="" />
                     </button>
                   </div>
-                  <span className={styles.hint}>
-                    Пароль должен содержать не менее 8 знаков
-                  </span>
+
+                  {!isLogin && (
+                    <span className={styles.hint}>
+                      Пароль должен содержать не менее 8 знаков
+                    </span>
+                  )}
                 </div>
 
                 <Button
-                  text="Далее"
+                  text={isLogin ? 'Войти' : 'Далее'}
                   className={`${buttonStyles.primary} ${styles.submit}`}
                 />
+
+                {isLogin && (
+                  <button type="button" className={styles.registerLink}>
+                    Зарегистрироваться
+                  </button>
+                )}
               </form>
             </div>
           </div>
@@ -128,10 +156,15 @@ export function RegistrationStepOne({ onNext }: RegistrationStepOneProps) {
               <img src={lightBulbImage} alt="" />
             </div>
             <div className={styles.textContainer}>
-              <h2>Добро пожаловать в SkillSwap!</h2>
+              <h2>
+                {isLogin
+                  ? 'С возвращением в SkillSwap!'
+                  : 'Добро пожаловать в SkillSwap!'}
+              </h2>
               <p>
-                Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с
-                другими людьми
+                {isLogin
+                  ? 'Обменивайтесь знаниями и навыками с другими людьми'
+                  : 'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми'}
               </p>
             </div>
           </div>
