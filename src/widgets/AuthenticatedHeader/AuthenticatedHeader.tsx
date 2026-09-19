@@ -15,6 +15,8 @@ interface AuthenticatedHeaderProps {
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
 }
 
 export const AuthenticatedHeader = ({
@@ -23,6 +25,8 @@ export const AuthenticatedHeader = ({
   notificationsCount = 0,
   likesCount = 5,
   onLikeToggle,
+  searchQuery = '',
+  onSearchChange,
 }: AuthenticatedHeaderProps) => {
   return (
     <header className={styles.header}>
@@ -37,7 +41,12 @@ export const AuthenticatedHeader = ({
 
       <div className={styles.search}>
         <SearchIcon />
-        <Input placeholder="Искать навык" className={styles.searchInput} />
+        <Input 
+          placeholder="Искать навык" 
+          className={styles.searchInput}
+          value={searchQuery}
+          onChange={(e) => onSearchChange?.(e.target.value)} 
+        />
       </div>
 
       <div className={styles.actions}>
