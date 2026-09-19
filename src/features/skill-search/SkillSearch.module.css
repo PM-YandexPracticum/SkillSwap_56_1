@@ -1,0 +1,46 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.counter {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 60px 20px;
+  text-align: center;
+  background: #f9fafb;
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+}
+
+.emptyTitle {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+  margin: 0;
+}
+
+.emptyText {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
