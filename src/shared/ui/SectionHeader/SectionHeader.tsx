@@ -6,12 +6,14 @@ import ChevronSvg from '../../assets/chevron-right.svg?react'
 interface SectionHeaderProps {
   title: string
   showButton?: boolean
+  buttonText?: string
   onSeeAllClick?: () => void
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
   title,
   showButton = true,
+  buttonText = 'Смотреть все',
   onSeeAllClick = () => {},
 }) => {
   return (
@@ -20,7 +22,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 
       {showButton && (
         <Button
-          text="Смотреть все"
+          text={buttonText}
           className={`${buttonStyles.tertiary} see-all-button`}
           onClick={onSeeAllClick}
           icon={<ChevronSvg />}

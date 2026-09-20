@@ -5,6 +5,7 @@ import { Input } from '@/shared/ui/Input/Input';
 import { Select } from '@/shared/ui/Select';
 import { Textarea } from '@/shared/ui/Textarea';
 import { Button, buttonStyles } from '@/shared/ui/button/Button';
+import { getProfileUser, updateProfileUser } from '@/features/profile-edit/model/profileUtils'
 import styles from './ProfilePage.module.css';
 import editIcon from '@/shared/assets/gallery-edit.svg';
 import editFieldIcon from '@/shared/assets/edit.svg';
@@ -45,20 +46,43 @@ const CITY_OPTIONS = [
 ];
 
 function ProfilePage() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [gender, setGender] = useState('');
-  const [city, setCity] = useState('');
-  const [about, setAbout] = useState('');
-  //const [avatar, setAvatar] = useState(defaultAvatar); - todo: use it when implement avatar change
-  const  avatar = defaultAvatar
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+  const [savedUser, setSavedUser] = useState(getProfileUser())
 
-  const handleChangePassword = () => {
-    alert('just a plug');
-  };
+  const [email, setEmail] = useState(savedUser?.email ?? '')
+  const [name, setName] = useState(savedUser?.name ?? '')
+  const [birthDate, setBirthDate] = useState(savedUser?.birthDate ?? '')
+  const [gender, setGender] = useState(savedUser?.gender ?? '')
+  const [city, setCity] = useState(savedUser?.city ?? '')
+  const [about, setAbout] = useState(savedUser?.about ?? '')
+  const [isPasswordEditing, setIsPasswordEditing] = useState(false)
+  const [password, setPassword] = useState('')
+  //const [avatar, setAvatar] = useState(defaultAvatar); - todo: use it when implement avatar change
+  const hasChanges =
+    email !== (savedUser?.email ?? '') ||
+    name !== (savedUser?.name ?? '') ||
+    birthDate !== (savedUser?.birthDate ?? '') ||
+    gender !== (savedUser?.gender ?? '') ||
+    city !== (savedUser?.city ?? '') ||
+    about !== (savedUser?.about ?? '') ||
+    password !== ''
+  const avatar = defaultAvatar
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!savedUser || !hasChanges) return
+
+    const updatedUser = updateProfileUser({
+      id: savedUser.id,
+      name,
+      email,
+      birthDate,
+      gender,
+      city,
+      about,
+    })
+
+    setSavedUser(updatedUser)
+  }
 
   const handleChangeAvatar = () => {
     alert('just a plug');
@@ -109,12 +133,27 @@ function ProfilePage() {
                   />
                   <img src={editFieldIcon} alt="" className={styles.fieldEditIcon} />
                 </div>
-                <Button
-                  type="button"
-                  onClick={handleChangePassword}
-                  className={styles.changePasswordLink}
-                  text="Изменить пароль"
-                />
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setIsPasswordEditing(!isPasswordEditing)
+                      setPassword('')
+                    }}
+                    className={styles.changePasswordLink}
+                    text={isPasswordEditing ? 'Отменить' : 'Изменить пароль'}
+                  />
+                  {isPasswordEditing && (
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.label}>Новый пароль</label>
+                      <Input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Введите новый пароль"
+                        className={styles.input}
+                      />
+                    </div>
+                  )}
               </div>
 
               <div className={styles.fieldGroup}>
@@ -136,6 +175,8 @@ function ProfilePage() {
                   <label className={styles.label}>Дата рождения</label>
                   <input
                     type="date"
+                    value={birthDate}
+                    onChange={(e) => setBirthDate(e.target.value)}
                     className={styles.inputDate}
                     placeholder="ДД.ММ.ГГГГ"
                   />
@@ -184,6 +225,7 @@ function ProfilePage() {
               <Button
                 text="Сохранить"
                 type="submit"
+                disabled={!hasChanges}
                 className={`${buttonStyles.primary} ${styles.saveButton}`}
               />
             </form>
