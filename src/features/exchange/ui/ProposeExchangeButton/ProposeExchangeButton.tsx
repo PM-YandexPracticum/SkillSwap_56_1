@@ -28,7 +28,7 @@ export const ProposeExchangeButton = ({ skillId, toUserId }: ProposeExchangeButt
           text="Обмен предложен"
           icon={<img src={clockUrl} alt="" className={styles.clockIcon} />}
           className={`${buttonStyles.secondary} ${styles.pendingButton}`}
-          isDisabled
+          disabled
         />
       ) : (
         <Button
