@@ -41,4 +41,8 @@ export interface AuthUser {
   name: string
   email: string
   token: string
+  birthDate?: string
+  gender?: string
+  city?: string
+  about?: string
 }
