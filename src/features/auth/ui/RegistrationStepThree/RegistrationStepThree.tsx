@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styles from './RegistrationStepThree.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
@@ -6,23 +6,24 @@ import { Select } from '@/shared/ui/Select'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import { Textarea } from '@/shared/ui/Textarea'
 import onboardingImg from './step-three-img.svg'
-import { skillsData } from '../RegistrationStepTwo/mockData'
-
-const categoryOptions = skillsData.map((category) => ({
-  value: category.id,
-  label: category.title,
-}))
-
-const subcategoryOptions = skillsData.flatMap((category) =>
-  category.items.map((item) => ({
-    value: item,
-    label: item,
-  })),
-)
+import {
+  getSubcategoryOptions,
+  categoryOptions,
+  CategoryId,
+  SubcategoryId,
+} from '@/entities/skill/model/categories'
 
 export const RegistrationStepThree: React.FC = () => {
-  const [categories, setCategories] = useState<string[]>([])
-  const [subcategories, setSubcategories] = useState<string[]>([])
+  const [categoryIds, setCategoryIds] = useState<CategoryId[]>([])
+  const [subcategoryIds, setSubcategoryIds] = useState<SubcategoryId[]>([])
+
+  const subcategoryOptions = useMemo(() => getSubcategoryOptions(categoryIds), [categoryIds])
+
+  const handleCategoriesChange = (value: CategoryId[]) => {
+    setCategoryIds(value)
+    const available = new Set(getSubcategoryOptions(value).map((o) => o.value))
+    setSubcategoryIds((prev) => prev.filter((id) => available.has(id)))
+  }
 
   return (
     <section>
@@ -78,8 +79,8 @@ export const RegistrationStepThree: React.FC = () => {
               label="Категория навыка"
               placeholder="Выберите категорию навыка"
               options={categoryOptions}
-              value={categories}
-              onChange={(value: string[]) => setCategories(value)}
+              value={categoryIds}
+              onChange={handleCategoriesChange}
             />
           </div>
 
@@ -90,8 +91,8 @@ export const RegistrationStepThree: React.FC = () => {
               label="Подкатегория навыка"
               placeholder="Выберите подкатегорию навыка"
               options={subcategoryOptions}
-              value={subcategories}
-              onChange={(value: string[]) => setSubcategories(value)}
+              value={subcategoryIds}
+              onChange={setSubcategoryIds}
             />
           </div>
 
