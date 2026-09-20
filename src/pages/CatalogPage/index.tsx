@@ -1,10 +1,12 @@
-// TODO: реализовать страницу CatalogPage
+import { SearchableLayout } from '@/features/skill-search'
+import { Footer } from '@/widgets/Footer/Footer'
+import FiltersSidebar from '@/widgets/FiltersSidebar/FiltersSidebar'
 
 export default function CatalogPage() {
   return (
-    <main>
-      <h1>CatalogPage</h1>
-      <p>Страница в разработке</p>
-    </main>
+    <>
+      <SearchableLayout sidebar={<FiltersSidebar />} />
+      <Footer />
+    </>
   )
 }
