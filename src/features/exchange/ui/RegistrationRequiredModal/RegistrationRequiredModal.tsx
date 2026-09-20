@@ -4,9 +4,19 @@ import styles from './RegistrationRequiredModal.module.css'
 
 interface RegistrationRequiredModalProps {
   onClose: () => void
+  /** Клик по «Зарегистрироваться» — по умолчанию просто закрывает модалку */
+  onRegisterClick?: () => void
 }
 
-export const RegistrationRequiredModal = ({ onClose }: RegistrationRequiredModalProps) => {
+export const RegistrationRequiredModal = ({
+  onClose,
+  onRegisterClick,
+}: RegistrationRequiredModalProps) => {
+  const handleRegisterClick = () => {
+    onClose()
+    onRegisterClick?.()
+  }
+
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
@@ -19,7 +29,7 @@ export const RegistrationRequiredModal = ({ onClose }: RegistrationRequiredModal
           Чтобы предложить обмен, войдите в систему или зарегистрируйтесь
         </p>
 
-        <Button className={styles.button} text="Зарегистрироваться" />
+        <Button className={styles.button} text="Зарегистрироваться" onClick={handleRegisterClick} />
       </div>
     </div>
   )

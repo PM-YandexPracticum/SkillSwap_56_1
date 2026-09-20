@@ -1,5 +1,7 @@
 export const mock = {
+  skillId: 'skill-drums-ivan',
   user: {
+    id: 'user-ivan',
     name: 'Алексей',
     age: 20,
     city: 'Москва',

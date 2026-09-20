@@ -3,6 +3,7 @@ import { AuthenticatedHeader } from '@/widgets/AuthenticatedHeader/Authenticated
 import { Footer } from '@/widgets/Footer/Footer';
 import { Skill } from '@/shared/ui/Skill/Skill'
 import { SectionHeader } from '@/shared/ui/SectionHeader/SectionHeader';
+import { ProposeExchangeButton } from '@/features/exchange/ui/ProposeExchangeButton';
 import styles from './SkillPage.module.css';
 
 
@@ -14,7 +15,9 @@ export default function SkillPage() {
       <div className={styles.content}>
         <div className={styles.skill}>
           <SkillCard user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={false} withDescription={true} withLikeButton={false} isLiked={false} />
-          <Skill name='Игра на барабанах' caption='Творчество и искусство / Музыка и звук' text='Привет! Я играю на барабанах уже больше 10 лет — от репетиций в гараже до выступлений на сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры' />
+          <Skill name='Игра на барабанах' caption='Творчество и искусство / Музыка и звук' text='Привет! Я играю на барабанах уже больше 10 лет — от репетиций в гараже до выступлений на сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры'
+            actionSlot={<ProposeExchangeButton skillId={testMock.skillId} toUserId={testMock.user.id} />}
+          />
         </div>
         <div className={styles.similar}>
           <SectionHeader title='Похожие предложения' showButton={false} />
