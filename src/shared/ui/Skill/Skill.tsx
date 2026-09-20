@@ -1,4 +1,3 @@
-import { Button, buttonStyles } from '@/shared/ui/button/Button';
 import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
 import styles from './Skill.module.css';
 import More from '@/shared/assets/more-square.svg';
@@ -7,12 +6,15 @@ import Img from './Image.png';
 import Img2 from './Image (1).png';
 import Img3 from './Image (2).png';
 import Img4 from './+3.png';
+import type { ReactNode } from 'react';
 
 export interface SkillProps {
     name: string,
     caption: string,
     text: string,
-    images?: string[]
+    images?: string[],
+    /** Слот для действия над навыком (например, кнопка «Предложить обмен» из фичи exchange) */
+    actionSlot?: ReactNode
 }
 
 export const Skill = (props: SkillProps) => {
@@ -28,7 +30,7 @@ export const Skill = (props: SkillProps) => {
           <h1 className={styles.header}>{props.name}</h1>
           <span className={styles.caption}>{props.caption}</span>
           <p className={styles.text}>{props.text}</p>
-          <Button text='Предложить обмен' className={buttonStyles.primary} style={{ width: '100%' }} />
+          {props.actionSlot && <div className={styles.actionSlot}>{props.actionSlot}</div>}
         </div>
         <div className={styles.images}>
           <div className={styles.mainImage}>
