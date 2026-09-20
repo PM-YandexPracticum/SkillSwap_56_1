@@ -91,7 +91,7 @@ describe('usePaginatedSkills', () => {
   })
 
   it('фильтрация по запросу применяется ко всему набору данных', () => {
-    const { result } = renderHook(() => usePaginatedSkills('гитара'))
+    const { result } = renderHook(() => usePaginatedSkills('python'))
 
     expect(result.current.totalCount).toBeGreaterThan(0)
     expect(result.current.totalCount).toBeLessThan(24)
