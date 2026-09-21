@@ -1,4 +1,5 @@
 import { SkillCard, testMock } from '@/entities/skill/ui/SkillCard';
+import { FavoriteSkillCard } from '@/features/favorites/ui/FavoriteSkillCard';
 import { AuthenticatedHeader } from '@/widgets/AuthenticatedHeader/AuthenticatedHeader';
 import { Footer } from '@/widgets/Footer/Footer';
 import { Skill } from '@/shared/ui/Skill/Skill'
@@ -14,7 +15,7 @@ export default function SkillPage() {
       <AuthenticatedHeader />
       <div className={styles.content}>
         <div className={styles.skill}>
-          <SkillCard user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={false} withDescription={true} withLikeButton={false} isLiked={false} />
+          <SkillCard id={testMock.id} user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={false} withDescription={true} withLikeButton={false} />
           <Skill name='Игра на барабанах' caption='Творчество и искусство / Музыка и звук' text='Привет! Я играю на барабанах уже больше 10 лет — от репетиций в гараже до выступлений на сцене с живыми группами. Научу основам техники (и как не отбить себе пальцы), играть любимые ритмы и разбирать песни, импровизировать и звучать уверенно даже без паритуры'
             actionSlot={<ProposeExchangeButton skillId={testMock.skillId} toUserId={testMock.user.id} />}
           />
@@ -22,10 +23,10 @@ export default function SkillPage() {
         <div className={styles.similar}>
           <SectionHeader title='Похожие предложения' showButton={false} />
           <div className={styles.skillCards}>
-            <SkillCard user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} isLiked={false} />
-            <SkillCard user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} isLiked={false} />
-            <SkillCard user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} isLiked={false} />
-            <SkillCard user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} isLiked={false} />
+            <FavoriteSkillCard id={testMock.id} user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} />
+            <FavoriteSkillCard id={testMock.id} user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} />
+            <FavoriteSkillCard id={testMock.id} user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} />
+            <FavoriteSkillCard id={testMock.id} user={testMock.user} teach={testMock.teach} learn={testMock.learn} moreTagColor={testMock.moreTagColor} withButton={true} withDescription={false} withLikeButton={true} />
           </div>
         </div>
       </div>

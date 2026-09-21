@@ -1,5 +1,5 @@
 // вызывает хук, рендерит сетку SkillCard или пустое состояние
-import { SkillCard } from '@/entities/skill/ui/SkillCard';
+import { FavoriteSkillCard } from '@/features/favorites/ui/FavoriteSkillCard';
 import { useSkillSearch } from './model/useSkillSearch';
 import styles from './SkillSearch.module.css';
 
@@ -29,13 +29,13 @@ export const SkillSearch = ({ query }: SkillSearchProps) => {
       </p>
       <div className={styles.grid}>
         {filteredSkills.map((skill) => (
-          <SkillCard
+          <FavoriteSkillCard
             key={skill.id}
+            id={skill.id}
             user={skill.user}
             teach={skill.teach}
             learn={skill.learn}
             moreTagColor={skill.moreTagColor}
-            isLiked={skill.isLiked}
             likesCount={skill.likesCount}
             withButton
             withDescription={false}

@@ -1,4 +1,5 @@
 export const mock = {
+  id: 'skill-drums-ivan',
   skillId: 'skill-drums-ivan',
   user: {
     id: 'user-ivan',
@@ -17,6 +18,5 @@ export const mock = {
     learnValue: ['Водить машину', 'Читать', 'Чинить авто', 'Играть на гитаре'],
     learnTagColor: 'yellow'
   },
-  isLiked: true,
   likesCount: 24
 }
