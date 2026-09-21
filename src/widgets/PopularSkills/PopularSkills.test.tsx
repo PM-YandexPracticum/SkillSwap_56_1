@@ -5,6 +5,7 @@ import { PopularSkills } from './PopularSkills'
 import { SkillCardProps } from '@/entities/skill/ui/SkillCard'
 
 const makeSkill = (name: string, likesCount: number): SkillCardProps => ({
+  id: name,
   user: {
     avatarUrl: null,
     name,
@@ -22,7 +23,6 @@ const makeSkill = (name: string, likesCount: number): SkillCardProps => ({
   },
   moreTagColor: 'pink',
   withButton: true,
-  isLiked: false,
   likesCount,
   withLikeButton: true,
 })

@@ -6,20 +6,14 @@ import exchangesIcon from '../../shared/assets/exchanges.svg'
 import favoritesIcon from '../../shared/assets/favorites.svg'
 import skillsIcon from '../../shared/assets/skills.svg'
 import profileIcon from '../../shared/assets/profile.svg'
-import { SkillCard } from '../../entities/skill/ui/SkillCard'
-import { mock } from '../../entities/skill/ui/mock'
-
-const favorites = [
-  { ...mock, withButton: true },
-  { ...mock, withButton: true },
-  { ...mock, withButton: true },
-  { ...mock, withButton: true },
-  { ...mock, withButton: true },
-  { ...mock, withButton: true },
-  { ...mock, withButton: true },
-]
+import { FavoriteSkillCard } from '@/features/favorites/ui/FavoriteSkillCard'
+import { SKILLS_DATA } from '@/features/skill-search/data/skills'
+import { useFavoriteIds } from '@/features/favorites/model/useFavoriteIds'
 
 export default function FavoritesPage() {
+  const favoriteIds = useFavoriteIds()
+  const favoriteSkills = SKILLS_DATA.filter((skill) => favoriteIds.includes(skill.id))
+
   return (
     <>
       <AuthenticatedHeader />
@@ -48,13 +42,26 @@ export default function FavoritesPage() {
             </a>
           </nav>
         </aside>
-        <ul className={styles.cards}>
-          {favorites.map((card, index) => (
-            <li key={index}>
-              <SkillCard {...card} />
-            </li>
-          ))}
-        </ul>
+        {favoriteSkills.length > 0 ? (
+          <ul className={styles.cards}>
+            {favoriteSkills.map((skill) => (
+              <li key={skill.id}>
+                <FavoriteSkillCard
+                  id={skill.id}
+                  user={skill.user}
+                  teach={skill.teach}
+                  learn={skill.learn}
+                  moreTagColor={skill.moreTagColor}
+                  likesCount={skill.likesCount}
+                  withButton
+                  withLikeButton
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Пока нет избранных навыков</p>
+        )}
       </main>
       <Footer />
     </>

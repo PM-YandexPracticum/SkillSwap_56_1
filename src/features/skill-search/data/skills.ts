@@ -17,7 +17,6 @@ export interface SkillData {
     learnTagColor: string
   }
   moreTagColor: string
-  isLiked: boolean
   likesCount: number
 }
 
@@ -37,7 +36,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Водить машину', 'Читать', 'Чинить авто', 'Играть на гитаре'],
       learnTagColor: 'yellow',
     },
-    isLiked: true,
     likesCount: 24,
   },
   {
@@ -55,7 +53,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Йога', 'Медитация', 'Фотография'],
       learnTagColor: 'green',
     },
-    isLiked: false,
     likesCount: 12,
   },
   {
@@ -73,7 +70,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Играть на гитаре', 'Английский', 'Плавание'],
       learnTagColor: 'yellow',
     },
-    isLiked: false,
     likesCount: 8,
   },
   {
@@ -91,7 +87,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Видеомонтаж', 'Фотография'],
       learnTagColor: 'pink',
     },
-    isLiked: true,
     likesCount: 31,
   },
   {
@@ -109,7 +104,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Кулинария'],
       learnTagColor: 'yellow',
     },
-    isLiked: false,
     likesCount: 17,
   },
   {
@@ -127,7 +121,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Фотография', 'Испанский'],
       learnTagColor: 'blue',
     },
-    isLiked: false,
     likesCount: 5,
   },
   {
@@ -145,7 +138,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Танцы', 'Фотография'],
       learnTagColor: 'pink',
     },
-    isLiked: false,
     likesCount: 9,
   },
   {
@@ -163,7 +155,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Python', 'Играть на барабанах'],
       learnTagColor: 'red',
     },
-    isLiked: true,
     likesCount: 14,
   },
   {
@@ -181,7 +172,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Испанский', 'Рисование', 'Медитация'],
       learnTagColor: 'yellow',
     },
-    isLiked: false,
     likesCount: 11,
   },
   {
@@ -199,7 +189,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Плавание', 'Сведение музыки'],
       learnTagColor: 'blue',
     },
-    isLiked: false,
     likesCount: 19,
   },
   {
@@ -217,7 +206,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Видеомонтаж', 'Французский'],
       learnTagColor: 'pink',
     },
-    isLiked: true,
     likesCount: 22,
   },
   {
@@ -235,7 +223,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Программирование', 'Английский'],
       learnTagColor: 'yellow',
     },
-    isLiked: false,
     likesCount: 6,
   },
   {
@@ -253,7 +240,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Фотография', 'Испанский'],
       learnTagColor: 'green',
     },
-    isLiked: false,
     likesCount: 13,
   },
   {
@@ -271,7 +257,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Сёрфинг'],
       learnTagColor: 'blue',
     },
-    isLiked: false,
     likesCount: 7,
   },
   {
@@ -289,7 +274,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Китайский', 'Пилатес'],
       learnTagColor: 'purple',
     },
-    isLiked: true,
     likesCount: 18,
   },
   {
@@ -307,7 +291,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Фотография', 'Немецкий'],
       learnTagColor: 'green',
     },
-    isLiked: false,
     likesCount: 16,
   },
   {
@@ -325,7 +308,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Кулинария'],
       learnTagColor: 'orange',
     },
-    isLiked: false,
     likesCount: 4,
   },
   {
@@ -343,7 +325,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Python', 'Шахматы'],
       learnTagColor: 'green',
     },
-    isLiked: false,
     likesCount: 21,
   },
   {
@@ -361,7 +342,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Итальянский', 'Рисование'],
       learnTagColor: 'pink',
     },
-    isLiked: true,
     likesCount: 25,
   },
   {
@@ -379,7 +359,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Продюсирование музыки'],
       learnTagColor: 'yellow',
     },
-    isLiked: false,
     likesCount: 10,
   },
   {
@@ -397,7 +376,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Йога', 'Немецкий'],
       learnTagColor: 'blue',
     },
-    isLiked: false,
     likesCount: 12,
   },
   {
@@ -415,7 +393,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Английский', 'Современные танцы'],
       learnTagColor: 'red',
     },
-    isLiked: false,
     likesCount: 8,
   },
   {
@@ -433,7 +410,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Испанский', 'Пилатес'],
       learnTagColor: 'purple',
     },
-    isLiked: true,
     likesCount: 15,
   },
   {
@@ -451,7 +427,6 @@ export const SKILLS_DATA: SkillData[] = [
       learnValue: ['Программирование', 'Английский'],
       learnTagColor: 'blue',
     },
-    isLiked: false,
     likesCount: 20,
   },
 ]
