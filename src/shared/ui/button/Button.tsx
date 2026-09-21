@@ -2,14 +2,15 @@ import React from "react";
 import styles from './Button.module.css';
 export { styles as buttonStyles };
 
-interface ButtonProps extends  React.ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string,
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string,
   icon?: React.ReactNode,
-  isDisabled?: boolean
 }
 
-export function Button({ isDisabled, className, style, text, icon, onClick }: ButtonProps) {
+export function Button({ className, style, text, icon, ...props }: ButtonProps) {
   return (
-    <button disabled={isDisabled} className={className} style={style} onClick={onClick}>{icon}{text}</button>
+    <button className={className} style={style} {...props}>
+      {icon}{text}
+    </button>
   )
 }

@@ -1,0 +1,93 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0 0 0 / 40%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modalContainer {
+  width: 556px;
+  height: 480px;
+  border-radius: 12px;
+  padding: 80px 60px;
+  background-color: #fff;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.iconWrapper {
+  width: 75px;
+  height: 75px;
+  margin-bottom: 52px;
+}
+
+.bellImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.textBlock {
+  width: 436px;
+  height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: #253017;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: var(--font-family-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #69735d;
+  margin: 0;
+}
+
+.buttonBlock {
+  width: 436px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.button {
+  width: 436px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #ABD27A;
+  color: #253017;
+  border: none;
+  padding: 0;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 48px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #9bbf6a;
+}

@@ -14,6 +14,8 @@ interface AuthenticatedHeaderProps {
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
 }
 
 export const AuthenticatedHeader = ({
@@ -21,6 +23,8 @@ export const AuthenticatedHeader = ({
   userAvatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg/500px-Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg',
   likesCount = 5,
   onLikeToggle,
+  searchQuery = '',
+  onSearchChange,
 }: AuthenticatedHeaderProps) => {
   return (
     <header className={styles.header}>
@@ -35,7 +39,12 @@ export const AuthenticatedHeader = ({
 
       <div className={styles.search}>
         <SearchIcon />
-        <Input placeholder="Искать навык" className={styles.searchInput} />
+        <Input 
+          placeholder="Искать навык" 
+          className={styles.searchInput}
+          value={searchQuery}
+          onChange={(e) => onSearchChange?.(e.target.value)} 
+        />
       </div>
 
       <div className={styles.actions}>
