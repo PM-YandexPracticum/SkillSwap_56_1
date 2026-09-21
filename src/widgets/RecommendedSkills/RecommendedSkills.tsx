@@ -20,7 +20,7 @@ export interface RecommendedSkillsProps {
 }
 
 export const RecommendedSkills = ({ recommendedUsers }: RecommendedSkillsProps) => {
-  const [visibleCount, setVisibleCount] = useState(9)
+  const [visibleCount, setVisibleCount] = useState(12)
   const loadMoreRef = useRef<HTMLLIElement>(null)
   const isLoadingRef = useRef(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -31,12 +31,12 @@ export const RecommendedSkills = ({ recommendedUsers }: RecommendedSkillsProps) 
     const observer = new IntersectionObserver((entries) => {
       const entry = entries[0]
 
-      if (entry.isIntersecting && visibleCount < shuffled.length && !isLoadingRef.current) {
+      if (entry.isIntersecting && visibleCount < 12 && !isLoadingRef.current) {
         setIsLoading(true)
         isLoadingRef.current = true
 
         timeout = setTimeout(() => {
-          setVisibleCount((prev) => Math.min(prev + 9, shuffled.length))
+          setVisibleCount(12)
 
           setIsLoading(false)
           isLoadingRef.current = false
