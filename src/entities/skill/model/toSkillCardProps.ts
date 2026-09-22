@@ -14,6 +14,7 @@ export function toSkillCardProps(skill: Skill, user: User): SkillCardData {
   const tagColor = tagColors[skill.category] ?? 'var(--color-tag-more)'
 
   return {
+    id: skill.id,
     user: {
       avatarUrl: user.avatarUrl,
       name: user.name,

@@ -1,12 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { SKILLS_DATA } from '@/features/skill-search/data/skills'
-import type { SkillData } from '@/features/skill-search/data/skills'
-import { searchSkills } from '@/features/skill-search/model/searchSkills'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { fetchSkills } from '@/api/skills'
+import type { Skill } from '@/shared/types'
 import { LOAD_DELAY_MS, PAGE_SIZE } from './constants'
 
 interface UsePaginatedSkillsResult {
   /** Карточки, доступные на текущем «экране» (порция + уже подгруженные) */
-  visibleSkills: SkillData[]
+  visibleSkills: Skill[]
   /** Общее количество результатов с учётом поиска/фильтра */
   totalCount: number
   /** Сколько карточек показано сейчас */
@@ -27,62 +26,63 @@ interface UsePaginatedSkillsResult {
  * - При смене запроса список сбрасывается на первую порцию.
  * - Подгрузка эмулируется таймером, после исчерпания данных прекращается.
  */
-export const usePaginatedSkills = (query: string): UsePaginatedSkillsResult => {
-  const filteredSkills = useMemo(() => searchSkills(query, SKILLS_DATA), [query])
-
-  const [visibleCount, setVisibleCount] = useState(() => Math.min(PAGE_SIZE, filteredSkills.length))
+export const usePaginatedSkills = (): UsePaginatedSkillsResult => {
+  const [skills, setSkills] = useState<Skill[]>([])
+  const [visibleCount, setVisibleCount] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
 
   const timerRef = useRef<number | null>(null)
   const loadingRef = useRef(false)
 
-  const totalCount = filteredSkills.length
-  const hasMore = visibleCount < totalCount
-
-  const hasMoreRef = useRef(hasMore)
   useEffect(() => {
-    hasMoreRef.current = hasMore
-  }, [hasMore])
+    let isMounted = true
+
+    const loadSkills = async () => {
+      const data = await fetchSkills()
+
+      if (!isMounted) return
+
+      setSkills(data)
+      setVisibleCount(Math.min(PAGE_SIZE, data.length))
+    }
+
+    void loadSkills()
+
+    return () => {
+      isMounted = false
+
+      if (timerRef.current !== null) {
+        window.clearTimeout(timerRef.current)
+        timerRef.current = null
+      }
+    }
+  }, [])
+
+  const totalCount = skills.length
+  const hasMore = visibleCount < totalCount
 
   // Запрос следующей порции. Рефы защищают от повторного вызова,
   // пока предыдущая порция ещё «грузится».
   const loadMore = useCallback(() => {
-    if (loadingRef.current || !hasMoreRef.current) return
+    if (loadingRef.current || !hasMore) return
 
     loadingRef.current = true
     setIsLoading(true)
 
     timerRef.current = window.setTimeout(() => {
-      setVisibleCount((prev) => prev + PAGE_SIZE)
+      setVisibleCount((prev) =>
+        Math.min(prev + PAGE_SIZE, totalCount),
+      )
+
       loadingRef.current = false
       setIsLoading(false)
       timerRef.current = null
     }, LOAD_DELAY_MS)
-  }, [])
+  }, [hasMore, totalCount])
 
-  // Смена поискового запроса/фильтра сбрасывает порционную выдачу.
-  useEffect(() => {
-    setVisibleCount(Math.min(PAGE_SIZE, filteredSkills.length))
-    setIsLoading(false)
-    loadingRef.current = false
-
-    if (timerRef.current !== null) {
-      window.clearTimeout(timerRef.current)
-      timerRef.current = null
-    }
-  }, [filteredSkills.length, query])
-
-  // Очистка незавершённой подгрузки при размонтировании.
-  useEffect(() => {
-    return () => {
-      if (timerRef.current !== null) {
-        window.clearTimeout(timerRef.current)
-      }
-    }
-  }, [])
 
   return {
-    visibleSkills: filteredSkills.slice(0, visibleCount),
+    visibleSkills: skills.slice(0, visibleCount),
     totalCount,
     shownCount: Math.min(visibleCount, totalCount),
     hasMore,
