@@ -13,13 +13,15 @@ type AuthMode = 'register' | 'login'
 
 interface RegistrationStepOneProps {
   onNext?: () => void
+  onLogin?: (email: string) => void
   mode?: AuthMode
 }
 
 export function RegistrationStepOne({
-  onNext,
-  mode = 'register',
-}: RegistrationStepOneProps) {
+                                      onNext,
+                                      onLogin,
+                                      mode = 'register',
+                                    }: RegistrationStepOneProps) {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -30,7 +32,9 @@ export function RegistrationStepOne({
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!isLogin) {
+    if (isLogin) {
+      onLogin?.(email)
+    } else {
       onNext?.()
     }
   }

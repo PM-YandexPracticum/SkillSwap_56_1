@@ -1,25 +1,36 @@
-import { useState } from 'react';
-import defaultAvatar from '@/shared/assets/defaultAvatar.svg';
-import styles from './UserMenu.module.css';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import defaultAvatar from '@/shared/assets/defaultAvatar.svg'
+import { ROUTES } from '@/shared/lib/constants'
+import { clearAuthUser } from '@/features/auth/model/authUtils'
+import styles from './UserMenu.module.css'
 
 interface UserMenuProps {
-  userName: string;
-  userAvatar?: string | null;
+  userName: string
+  userAvatar?: string | null
 }
 
-export const UserMenu = ({
-  userName,
-  userAvatar,
-}: UserMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const UserMenu = ({ userName, userAvatar }: UserMenuProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleToggle = () => {
-    setIsOpen((prev) => !prev);
-  };
+    setIsOpen((prev) => !prev)
+  }
 
-  const handleMenuItemClick = () => {
-    setIsOpen(false);
-  };
+  const handleProfileClick = () => {
+    setIsOpen(false)
+    navigate(ROUTES.PROFILE)
+  }
+
+  const handleLogout = () => {
+    //console.log('1. Нажали “Выйти”')
+    clearAuthUser()
+   // console.log('2. Вызвали clearAuthUser')
+    navigate(ROUTES.HOME, { replace: true })
+   // console.log('3. Вызвали navigate')
+  }
+
 
   return (
     <div className={styles.container}>
@@ -45,7 +56,7 @@ export const UserMenu = ({
             type="button"
             className={styles.menuItem}
             role="menuitem"
-            onClick={handleMenuItemClick}
+            onClick={handleProfileClick}
           >
             Личный кабинет
           </button>
@@ -54,7 +65,7 @@ export const UserMenu = ({
             type="button"
             className={styles.menuItem}
             role="menuitem"
-            onClick={handleMenuItemClick}
+            onClick={handleLogout}
           >
             <span>Выйти из аккаунта</span>
 
@@ -85,5 +96,5 @@ export const UserMenu = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
