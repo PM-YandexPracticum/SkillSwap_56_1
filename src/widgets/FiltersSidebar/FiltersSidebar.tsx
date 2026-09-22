@@ -1,10 +1,16 @@
 import styles from './FiltersSidebar.module.css'
 import RadioButtonUI from '@/shared/ui/Radio/Radio'
-import { skillsData, citiesData } from './mockData'
+import { skillsData, citiesData } from '../../features/skill-filter/model/mockData'
 import { CheckboxUI } from '@/shared/ui/Checkbox/CheckboxUI'
 import { useState } from 'react'
+import { FilterState, initialFilterState } from '@/features/skill-filter'
 
-const FiltersSidebar = () => {
+interface FiltersSidebarProps {
+  filters: FilterState
+  setFilters: React.Dispatch<React.SetStateAction<FilterState>>
+}
+
+const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
   // Открытые категории навыков
   const [openCategories, setOpenCategories] = useState<string[]>([])
 
@@ -22,42 +28,99 @@ const FiltersSidebar = () => {
     )
   }
 
+  // Переключатель выбора городов
+  const handleCityChange = (city: string) => {
+    setFilters((prev) => {
+      const exists = prev.cities.includes(city)
+      const updatedCities = exists ? prev.cities.filter((c) => c !== city) : [...prev.cities, city]
+
+      return {
+        ...prev,
+        cities: updatedCities,
+      }
+    })
+  }
+
+  // Выбор пола
+  const handleGenderChange = (gender: FilterState['gender']) => {
+    setFilters((prev) => ({ ...prev, gender }))
+  }
+
+  // Выбор типа взаимодействия (all / learn / teach)
+  const handleInteractionChange = (interaction: FilterState['interaction']) => {
+    setFilters((prev) => ({ ...prev, interaction }))
+  }
+
+  // Выбор / Сброс всех навыков конкретной категории
+  const handleCategoryToggle = (categoryItems: string[]) => {
+    const allSelected = categoryItems.every((item) => filters.skills.includes(item))
+
+    setFilters((prev) => ({
+      ...prev,
+      skills: allSelected
+        ? prev.skills.filter((s) => !categoryItems.includes(s))
+        : Array.from(new Set([...prev.skills, ...categoryItems])),
+    }))
+  }
+
+  // Выбор конкретного навыка
+  const handleSkillChange = (skill: string) => {
+    setFilters((prev) => {
+      const exists = prev.skills.includes(skill)
+      const updatedSkills = exists
+        ? prev.skills.filter((s) => s !== skill)
+        : [...prev.skills, skill]
+
+      return {
+        ...prev,
+        skills: updatedSkills,
+      }
+    })
+  }
+
   return (
     <aside className={styles.sidebar}>
       {/* Шапка */}
       <div className={styles.header}>
         <h2 className={styles.title}>Фильтры</h2>
-        <button type="button" className={styles.resetButton} aria-label="Сбросить фильтры">
+        <button
+          type="button"
+          onClick={() => setFilters(initialFilterState)}
+          className={styles.resetButton}
+          aria-label="Сбросить фильтры"
+        >
           <span>Сбросить</span>
           <span aria-hidden="true">×</span>
         </button>
       </div>
+
       {/* Тип взаимодействия */}
       <div className={styles.options}>
         <RadioButtonUI
           text="Всё"
           name="interaction"
           value="all"
-          checked={false}
-          onChange={() => {}}
+          checked={filters.interaction === 'all'}
+          onChange={() => handleInteractionChange('all')}
         />
 
         <RadioButtonUI
           text="Хочу научиться"
           name="interaction"
           value="learn"
-          checked={false}
-          onChange={() => {}}
+          checked={filters.interaction === 'learn'}
+          onChange={() => handleInteractionChange('learn')}
         />
 
         <RadioButtonUI
           text="Могу научить"
           name="interaction"
           value="teach"
-          checked={false}
-          onChange={() => {}}
+          checked={filters.interaction === 'teach'}
+          onChange={() => handleInteractionChange('teach')}
         />
       </div>
+
       {/* Навыки */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Навыки</h3>
@@ -66,6 +129,9 @@ const FiltersSidebar = () => {
           {(showAllCategories ? skillsData : skillsData.slice(0, 6)).map((category) => {
             const isOpen = openCategories.includes(category.id)
 
+            // Чекбокс категории активен, если выбран ХОТЯ БЫ один ее навык
+            const isCategoryActive = category.items.some((item) => filters.skills.includes(item))
+
             return (
               <div key={category.id} className={styles.category}>
                 <div className={styles.categoryHeader}>
@@ -73,8 +139,8 @@ const FiltersSidebar = () => {
                     name="category"
                     value={category.id}
                     text={category.title}
-                    checked={false}
-                    onChange={() => {}}
+                    checked={isCategoryActive}
+                    onChange={() => handleCategoryToggle(category.items)}
                   />
 
                   <button
@@ -114,8 +180,8 @@ const FiltersSidebar = () => {
                         name="skills"
                         value={skill}
                         text={skill}
-                        checked={false}
-                        onChange={() => {}}
+                        checked={filters.skills.includes(skill)}
+                        onChange={() => handleSkillChange(skill)}
                       />
                     ))}
                   </div>
@@ -123,12 +189,13 @@ const FiltersSidebar = () => {
               </div>
             )
           })}
+
           <button
             type="button"
             className={styles.allCategoriesButton}
             onClick={() => setShowAllCategories((prev) => !prev)}
           >
-            <span>Все категории</span>
+            <span>{showAllCategories ? 'Скрыть' : 'Все категории'}</span>
             <svg
               className={`${styles.categoryArrow} ${
                 showAllCategories ? styles.categoryArrowOpen : ''
@@ -158,27 +225,28 @@ const FiltersSidebar = () => {
             text="Не имеет значения"
             name="gender"
             value="any"
-            checked={false}
-            onChange={() => {}}
+            checked={filters.gender === 'any'}
+            onChange={() => handleGenderChange('any')}
           />
 
           <RadioButtonUI
             text="Мужской"
             name="gender"
             value="male"
-            checked={false}
-            onChange={() => {}}
+            checked={filters.gender === 'male'}
+            onChange={() => handleGenderChange('male')}
           />
 
           <RadioButtonUI
             text="Женский"
             name="gender"
             value="female"
-            checked={false}
-            onChange={() => {}}
+            checked={filters.gender === 'female'}
+            onChange={() => handleGenderChange('female')}
           />
         </div>
       </div>
+
       {/* Города */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Город</h3>
@@ -190,8 +258,8 @@ const FiltersSidebar = () => {
               name="city"
               value={city}
               text={city}
-              checked={false}
-              onChange={() => {}}
+              checked={filters.cities.includes(city)}
+              onChange={() => handleCityChange(city)}
             />
           ))}
 
@@ -200,7 +268,7 @@ const FiltersSidebar = () => {
             className={styles.allCitiesButton}
             onClick={() => setShowAllCities((prev) => !prev)}
           >
-            <span>Все города</span>
+            <span>{showAllCities ? 'Скрыть' : 'Все города'}</span>
             <svg
               className={`${styles.categoryArrow} ${showAllCities ? styles.categoryArrowOpen : ''}`}
               width="24"
