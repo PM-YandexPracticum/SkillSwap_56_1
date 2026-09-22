@@ -3,10 +3,12 @@ import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
 import { Select } from '@/shared/ui/Select'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
-import { citiesData, skillsData } from './mockData'
+import { citiesData } from './mockData'
 import avatarAddIcon from './Icon+Add.svg'
 import infoImage from './user-info.svg'
 import calendarIcon from './calendar.svg'
+import { categoryOptions } from '@/entities/skill/model/categories'
+import { useCategorySubcategorySelection } from '@/features/skill-category-selection/model/useCategorySubcategorySelection'
 
 const genderOptions = [
   { value: 'not-specified', label: 'Не указан' },
@@ -19,19 +21,15 @@ const cityOptions = citiesData.map((city) => ({
   label: city,
 }))
 
-const categoryOptions = skillsData.map((category) => ({
-  value: category.id,
-  label: category.title,
-}))
-
-const subcategoryOptions = skillsData.flatMap((category) =>
-  category.items.map((item) => ({
-    value: item,
-    label: item,
-  })),
-)
-
 export function RegistrationStepTwo() {
+  const {
+    categoryIds,
+    subcategoryIds,
+    subcategoryOptions,
+    handleCategoriesChange,
+    handleSubcategoriesChange,
+  } = useCategorySubcategorySelection()
+
   return (
     <section className={styles.container}>
       {/* Шапка */}
@@ -122,8 +120,8 @@ export function RegistrationStepTwo() {
               <Select
                 multiple
                 label="Категория навыка, которому хотите научиться"
-                value={[]}
-                onChange={() => {}}
+                value={categoryIds}
+                onChange={handleCategoriesChange}
                 options={categoryOptions}
                 placeholder="Выберите категорию"
               />
@@ -132,8 +130,8 @@ export function RegistrationStepTwo() {
               <Select
                 multiple
                 label="Подкатегория навыка, которому хотите научиться"
-                value={[]}
-                onChange={() => {}}
+                value={subcategoryIds}
+                onChange={handleSubcategoriesChange}
                 options={subcategoryOptions}
                 placeholder="Выберите подкатегорию"
               />

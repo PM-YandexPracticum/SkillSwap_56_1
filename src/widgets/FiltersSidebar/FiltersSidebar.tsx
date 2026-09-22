@@ -16,7 +16,6 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
 
   // Показывать все категории
   const [showAllCategories, setShowAllCategories] = useState(false)
-
   // Показывать все города
   const [showAllCities, setShowAllCities] = useState(false)
 

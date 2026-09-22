@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import styles from './RegistrationStepThree.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
@@ -6,23 +5,17 @@ import { Select } from '@/shared/ui/Select'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import { Textarea } from '@/shared/ui/Textarea'
 import onboardingImg from './step-three-img.svg'
-import { skillsData } from '../RegistrationStepTwo/mockData'
-
-const categoryOptions = skillsData.map((category) => ({
-  value: category.id,
-  label: category.title,
-}))
-
-const subcategoryOptions = skillsData.flatMap((category) =>
-  category.items.map((item) => ({
-    value: item,
-    label: item,
-  })),
-)
+import { categoryOptions } from '@/entities/skill/model/categories'
+import { useCategorySubcategorySelection } from '@/features/skill-category-selection/model/useCategorySubcategorySelection'
 
 export const RegistrationStepThree: React.FC = () => {
-  const [categories, setCategories] = useState<string[]>([])
-  const [subcategories, setSubcategories] = useState<string[]>([])
+  const {
+    categoryIds,
+    subcategoryIds,
+    subcategoryOptions,
+    handleCategoriesChange,
+    handleSubcategoriesChange,
+  } = useCategorySubcategorySelection()
 
   return (
     <section>
@@ -78,8 +71,8 @@ export const RegistrationStepThree: React.FC = () => {
               label="Категория навыка"
               placeholder="Выберите категорию навыка"
               options={categoryOptions}
-              value={categories}
-              onChange={(value: string[]) => setCategories(value)}
+              value={categoryIds}
+              onChange={handleCategoriesChange}
             />
           </div>
 
@@ -90,8 +83,8 @@ export const RegistrationStepThree: React.FC = () => {
               label="Подкатегория навыка"
               placeholder="Выберите подкатегорию навыка"
               options={subcategoryOptions}
-              value={subcategories}
-              onChange={(value: string[]) => setSubcategories(value)}
+              value={subcategoryIds}
+              onChange={handleSubcategoriesChange}
             />
           </div>
 

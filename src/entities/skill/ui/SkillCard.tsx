@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from 'react';
 export { mock as testMock };
 
 export interface SkillCardProps {
+  id: string,
   user: {
     avatarUrl: string | null,
     name: string,
@@ -26,10 +27,11 @@ export interface SkillCardProps {
   },
   moreTagColor: string,
   withButton: boolean,
-  isLiked: boolean,
   likesCount?: number,
   withLikeButton?: boolean,
-  withDescription?: boolean
+  withDescription?: boolean,
+  isLiked?: boolean,
+  onLikeToggle?: () => void
 }
 
 export const SkillCard = (props: SkillCardProps) => {
@@ -74,7 +76,9 @@ export const SkillCard = (props: SkillCardProps) => {
   return (
     <div className={styles.skillcard}>
       <div className={styles.like}>
-        {props.withLikeButton && <LikeButton liked={props.isLiked} count={props.likesCount} />}
+        {props.withLikeButton && (
+          <LikeButton liked={props.isLiked ?? false} count={props.likesCount} onToggle={props.onLikeToggle} />
+        )}
       </div>
       <UserInfo name={props.user.name} city={props.user.city} age={props.user.age} avatarUrl={props.user.avatarUrl} />
       {props.withDescription && <p>{props.user.description}</p>}

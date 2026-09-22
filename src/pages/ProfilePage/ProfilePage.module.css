@@ -280,15 +280,19 @@
   transition: background-color 0.2s ease, transform 0.1s ease, color 0.2s ease;
 }
 
-.saveButton:hover {
+.saveButton:hover:not(:disabled) {
   background-color: var(--color-accent-light);
   color: var(--color-text);
 }
 
-.saveButton:active {
+.saveButton:active:not(:disabled) {
   transform: scale(0.98);
 }
 
+.saveButton:disabled {
+  cursor: default;
+  pointer-events: none;
+}
 
 .avatarWrapper {
   position: relative;

@@ -1,9 +1,33 @@
 .cards {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 324px);
   gap: 24px;
-  max-width: 1020px;
+  width: 1020px;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.loaderItem {
+  width: 100%;
+}
+
+.loader {
+  width: 24px;
+  height: 24px;
+  margin: 16px auto;
+  border: 3px solid #e0e0e0;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.loadMore {
+  height: 1px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

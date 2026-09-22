@@ -1,8 +1,11 @@
 .popularSkills {
   width: 1020px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 324px);
   gap: 24px;
 }

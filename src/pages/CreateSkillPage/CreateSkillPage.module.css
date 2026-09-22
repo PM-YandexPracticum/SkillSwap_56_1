@@ -1,0 +1,51 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  padding: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 556px;
+  gap: 16px;
+  padding: 40px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-default);
+}
+
+.title {
+  margin-block-end: 8px;
+}
+
+.photoUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border: dashed 1px var(--color-text-secondary);
+  border-radius: 12px;
+}
+
+.photoText {
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.imgButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-accent);
+  cursor: pointer;
+}

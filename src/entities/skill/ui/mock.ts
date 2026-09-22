@@ -1,5 +1,8 @@
 export const mock = {
+  id: 'skill-drums-ivan',
+  skillId: 'skill-drums-ivan',
   user: {
+    id: 'user-ivan',
     name: 'Алексей',
     age: 20,
     city: 'Москва',
@@ -15,6 +18,5 @@ export const mock = {
     learnValue: ['Водить машину', 'Читать', 'Чинить авто', 'Играть на гитаре'],
     learnTagColor: 'yellow'
   },
-  isLiked: true,
   likesCount: 24
 }
