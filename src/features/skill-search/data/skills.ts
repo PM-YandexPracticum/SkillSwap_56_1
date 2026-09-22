@@ -1,3 +1,5 @@
+import { getCreatedSkills } from '@/features/skill-create/model/createdSkillsStorage'
+
 // временные мок данные
 export interface SkillData {
   id: string
@@ -430,3 +432,8 @@ export const SKILLS_DATA: SkillData[] = [
     likesCount: 20,
   },
 ]
+
+/** Мок-данные каталога вместе с навыками, созданными пользователем локально */
+export function getAllSkillsData(): SkillData[] {
+  return [...SKILLS_DATA, ...getCreatedSkills()]
+}
