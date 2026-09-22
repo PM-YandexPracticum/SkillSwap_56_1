@@ -1,8 +1,8 @@
 .cards {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 324px);
   gap: 24px;
-  max-width: 1020px;
+  width: 1020px;
   margin: 0;
   padding: 0;
   list-style: none;
