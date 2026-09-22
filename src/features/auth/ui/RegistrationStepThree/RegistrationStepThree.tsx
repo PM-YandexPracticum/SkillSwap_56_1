@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react'
 import styles from './RegistrationStepThree.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
@@ -6,24 +5,17 @@ import { Select } from '@/shared/ui/Select'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import { Textarea } from '@/shared/ui/Textarea'
 import onboardingImg from './step-three-img.svg'
-import {
-  getSubcategoryOptions,
-  categoryOptions,
-  CategoryId,
-  SubcategoryId,
-} from '@/entities/skill/model/categories'
+import { categoryOptions } from '@/entities/skill/model/categories'
+import { useCategorySubcategorySelection } from '@/features/skill-category-selection/model/useCategorySubcategorySelection'
 
 export const RegistrationStepThree: React.FC = () => {
-  const [categoryIds, setCategoryIds] = useState<CategoryId[]>([])
-  const [subcategoryIds, setSubcategoryIds] = useState<SubcategoryId[]>([])
-
-  const subcategoryOptions = useMemo(() => getSubcategoryOptions(categoryIds), [categoryIds])
-
-  const handleCategoriesChange = (value: CategoryId[]) => {
-    setCategoryIds(value)
-    const available = new Set(getSubcategoryOptions(value).map((o) => o.value))
-    setSubcategoryIds((prev) => prev.filter((id) => available.has(id)))
-  }
+  const {
+    categoryIds,
+    subcategoryIds,
+    subcategoryOptions,
+    handleCategoriesChange,
+    handleSubcategoriesChange,
+  } = useCategorySubcategorySelection()
 
   return (
     <section>
@@ -92,7 +84,7 @@ export const RegistrationStepThree: React.FC = () => {
               placeholder="Выберите подкатегорию навыка"
               options={subcategoryOptions}
               value={subcategoryIds}
-              onChange={setSubcategoryIds}
+              onChange={handleSubcategoriesChange}
             />
           </div>
 
