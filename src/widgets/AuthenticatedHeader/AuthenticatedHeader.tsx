@@ -13,8 +13,13 @@ interface AuthenticatedHeaderProps {
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
+<<<<<<< HEAD
   searchQuery?: string
   onSearchChange?: (value: string) => void
+=======
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+>>>>>>> 7ec2f4e100bbcc1fe7bd11b29dbc2eaa0e604af6
 }
 
 export const AuthenticatedHeader = ({
@@ -36,11 +41,19 @@ export const AuthenticatedHeader = ({
 
       <div className={styles.search}>
         <SearchIcon />
+<<<<<<< HEAD
         <Input
           placeholder="Искать навык"
           className={styles.searchInput}
           value={searchQuery}
           onChange={(e) => onSearchChange?.(e.target.value)}
+=======
+        <Input 
+          placeholder="Искать навык" 
+          className={styles.searchInput}
+          value={searchQuery}
+          onChange={(e) => onSearchChange?.(e.target.value)} 
+>>>>>>> 7ec2f4e100bbcc1fe7bd11b29dbc2eaa0e604af6
         />
       </div>
 

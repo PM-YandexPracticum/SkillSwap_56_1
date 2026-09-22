@@ -1,4 +1,6 @@
 import { useCallback, type MouseEvent } from 'react'
+import likeActive from './btn-like-active.svg'
+import likeUnactive from './btn-like-unactive.svg'
 
 export interface LikeButtonProps {
   liked: boolean
@@ -10,7 +12,7 @@ export interface LikeButtonProps {
 export const LikeButton = ({
   liked,
   count,
-  onToggle,
+   onToggle,
   className = '',
 }: LikeButtonProps) => {
   const handleClick = useCallback(
@@ -22,39 +24,19 @@ export const LikeButton = ({
     [liked, onToggle]
   )
 
-  const buttonStyle: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
-    padding: count !== undefined ? '8px 14px' : '8px',
-    border: liked ? '1.5px solid #a8d08d' : '1.5px solid #e5e7eb',
-    borderRadius: count !== undefined ? '20px' : '50%',
-    backgroundColor: liked ? 'rgb(168 208 141 / 12%)' : 'transparent',
-    color: liked ? '#6b9e4e' : '#6b7280',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    outline: 'none',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: 1,
-  }
-
-  const iconStyle: React.CSSProperties = {
-    width: '20px',
-    height: '20px',
-    flexShrink: 0,
-    transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
-    transform: liked ? 'scale(1.15)' : 'scale(1)',
-  }
-
-  const heartStyle: React.CSSProperties = {
-    stroke: 'currentColor',
-    strokeWidth: '1.8',
-    fill: liked ? '#a8d08d' : 'transparent',
-    transition: 'fill 0.2s ease, stroke 0.2s ease',
-  }
+    const buttonStyle: React.CSSProperties = {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 6,
+      padding: 0,
+      border: 'none',
+      backgroundColor: 'transparent',
+      color: liked ? '#ABD27A' : '#253017',
+      cursor: 'pointer',
+      transition: 'color 0.2s ease',
+      outline: 'none',
+    }
 
   return (
     <button
@@ -65,24 +47,19 @@ export const LikeButton = ({
       aria-pressed={liked}
       aria-label={liked ? 'Убрать из избранного' : 'Добавить в избранное'}
     >
-      <svg
-        style={iconStyle}
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <img
+        src={liked ? likeActive : likeUnactive}
+        alt=""
         aria-hidden="true"
-      >
-        <path
-          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-          style={heartStyle}
-        />
-      </svg>
+      />
+
 
       {count !== undefined && (
         <span style={{ minWidth: '1ch', textAlign: 'center', userSelect: 'none' }}>
           {count}
         </span>
       )}
+
     </button>
   )
 }

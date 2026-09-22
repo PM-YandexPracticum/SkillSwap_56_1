@@ -1,12 +1,19 @@
+import { useMemo, useState } from 'react'
 import styles from './RegistrationStepTwo.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
 import { Select } from '@/shared/ui/Select'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
-import { citiesData, skillsData } from './mockData'
+import { citiesData } from './mockData'
 import avatarAddIcon from './Icon+Add.svg'
 import infoImage from './user-info.svg'
 import calendarIcon from './calendar.svg'
+import {
+  getSubcategoryOptions,
+  categoryOptions,
+  CategoryId,
+  SubcategoryId,
+} from '@/entities/skill/model/categories'
 
 const genderOptions = [
   { value: 'not-specified', label: 'Не указан' },
@@ -19,19 +26,18 @@ const cityOptions = citiesData.map((city) => ({
   label: city,
 }))
 
-const categoryOptions = skillsData.map((category) => ({
-  value: category.id,
-  label: category.title,
-}))
-
-const subcategoryOptions = skillsData.flatMap((category) =>
-  category.items.map((item) => ({
-    value: item,
-    label: item,
-  })),
-)
-
 export function RegistrationStepTwo() {
+  const [categoryIds, setCategoryIds] = useState<CategoryId[]>([])
+  const [subcategoryIds, setSubcategoryIds] = useState<SubcategoryId[]>([])
+
+  const subcategoryOptions = useMemo(() => getSubcategoryOptions(categoryIds), [categoryIds])
+
+  const handleCategoriesChange = (value: CategoryId[]) => {
+    setCategoryIds(value)
+    const available = new Set(getSubcategoryOptions(value).map((o) => o.value))
+    setSubcategoryIds((prev) => prev.filter((id) => available.has(id)))
+  }
+
   return (
     <section className={styles.container}>
       {/* Шапка */}
@@ -122,8 +128,8 @@ export function RegistrationStepTwo() {
               <Select
                 multiple
                 label="Категория навыка, которому хотите научиться"
-                value={[]}
-                onChange={() => {}}
+                value={categoryIds}
+                onChange={handleCategoriesChange}
                 options={categoryOptions}
                 placeholder="Выберите категорию"
               />
@@ -132,8 +138,8 @@ export function RegistrationStepTwo() {
               <Select
                 multiple
                 label="Подкатегория навыка, которому хотите научиться"
-                value={[]}
-                onChange={() => {}}
+                value={subcategoryIds}
+                onChange={setSubcategoryIds}
                 options={subcategoryOptions}
                 placeholder="Выберите подкатегорию"
               />

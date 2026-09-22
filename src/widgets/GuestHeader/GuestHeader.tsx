@@ -6,7 +6,15 @@ import styles from './GuestHeader.module.css';
 import MoonIcon from './moon.svg?react';
 import SearchIcon from './search.svg?react';
 
-export const GuestHeader = () => {
+interface GuestHeaderProps {
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+}
+
+export const GuestHeader = ({
+  searchQuery = '',
+  onSearchChange,
+}: GuestHeaderProps) => {
   return (
     <header className={styles.header}>
       <Logo />
@@ -20,6 +28,8 @@ export const GuestHeader = () => {
         <SearchIcon />
         <Input
           placeholder="Искать навык"
+          value={searchQuery}
+          onChange={(e) => onSearchChange?.(e.target.value)}
           style={{
             paddingLeft: '48px',
             border: 'none',

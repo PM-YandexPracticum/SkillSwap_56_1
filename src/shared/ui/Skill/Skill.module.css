@@ -49,6 +49,10 @@
   margin-block-end: 26px;
 }
 
+.actionSlot {
+  width: 100%;
+}
+
 .images {
   display: flex;
   gap: 24px;

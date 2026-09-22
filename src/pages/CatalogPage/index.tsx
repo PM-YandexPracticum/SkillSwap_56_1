@@ -1,10 +1,10 @@
 // TODO: реализовать страницу CatalogPage
-
+import { SkillSearch } from '@/features/skill-search'
 export default function CatalogPage() {
   return (
     <main>
-      <h1>CatalogPage</h1>
-      <p>Страница в разработке</p>
+      <SkillSearch query='' />
     </main>
   )
 }
+

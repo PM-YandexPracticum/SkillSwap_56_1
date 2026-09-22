@@ -1,10 +1,5 @@
-// TODO: реализовать страницу LoginPage
+import { RegistrationStepOne } from '@/features/auth/ui/RegistrationStepOne'
 
 export default function LoginPage() {
-  return (
-    <main>
-      <h1>LoginPage</h1>
-      <p>Страница в разработке</p>
-    </main>
-  )
+  return <RegistrationStepOne mode="login" />
 }

@@ -1,16 +1,16 @@
 import styles from './FiltersSidebar.module.css'
 import RadioButtonUI from '@/shared/ui/Radio/Radio'
-import { skillsData, citiesData } from './mockData'
+import { citiesData } from './mockData'
 import { CheckboxUI } from '@/shared/ui/Checkbox/CheckboxUI'
 import { useState } from 'react'
+import { SKILL_CATEGORIES, CategoryId } from '@/entities/skill/model/categories'
 
 const FiltersSidebar = () => {
   // Открытые категории навыков
-  const [openCategories, setOpenCategories] = useState<string[]>([])
+  const [openCategories, setOpenCategories] = useState<CategoryId[]>([])
 
   // Показывать все категории
   const [showAllCategories, setShowAllCategories] = useState(false)
-
   // Показывать все города
   const [showAllCities, setShowAllCities] = useState(false)
 
@@ -63,7 +63,7 @@ const FiltersSidebar = () => {
         <h3 className={styles.categoryTitle}>Навыки</h3>
 
         <div className={styles.categories}>
-          {(showAllCategories ? skillsData : skillsData.slice(0, 6)).map((category) => {
+          {(showAllCategories ? SKILL_CATEGORIES : SKILL_CATEGORIES.slice(0, 6)).map((category) => {
             const isOpen = openCategories.includes(category.id)
 
             return (
@@ -72,7 +72,7 @@ const FiltersSidebar = () => {
                   <CheckboxUI
                     name="category"
                     value={category.id}
-                    text={category.title}
+                    text={category.name}
                     checked={false}
                     onChange={() => {}}
                   />
@@ -83,8 +83,8 @@ const FiltersSidebar = () => {
                     onClick={() => toggleCategory(category.id)}
                     aria-label={
                       isOpen
-                        ? `Закрыть категорию ${category.title}`
-                        : `Открыть категорию ${category.title}`
+                        ? `Закрыть категорию ${category.name}`
+                        : `Открыть категорию ${category.name}`
                     }
                   >
                     <svg
@@ -108,12 +108,12 @@ const FiltersSidebar = () => {
 
                 {isOpen && (
                   <div className={styles.subcategories}>
-                    {category.items.map((skill) => (
+                    {category.subcategories.map((sub) => (
                       <CheckboxUI
-                        key={skill}
+                        key={sub.id}
                         name="skills"
-                        value={skill}
-                        text={skill}
+                        value={sub.id}
+                        text={sub.name}
                         checked={false}
                         onChange={() => {}}
                       />
