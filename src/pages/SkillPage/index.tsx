@@ -16,6 +16,7 @@ import NotFoundPage from '@/pages/NotFoundPage'
 
 export default function SkillPage() {
   const { id } = useParams<{ id: string }>()
+
   const [skill, setSkill] = useState<SkillEntity>()
   const [user, setUser] = useState<User>()
   const [similarSkills, setSimilarSkills] = useState<SkillEntity[]>([])
@@ -39,7 +40,10 @@ export default function SkillPage() {
       const skills = await fetchSkills()
 
       const similar = skills
-        .filter((item) => item.category === skill.category && item.id !== skill.id)
+        .filter(
+          (item) =>
+            item.category === skill.category && item.id !== skill.id,
+        )
         .slice(0, 4)
 
       setSimilarSkills(similar)
@@ -70,42 +74,57 @@ export default function SkillPage() {
   if (notFound) {
     return <NotFoundPage />
   }
+
   return (
     <main className={styles.page}>
       <AuthenticatedHeader />
+
       <div className={styles.content}>
         <div className={styles.skill}>
           {skill && user && (
             <SkillCard
-              id={skill.id}
               {...toSkillCardProps(skill, user)}
               withButton={false}
               withDescription={true}
               withLikeButton={false}
             />
           )}
+
           {skill && user && (
             <Skill
               name={skill.title}
               caption={`${skill.category} / ${skill.subcategory}`}
               text={skill.description}
-              actionSlot={<ProposeExchangeButton skillId={skill.id} toUserId={skill.authorId} />}
+              actionSlot={
+                <ProposeExchangeButton
+                  skillId={skill.id}
+                  toUserId={skill.authorId}
+                />
+              }
             />
           )}
         </div>
+
         <div className={styles.similar}>
-          <SectionHeader title="Похожие предложения" showButton={false} />
+          <SectionHeader
+            title="Похожие предложения"
+            showButton={false}
+          />
+
           <div className={styles.skillCards}>
             {similarSkills.map((similarSkill) => {
-              const similarUser = similarUsers[similarSkill.authorId]
+              const similarUser =
+                similarUsers[similarSkill.authorId]
 
               if (!similarUser) return null
 
               return (
                 <FavoriteSkillCard
                   key={similarSkill.id}
-                  id={similarSkill.id}
-                  {...toSkillCardProps(similarSkill, similarUser)}
+                  {...toSkillCardProps(
+                    similarSkill,
+                    similarUser,
+                  )}
                   withButton={true}
                   withDescription={false}
                   withLikeButton={true}
@@ -115,6 +134,7 @@ export default function SkillPage() {
           </div>
         </div>
       </div>
+
       <Footer />
     </main>
   )
