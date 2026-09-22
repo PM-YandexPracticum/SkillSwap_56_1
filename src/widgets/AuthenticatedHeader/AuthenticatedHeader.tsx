@@ -1,8 +1,7 @@
-import { Logo } from '../../shared/ui/Logo/logo'
-import { Input } from '../../shared/ui/Input/Input'
-import { NotificationsPanel } from '../../features/notifications/ui/NotificationsPanel'
+import { Logo } from '@/shared/ui/Logo/logo'
+import { Input } from '@/shared/ui/Input/Input'
+import { NotificationsPanel } from '@/features/notifications/ui/NotificationsPanel'
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
-import { UserMenu } from '../UserMenu/UserMenu'
 import SearchIcon from '../GuestHeader/search.svg?react'
 import MoonIcon from './moon.svg?react'
 import FavoriteIcon from './like.svg?react'
@@ -14,28 +13,35 @@ interface AuthenticatedHeaderProps {
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
+  searchQuery?: string
+  onSearchChange?: (value: string) => void
 }
 
 export const AuthenticatedHeader = ({
   userName = 'Ким',
-  userAvatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg/500px-Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg',
+  userAvatar,
   likesCount = 5,
   onLikeToggle,
+  searchQuery = '',
+  onSearchChange,
 }: AuthenticatedHeaderProps) => {
   return (
     <header className={styles.header}>
       <Logo />
 
       <nav className={styles.nav}>
-        <a href="#" className={styles.navLink}>
-          О проекте
-        </a>
+        <a href="#" className={styles.navLink}>О проекте</a>
         <AllSkillsMenu />
       </nav>
 
       <div className={styles.search}>
         <SearchIcon />
-        <Input placeholder="Искать навык" className={styles.searchInput} />
+        <Input
+          placeholder="Искать навык"
+          className={styles.searchInput}
+          value={searchQuery}
+          onChange={(e) => onSearchChange?.(e.target.value)}
+        />
       </div>
 
       <div className={styles.actions}>
@@ -43,7 +49,6 @@ export const AuthenticatedHeader = ({
           <MoonIcon />
         </button>
 
-        {/* NotificationsPanel — окно открывается по колокольчику */}
         <NotificationsPanel />
 
         <div className={styles.iconWrapper}>
@@ -58,7 +63,14 @@ export const AuthenticatedHeader = ({
           {likesCount > 0 && <span className={styles.badge}>{likesCount}</span>}
         </div>
 
-        <UserMenu userName={userName} userAvatar={userAvatar} />
+        <div className={styles.userWrapper}>
+          <span className={styles.userName}>{userName}</span>
+          <img
+            src={userAvatar ?? '/src/shared/assets/defaultAvatar.svg'}
+            alt={userName}
+            className={styles.avatar}
+          />
+        </div>
       </div>
     </header>
   )
