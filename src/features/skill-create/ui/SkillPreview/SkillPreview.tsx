@@ -15,10 +15,21 @@ import { SkillProps } from '@/shared/ui/Skill/Skill'
 
 interface SkillPreviewProps extends SkillProps {
   OverlayClick: () => void
+  /** Вернуться к форме редактирования без потери введённых данных */
+  onEdit: () => void
+  /** Подтвердить и создать навык */
+  onDone: () => void
 }
+
+const defaultImages = [Img, Img2, Img3, Img4]
 
 export const SkillPreview = (props: SkillPreviewProps) => {
   const editImg = <img src={edit} alt="Pencil" />
+
+  const previewImages =
+    props.images && props.images.length > 0 ? props.images : defaultImages
+  const [mainImage, ...restImages] = previewImages
+  const thumbnailImages = restImages.slice(0, 3)
 
   return createPortal(
     <FocusTrap
@@ -28,7 +39,7 @@ export const SkillPreview = (props: SkillPreviewProps) => {
       }}
     >
       <div className={styles.overlay} onClick={props.OverlayClick} role="dialog" aria-modal="true">
-        <div className={styles.skill}>
+        <div className={styles.skill} onClick={(e) => e.stopPropagation()}>
           <div className={styles.previewHeader}>
             <h2>Ваше предложение</h2>
             <span className={styles.caption}>
@@ -42,21 +53,29 @@ export const SkillPreview = (props: SkillPreviewProps) => {
               <p className={styles.text}>{props.text}</p>
               <div className={styles.buttons}>
                 <Button
+                  type="button"
                   icon={<>Редактировать {editImg}</>}
                   className={buttonStyles.secondary}
                   style={{ width: '204px', display: 'flex', gap: '8px' }}
+                  onClick={props.onEdit}
                 />
-                <Button text="Готово" className={buttonStyles.primary} style={{ width: '204px' }} />
+                <Button
+                  type="button"
+                  text="Готово"
+                  className={buttonStyles.primary}
+                  style={{ width: '204px' }}
+                  onClick={props.onDone}
+                />
               </div>
             </div>
             <div className={styles.images}>
               <div className={styles.mainImage}>
-                <img src={Img} alt="Играет на барабане" />
+                <img src={mainImage} alt={props.name} />
               </div>
               <div className={styles.captionImages}>
-                <img src={Img2} alt="Играет на барабане" />
-                <img src={Img3} alt="Играет на барабане" />
-                <img src={Img4} alt="Играет на барабане" />
+                {thumbnailImages.map((src, index) => (
+                  <img key={index} src={src} alt={props.name} />
+                ))}
               </div>
             </div>
           </div>
