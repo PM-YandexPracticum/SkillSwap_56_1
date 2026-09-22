@@ -15,6 +15,7 @@ interface AuthenticatedHeaderProps {
   onLikeToggle?: () => void
   searchQuery?: string
   onSearchChange?: (value: string) => void
+  notificationsCount?: number
 }
 
 export const AuthenticatedHeader = ({
