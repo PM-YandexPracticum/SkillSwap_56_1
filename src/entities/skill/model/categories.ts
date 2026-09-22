@@ -96,6 +96,13 @@ export const SKILL_CATEGORIES: Category[] = [
 export const getCategoryById = (id: CategoryId): Category | undefined =>
   SKILL_CATEGORIES.find((c) => c.id === id)
 
+export const getCategoryBySubcategoryId = (
+  subcategoryId: SubcategoryId,
+): Category | undefined =>
+  SKILL_CATEGORIES.find((category) =>
+    category.subcategories.some((subcategory) => subcategory.id === subcategoryId),
+  )
+
 export const getSubcategoriesByCategoryId = (id: CategoryId): Subcategory[] =>
   getCategoryById(id)?.subcategories ?? []
 
@@ -103,6 +110,9 @@ export const categoryOptions = SKILL_CATEGORIES.map((c) => ({
   value: c.id,
   label: c.name,
 }))
+
+export const getAllSubcategoryOptions = () =>
+  getSubcategoryOptions(SKILL_CATEGORIES.map((c) => c.id))
 
 export const getSubcategoryOptions = (categoryIds: CategoryId[]) => {
   const seen = new Set<SubcategoryId>()

@@ -1,4 +1,3 @@
-import { useMemo, useState } from 'react'
 import styles from './RegistrationStepTwo.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
@@ -8,12 +7,8 @@ import { citiesData } from './mockData'
 import avatarAddIcon from './Icon+Add.svg'
 import infoImage from './user-info.svg'
 import calendarIcon from './calendar.svg'
-import {
-  getSubcategoryOptions,
-  categoryOptions,
-  CategoryId,
-  SubcategoryId,
-} from '@/entities/skill/model/categories'
+import { categoryOptions } from '@/entities/skill/model/categories'
+import { useCategorySubcategorySelection } from '@/features/skill-category-selection/model/useCategorySubcategorySelection'
 
 const genderOptions = [
   { value: 'not-specified', label: 'Не указан' },
@@ -27,16 +22,13 @@ const cityOptions = citiesData.map((city) => ({
 }))
 
 export function RegistrationStepTwo() {
-  const [categoryIds, setCategoryIds] = useState<CategoryId[]>([])
-  const [subcategoryIds, setSubcategoryIds] = useState<SubcategoryId[]>([])
-
-  const subcategoryOptions = useMemo(() => getSubcategoryOptions(categoryIds), [categoryIds])
-
-  const handleCategoriesChange = (value: CategoryId[]) => {
-    setCategoryIds(value)
-    const available = new Set(getSubcategoryOptions(value).map((o) => o.value))
-    setSubcategoryIds((prev) => prev.filter((id) => available.has(id)))
-  }
+  const {
+    categoryIds,
+    subcategoryIds,
+    subcategoryOptions,
+    handleCategoriesChange,
+    handleSubcategoriesChange,
+  } = useCategorySubcategorySelection()
 
   return (
     <section className={styles.container}>
@@ -139,7 +131,7 @@ export function RegistrationStepTwo() {
                 multiple
                 label="Подкатегория навыка, которому хотите научиться"
                 value={subcategoryIds}
-                onChange={setSubcategoryIds}
+                onChange={handleSubcategoriesChange}
                 options={subcategoryOptions}
                 placeholder="Выберите подкатегорию"
               />
