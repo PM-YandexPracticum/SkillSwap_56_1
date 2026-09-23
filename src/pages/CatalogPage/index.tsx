@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { isAuthenticated } from '@/shared/lib/auth'
 import { GuestHeader } from '@/widgets/GuestHeader/GuestHeader'
 import { AuthenticatedHeader } from '@/widgets/AuthenticatedHeader/AuthenticatedHeader'
-import FiltersSidebar from '@/widgets/FiltersSidebar/FiltersSidebar'
+
 import { PopularSkills } from '@/widgets/PopularSkills/PopularSkills'
 import { NewSkills } from '@/widgets/NewSkills/NewSkills'
 import { RecommendedSkills } from '@/widgets/RecommendedSkills/RecommendedSkills'
@@ -22,19 +22,13 @@ export default function CatalogPage() {
   return (
     <div className={styles.page}>
       {isAuthenticated() ? (
-        <AuthenticatedHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <AuthenticatedHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       ) : (
-        <GuestHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <GuestHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       )}
 
       <main className={styles.main}>
-        <FiltersSidebar />
+        {/* <FiltersSidebar /> */}
 
         <section className={styles.content}>
           {searchQuery.trim() ? (
