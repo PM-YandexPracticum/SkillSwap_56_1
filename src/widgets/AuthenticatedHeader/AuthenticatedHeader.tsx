@@ -1,15 +1,16 @@
+import { useState, useEffect } from 'react'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
 import { NotificationsPanel } from '@/features/notifications/ui/NotificationsPanel'
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
+import { UserMenu } from '../UserMenu/UserMenu'
 import SearchIcon from '../GuestHeader/search.svg?react'
 import MoonIcon from './moon.svg?react'
 import FavoriteIcon from './like.svg?react'
+import { getAuthUser } from '@/features/auth/model/authUtils'
 import styles from './AuthenticatedHeader.module.css'
 
 interface AuthenticatedHeaderProps {
-  userName?: string
-  userAvatar?: string | null
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
@@ -19,13 +20,20 @@ interface AuthenticatedHeaderProps {
 }
 
 export const AuthenticatedHeader = ({
-  userName = 'Ким',
-  userAvatar,
-  likesCount = 5,
-  onLikeToggle,
-  searchQuery = '',
-  onSearchChange,
-}: AuthenticatedHeaderProps) => {
+                                      likesCount = 5,
+                                      onLikeToggle,
+                                      searchQuery = '',
+                                      onSearchChange,
+                                    }: AuthenticatedHeaderProps) => {
+  const [userName, setUserName] = useState('Пользователь')
+
+  useEffect(() => {
+    const user = getAuthUser()
+    if (user) {
+      setUserName(user.name)
+    }
+  }, [])
+
   return (
     <header className={styles.header}>
       <Logo />
@@ -64,14 +72,7 @@ export const AuthenticatedHeader = ({
           {likesCount > 0 && <span className={styles.badge}>{likesCount}</span>}
         </div>
 
-        <div className={styles.userWrapper}>
-          <span className={styles.userName}>{userName}</span>
-          <img
-            src={userAvatar ?? '/src/shared/assets/defaultAvatar.svg'}
-            alt={userName}
-            className={styles.avatar}
-          />
-        </div>
+        <UserMenu userName={userName} />
       </div>
     </header>
   )
