@@ -1,92 +1,79 @@
 import { useMemo } from 'react'
-import { FilterState, SkillUser } from './model/types'
-import { Skill } from '@/shared/types'
+import { FilterState } from './model/types'
+import { User } from '@/shared/types'
+import { CITY_OPTIONS } from '@/entities/city/model/cities'
+import { SKILL_CATEGORIES } from '@/entities/skill/model/categories'
 
-export const useFilteredUsers = (
-  users: SkillUser[],
-  skills: Skill[],
-  filters: FilterState,
-): SkillUser[] => {
+// Получение русского названия города по его value
+const getCityLabel = (cityValue: string): string => {
+  const city = CITY_OPTIONS.find((c) => c.value === cityValue)
+  return city ? city.label : cityValue
+}
+
+// Получение всех связанных русских названий для ID навыка или категории
+const getSkillNamesById = (id: string): string[] => {
+  const names: string[] = []
+
+  for (const category of SKILL_CATEGORIES) {
+    // 1. Если id совпадает с ID всей категории, берем названия всех ее подкатегорий
+    if (category.id === id) {
+      names.push(category.name)
+      category.subcategories.forEach((sub) => names.push(sub.name))
+      return names
+    }
+
+    // 2. Если id совпадает с подкатегорией
+    const subcategory = category.subcategories.find((sub) => sub.id === id)
+    if (subcategory) {
+      names.push(subcategory.name)
+      return names
+    }
+  }
+
+  return [id]
+}
+
+export const useFilteredUsers = (users: User[], filters: FilterState): User[] => {
   return useMemo(() => {
+    // 1. Преобразуем выбранные ID городов в названия
+    const selectedCityNames = filters.cities.map(getCityLabel)
+
+    // 2. Собираем все русские названия выбранных навыков
+    const selectedSkillNames = filters.skills
+      .flatMap(getSkillNamesById)
+      .map((name) => name.toLowerCase())
+
     return users.filter((user) => {
-      // 1. Фильтр по полу
-      if (filters.gender !== 'any') {
-        const genderText = filters.gender === 'male' ? 'Мужской' : 'Женский'
-        if (user.gender !== genderText) return false
+      // --- Фильтр по полу ---
+      if (filters.gender && filters.gender !== 'any' && user.gender !== filters.gender) {
+        return false
       }
 
-      // 2. Фильтр по городу
-      if (filters.cities.length > 0) {
-        if (!user.location || !filters.cities.includes(user.location)) return false
+      // --- Фильтр по городам ---
+      if (selectedCityNames.length > 0) {
+        const isCityMatch = selectedCityNames.some(
+          (cityName) => cityName.toLowerCase() === user.city.toLowerCase(),
+        )
+        if (!isCityMatch) return false
       }
 
-      // 3. Фильтр по типу взаимодействия и навыкам
-      const hasSelectedCategories = filters.categories.length > 0
-      const hasSelectedSkills = filters.skills.length > 0
+      // --- Фильтр по навыкам ---
+      if (selectedSkillNames.length > 0) {
+        const userSkills = (user.skillsToLearn || []).map((s) => s.toLowerCase())
 
-      // Вспомогательная функция проверки совпадения навыка
-      const matchSkill = (skill?: {
-        id: string | number
-        title?: string
-        name?: string
-        categoryId?: string
-      }) => {
-        if (!skill) return false
+        // Проверяем, есть ли пересечение между навыками пользователя и выбранными фильтрами
+        const hasMatchingSkill = selectedSkillNames.some((filterSkill) =>
+          userSkills.some(
+            (userSkill) =>
+              // Подходит, если одно название содержит другое или они совпадают
+              userSkill.includes(filterSkill) || filterSkill.includes(userSkill),
+          ),
+        )
 
-        const skillName = skill.name || skill.title || ''
-        const skillId = String(skill.id)
-
-        // Проверка по конкретным навыкам
-        const matchSpecificSkill = hasSelectedSkills
-          ? filters.skills.includes(skillName) || filters.skills.includes(skillId)
-          : false
-
-        // Проверка по категориям
-        const matchCategory = hasSelectedCategories
-          ? Boolean(skill.categoryId && filters.categories.includes(skill.categoryId))
-          : false
-
-        if (hasSelectedCategories && hasSelectedSkills) {
-          return matchCategory || matchSpecificSkill
-        }
-
-        if (hasSelectedCategories) return matchCategory
-        if (hasSelectedSkills) return matchSpecificSkill
-
-        return true
-      }
-
-      // Проверка для "Хочу научиться"
-      const matchesLearn = () => {
-        if (!user.subcategoriesWantToLearn || user.subcategoriesWantToLearn.length === 0) {
-          return false
-        }
-        return user.subcategoriesWantToLearn.some(matchSkill)
-      }
-
-      // Проверка для "Могу научить"
-      const matchesTeach = () => {
-        if (!user.skillCanTeach) return false
-
-        if (Array.isArray(user.skillCanTeach)) {
-          return user.skillCanTeach.some(matchSkill)
-        }
-
-        return matchSkill(user.skillCanTeach)
-      }
-
-      const hasAnySkillFilter = hasSelectedCategories || hasSelectedSkills
-
-      if (filters.interaction === 'learn') {
-        if (!matchesLearn()) return false
-      } else if (filters.interaction === 'teach') {
-        if (!matchesTeach()) return false
-      } else if (hasAnySkillFilter) {
-        // Режим 'all' (Всё) + выбраны категории или навыки
-        if (!matchesLearn() && !matchesTeach()) return false
+        if (!hasMatchingSkill) return false
       }
 
       return true
     })
-  }, [users, skills, filters])
+  }, [users, filters])
 }

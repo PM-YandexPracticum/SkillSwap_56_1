@@ -1,6 +1,7 @@
 import styles from './FiltersSidebar.module.css'
 import RadioButtonUI from '@/shared/ui/Radio/Radio'
-import { skillsData, citiesData } from '../../features/skill-filter/model/mockData'
+import { CITY_OPTIONS } from '@/entities/city/model/cities'
+import { SKILL_CATEGORIES, Subcategory } from '@/entities/skill/model/categories'
 import { CheckboxUI } from '@/shared/ui/Checkbox/CheckboxUI'
 import { useState } from 'react'
 import { FilterState, initialFilterState } from '@/features/skill-filter'
@@ -11,12 +12,9 @@ interface FiltersSidebarProps {
 }
 
 const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
-  // Открытые категории навыков
   const [openCategories, setOpenCategories] = useState<string[]>([])
 
-  // Показывать все категории
   const [showAllCategories, setShowAllCategories] = useState(false)
-  // Показывать все города
   const [showAllCities, setShowAllCities] = useState(false)
 
   const toggleCategory = (categoryName: string) => {
@@ -27,7 +25,6 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
     )
   }
 
-  // Переключатель выбора городов
   const handleCityChange = (city: string) => {
     setFilters((prev) => {
       const exists = prev.cities.includes(city)
@@ -40,29 +37,26 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
     })
   }
 
-  // Выбор пола
   const handleGenderChange = (gender: FilterState['gender']) => {
     setFilters((prev) => ({ ...prev, gender }))
   }
 
-  // Выбор типа взаимодействия (all / learn / teach)
   const handleInteractionChange = (interaction: FilterState['interaction']) => {
     setFilters((prev) => ({ ...prev, interaction }))
   }
 
-  // Выбор / Сброс всех навыков конкретной категории
-  const handleCategoryToggle = (categoryItems: string[]) => {
-    const allSelected = categoryItems.every((item) => filters.skills.includes(item))
+  const handleCategoryToggle = (subcategories: Subcategory[]) => {
+    const subIds = subcategories.map((sub) => sub.id)
+    const allSelected = subIds.every((id) => filters.skills.includes(id))
 
     setFilters((prev) => ({
       ...prev,
       skills: allSelected
-        ? prev.skills.filter((s) => !categoryItems.includes(s))
-        : Array.from(new Set([...prev.skills, ...categoryItems])),
+        ? prev.skills.filter((id) => !subIds.includes(id))
+        : Array.from(new Set([...prev.skills, ...subIds])),
     }))
   }
 
-  // Выбор конкретного навыка
   const handleSkillChange = (skill: string) => {
     setFilters((prev) => {
       const exists = prev.skills.includes(skill)
@@ -79,7 +73,6 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
 
   return (
     <aside className={styles.sidebar}>
-      {/* Шапка */}
       <div className={styles.header}>
         <h2 className={styles.title}>Фильтры</h2>
         <button
@@ -93,7 +86,6 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
         </button>
       </div>
 
-      {/* Тип взаимодействия */}
       <div className={styles.options}>
         <RadioButtonUI
           text="Всё"
@@ -120,16 +112,16 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
         />
       </div>
 
-      {/* Навыки */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Навыки</h3>
 
         <div className={styles.categories}>
-          {(showAllCategories ? skillsData : skillsData.slice(0, 6)).map((category) => {
+          {(showAllCategories ? SKILL_CATEGORIES : SKILL_CATEGORIES.slice(0, 6)).map((category) => {
             const isOpen = openCategories.includes(category.id)
 
-            // Чекбокс категории активен, если выбран ХОТЯ БЫ один ее навык
-            const isCategoryActive = category.items.some((item) => filters.skills.includes(item))
+            const isCategoryActive = category.subcategories.some((sub) =>
+              filters.skills.includes(sub.id),
+            )
 
             return (
               <div key={category.id} className={styles.category}>
@@ -137,9 +129,9 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
                   <CheckboxUI
                     name="category"
                     value={category.id}
-                    text={category.title}
+                    text={category.name}
                     checked={isCategoryActive}
-                    onChange={() => handleCategoryToggle(category.items)}
+                    onChange={() => handleCategoryToggle(category.subcategories)}
                   />
 
                   <button
@@ -148,8 +140,8 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
                     onClick={() => toggleCategory(category.id)}
                     aria-label={
                       isOpen
-                        ? `Закрыть категорию ${category.title}`
-                        : `Открыть категорию ${category.title}`
+                        ? `Закрыть категорию ${category.name}`
+                        : `Открыть категорию ${category.name}`
                     }
                   >
                     <svg
@@ -173,14 +165,14 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
 
                 {isOpen && (
                   <div className={styles.subcategories}>
-                    {category.items.map((skill) => (
+                    {category.subcategories.map((sub) => (
                       <CheckboxUI
-                        key={skill}
+                        key={sub.id}
                         name="skills"
-                        value={skill}
-                        text={skill}
-                        checked={filters.skills.includes(skill)}
-                        onChange={() => handleSkillChange(skill)}
+                        value={sub.id}
+                        text={sub.name}
+                        checked={filters.skills.includes(sub.id)}
+                        onChange={() => handleSkillChange(sub.id)}
                       />
                     ))}
                   </div>
@@ -215,7 +207,6 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
         </div>
       </div>
 
-      {/* Пол автора */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Пол автора</h3>
 
@@ -246,19 +237,18 @@ const FiltersSidebar = ({ filters, setFilters }: FiltersSidebarProps) => {
         </div>
       </div>
 
-      {/* Города */}
       <div className={styles.categorySection}>
         <h3 className={styles.categoryTitle}>Город</h3>
 
         <div className={styles.categoryOptions}>
-          {(showAllCities ? citiesData : citiesData.slice(0, 5)).map((city) => (
+          {(showAllCities ? CITY_OPTIONS : CITY_OPTIONS.slice(0, 5)).map((city) => (
             <CheckboxUI
-              key={city}
+              key={city.value}
               name="city"
-              value={city}
-              text={city}
-              checked={filters.cities.includes(city)}
-              onChange={() => handleCityChange(city)}
+              value={city.value}
+              text={city.label}
+              checked={filters.cities.includes(city.value)}
+              onChange={() => handleCityChange(city.value)}
             />
           ))}
 

@@ -1,33 +1,15 @@
-import { Skill, User } from '@/shared/types'
-
-export type InteractionMode = 'all' | 'learn' | 'teach'
 export type Gender = 'any' | 'male' | 'female'
 
 export interface FilterState {
-  interaction: InteractionMode
-  categories: string[]
+  cities: string[]
   skills: string[]
   gender: Gender
-  cities: string[]
+  interaction?: 'all' | 'learn' | 'teach'
 }
 
 export const initialFilterState: FilterState = {
-  interaction: 'all',
-  categories: [],
+  cities: [],
   skills: [],
   gender: 'any',
-  cities: [],
-}
-
-export interface SkillCategory {
-  id: string
-  title: string
-  items: string[]
-}
-
-export interface SkillUser extends User {
-  gender?: 'Мужской' | 'Женский'
-  location?: string
-  skillCanTeach?: Skill
-  subcategoriesWantToLearn?: Skill[]
+  interaction: 'all',
 }
