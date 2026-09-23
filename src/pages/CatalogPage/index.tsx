@@ -82,7 +82,7 @@ export default function CatalogPage() {
                     <SkillCard
                       key={card.id}
                       {...card}
-                      withButton={false}
+                      withButton={true}
                     />
                   ))}
                 </div>
