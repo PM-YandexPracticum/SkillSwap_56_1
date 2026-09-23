@@ -4,14 +4,10 @@ import { isAuthenticated } from '@/shared/lib/auth'
 import { fetchUsers } from '@/api/users'
 import { GuestHeader } from '@/widgets/GuestHeader/GuestHeader'
 import { AuthenticatedHeader } from '@/widgets/AuthenticatedHeader/AuthenticatedHeader'
-import FiltersSidebar from '@/widgets/FiltersSidebar/FiltersSidebar'
 import { Footer } from '@/widgets/Footer/Footer'
 import { SkillCard } from '@/entities/skill/ui/SkillCard'
 import { toSkillCardProps } from '@/entities/skill/model/toSkillCardProps'
-import {
-  InfiniteScrollTrigger,
-  usePaginatedSkills,
-} from '@/features/skill-pagination'
+import { InfiniteScrollTrigger, usePaginatedSkills } from '@/features/skill-pagination'
 import { SkillSearch } from '@/features/skill-search'
 import styles from './CatalogPage.module.css'
 
@@ -19,12 +15,7 @@ export default function CatalogPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [users, setUsers] = useState<User[]>([])
 
-  const {
-    visibleSkills,
-    hasMore,
-    isLoading,
-    loadMore,
-  } = usePaginatedSkills()
+  const { visibleSkills, hasMore, isLoading, loadMore } = usePaginatedSkills()
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -35,10 +26,7 @@ export default function CatalogPage() {
     void loadUsers()
   }, [])
 
-  const usersById = useMemo(
-    () => new Map(users.map((user) => [user.id, user])),
-    [users],
-  )
+  const usersById = useMemo(() => new Map(users.map((user) => [user.id, user])), [users])
 
   const catalogCards = useMemo(
     () =>
@@ -73,11 +61,7 @@ export default function CatalogPage() {
               <div className={styles.section}>
                 <div className={styles.cards}>
                   {catalogCards.map((card) => (
-                    <SkillCard
-                      key={card.id}
-                      {...card}
-                      withButton={false}
-                    />
+                    <SkillCard key={card.id} {...card} withButton={false} />
                   ))}
                 </div>
 
