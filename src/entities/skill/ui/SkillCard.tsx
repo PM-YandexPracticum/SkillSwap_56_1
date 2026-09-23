@@ -5,7 +5,6 @@ import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
 import { Button, buttonStyles } from '@/shared/ui/button/Button';
 import { mock } from './mock';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export { mock as testMock };
 
@@ -32,11 +31,12 @@ export interface SkillCardProps {
   withLikeButton?: boolean,
   withDescription?: boolean,
   isLiked?: boolean,
-  onLikeToggle?: () => void
+  onLikeToggle?: () => void,
+  onNavigate?: (id: string) => void
 }
 
 export const SkillCard = (props: SkillCardProps) => {
-  const navigate = useNavigate();
+  const { id, onNavigate } = props;
 
   const learnBoxRef = useRef<HTMLDivElement>(null);
   const [visibleSkillsCount, setVisibleSkillsCount] = useState(props.learn.learnValue.length);
@@ -77,7 +77,9 @@ export const SkillCard = (props: SkillCardProps) => {
   const moreSkills = props.learn.learnValue.length - visibleSkillsCount;
 
   const handleDetailsClick = () => {
-    navigate(`/skill/${props.id}`)
+    if (onNavigate) {
+      onNavigate(id)
+    }
   }
 
   return (

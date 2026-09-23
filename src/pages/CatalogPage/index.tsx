@@ -14,8 +14,11 @@ import {
 } from '@/features/skill-pagination'
 import { SkillSearch } from '@/features/skill-search'
 import styles from './CatalogPage.module.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function CatalogPage() {
+  const navigate = useNavigate()
+  
   const [searchQuery, setSearchQuery] = useState('')
   const [users, setUsers] = useState<User[]>([])
 
@@ -83,6 +86,7 @@ export default function CatalogPage() {
                       key={card.id}
                       {...card}
                       withButton={true}
+                      onNavigate={(id) => navigate(`/skill/${id}`)}
                     />
                   ))}
                 </div>
