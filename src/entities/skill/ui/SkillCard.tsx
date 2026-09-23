@@ -31,7 +31,8 @@ export interface SkillCardProps {
   withLikeButton?: boolean,
   withDescription?: boolean,
   isLiked?: boolean,
-  onLikeToggle?: () => void
+  onLikeToggle?: () => void,
+  onDetailsClick?: () => void
 }
 
 export const SkillCard = (props: SkillCardProps) => {
@@ -97,7 +98,13 @@ export const SkillCard = (props: SkillCardProps) => {
           </div>
         </div>
       </div>
-      {props.withButton && <Button text='Подробнее' className={buttonStyles.primary} />}
+      {props.withButton && (
+        <Button
+          text="Подробнее"
+          className={buttonStyles.primary}
+          onClick={props.onDetailsClick}
+        />
+      )}
     </div>
   )
 };

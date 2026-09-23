@@ -1,15 +1,16 @@
-// вызывает хук, рендерит сетку SkillCard или пустое состояние
-import { FavoriteSkillCard } from '@/features/favorites/ui/FavoriteSkillCard';
-import { useSkillSearch } from './model/useSkillSearch';
-import styles from './SkillSearch.module.css';
+import { FavoriteSkillCard } from '@/features/favorites/ui/FavoriteSkillCard'
+import type { SkillCardData } from '@/entities/skill/model/types'
+import { useSkillSearch } from './model/useSkillSearch'
+import styles from './SkillSearch.module.css'
 
 interface SkillSearchProps {
-  query: string;
+  query: string
+  cards: SkillCardData[]
 }
 
-export const SkillSearch = ({ query }: SkillSearchProps) => {
+export const SkillSearch = ({ query, cards }: SkillSearchProps) => {
   const { filteredSkills, isEmpty, isSearching, totalCount } =
-    useSkillSearch(query);
+    useSkillSearch(query, cards)
 
   if (isEmpty && isSearching) {
     return (
@@ -17,7 +18,7 @@ export const SkillSearch = ({ query }: SkillSearchProps) => {
         <p className={styles.emptyTitle}>Ничего не найдено</p>
         <p className={styles.emptyText}>Попробуйте изменить запрос</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -44,5 +45,5 @@ export const SkillSearch = ({ query }: SkillSearchProps) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
