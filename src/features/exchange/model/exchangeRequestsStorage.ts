@@ -1,4 +1,4 @@
-import type { SwapRequest } from '@/shared/types'
+import type { RequestStatus, SwapRequest } from '@/shared/types'
 import { LOCAL_STORAGE_KEYS } from '@/shared/lib/constants'
 
 /** Читает список локальных запросов на обмен из localStorage */
@@ -55,4 +55,38 @@ export function createExchangeRequest(
 
   saveExchangeRequests([...getExchangeRequests(), request])
   return request
+}
+
+/** Меняет статус заявки по id и сохраняет результат в localStorage */
+function updateRequestStatus(id: string, status: RequestStatus): SwapRequest | undefined {
+  const requests = getExchangeRequests()
+  const index = requests.findIndex((request) => request.id === id)
+  if (index === -1) return undefined
+
+  const updated: SwapRequest = {
+    ...requests[index],
+    status,
+    updatedAt: new Date().toISOString(),
+  }
+
+  const next = [...requests]
+  next[index] = updated
+  saveExchangeRequests(next)
+
+  return updated
+}
+
+/** Принять входящую заявку: переводит её в статус «В работе» */
+export function acceptExchangeRequest(id: string): SwapRequest | undefined {
+  return updateRequestStatus(id, 'inProgress')
+}
+
+/** Отклонить входящую заявку */
+export function rejectExchangeRequest(id: string): SwapRequest | undefined {
+  return updateRequestStatus(id, 'rejected')
+}
+
+/** Завершить обмен, находящийся в работе */
+export function completeExchangeRequest(id: string): SwapRequest | undefined {
+  return updateRequestStatus(id, 'done')
 }

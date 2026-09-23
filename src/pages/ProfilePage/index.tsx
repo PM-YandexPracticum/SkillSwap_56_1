@@ -11,6 +11,7 @@ import { Select } from '@/shared/ui/Select'
 import { Textarea } from '@/shared/ui/Textarea'
 import { Button, buttonStyles } from '@/shared/ui/button/Button'
 import { getProfileUser, updateProfileUser } from '@/features/profile-edit/model/profileUtils'
+import { RequestsSection } from '@/features/exchange/ui/RequestsSection'
 import styles from './ProfilePage.module.css'
 import editIcon from '@/shared/assets/gallery-edit.svg'
 import editFieldIcon from '@/shared/assets/edit.svg'
@@ -52,7 +53,7 @@ const CITY_OPTIONS = [
 
 function ProfilePage() {
   const [savedUser, setSavedUser] = useState(getProfileUser())
-  const [activeSection, setActiveSection] = useState<'profile' | 'skills'>('profile')
+  const [activeSection, setActiveSection] = useState<'profile' | 'skills' | 'requests'>('profile')
   const [mySkills, setMySkills] = useState<SkillCardProps[]>([])
 
   useEffect(() => {
@@ -129,10 +130,14 @@ function ProfilePage() {
       <main className={styles.mainContent}>
         <aside className={styles.sidebar}>
           <nav className={styles.navList}>
-            <a href="#" className={styles.navItem}>
+            <button
+              type="button"
+              className={styles.navItem}
+              onClick={() => setActiveSection('requests')}
+            >
               <img src={requestsIcon} alt="Заявки" className={styles.sidebarIcon} />
               <span>Заявки</span>
-            </a>
+            </button>
             <a href="#" className={styles.navItem}>
               <img src={exchangesIcon} alt="Мои обмены" className={styles.sidebarIcon} />
               <span>Мои обмены</span>
@@ -284,7 +289,7 @@ function ProfilePage() {
                 />
               </div>
             </div>
-          ) : (
+          ) : activeSection === 'skills' ? (
             <div>
               {mySkills.length > 0 ? (
                 mySkills.map((skill, index) => (
@@ -297,6 +302,8 @@ function ProfilePage() {
                 </div>
               )}
             </div>
+          ) : (
+            <RequestsSection />
           )}
         </section>
       </main>
