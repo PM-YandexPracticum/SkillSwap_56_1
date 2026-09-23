@@ -8,6 +8,7 @@ import { SocialAuthButtons } from '@/features/auth/ui/SocialAuthButtons/SocialAu
 import { ROUTES } from '@/shared/lib/constants'
 import eyeIcon from '@/shared/assets/eye.svg'
 import lightBulbImage from '@/shared/assets/light-bulb.svg'
+import { validateAuthForm, type AuthFormErrors } from '@/features/auth/model/authValidation'
 
 type AuthMode = 'register' | 'login'
 
@@ -31,6 +32,7 @@ export function RegistrationStepOne({
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const [errors, setErrors] = useState<AuthFormErrors>({})
 
   const isLogin = mode === 'login'
 
@@ -39,10 +41,30 @@ export function RegistrationStepOne({
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    const validationErrors = validateAuthForm( email, password )
+    if (validationErrors.email || validationErrors.password) {
+      setErrors(validationErrors)
+      return
+    }
+
     if (isLogin) {
       onLogin?.(email)
     } else if (isFormValid) {
       onNext?.(email, password)
+    }
+  }
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value)
+    if (errors.email) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: undefined }))
+    }
+  }
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value)
+    if (errors.password) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: undefined }))
     }
   }
 
@@ -87,21 +109,28 @@ export function RegistrationStepOne({
               <div className={styles.divider}>или</div>
 
               <form className={styles.fields} onSubmit={handleSubmit}>
-                <div className={styles.fieldGroup}>
+                <div className={`${styles.fieldGroup} ${errors.email ? styles.fieldError : ''}`}>
                   <label htmlFor={isLogin ? 'login-email' : 'email'}>Email</label>
                   <Input
                     id={isLogin ? 'login-email' : 'email'}
                     type="email"
                     name="email"
+                    aria-invalid={errors.email ? 'true' : undefined}
                     placeholder="Введите email"
                     autoComplete="email"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => handleEmailChange(event.target.value)}
                   />
+                  {errors.email && <span className={styles.errorText} role='alert'>{errors.email}</span>}
                 </div>
 
-                <div className={styles.fieldGroup}>
-                  <label htmlFor={isLogin ? 'login-password' : 'password'}>Пароль</label>
+
+                <div className={`${styles.fieldGroup} ${errors.password ? styles.fieldError : ''}`}>
+                  <label htmlFor={isLogin ? 'login-password' : 'password'}>
+                    Пароль
+                  </label>
+
+
                   <div className={styles.passwordWrap}>
                     <Input
                       id={isLogin ? 'login-password' : 'password'}
@@ -109,8 +138,9 @@ export function RegistrationStepOne({
                       name="password"
                       placeholder={isLogin ? 'Введите ваш пароль' : 'Придумайте надёжный пароль'}
                       autoComplete={isLogin ? 'current-password' : 'new-password'}
+                      aria-invalid={errors.password ? 'true' : undefined}
                       value={password}
-                      onChange={(event) => setPassword(event.target.value)}
+                      onChange={(event) => handlePasswordChange(event.target.value)}
                     />
                     <button
                       type="button"
@@ -121,8 +151,13 @@ export function RegistrationStepOne({
                       <img src={eyeIcon} alt="" />
                     </button>
                   </div>
-                  {!isLogin && (
-                    <span className={styles.hint}>Пароль должен содержать не менее 8 знаков</span>
+
+                  {errors.password ? (
+                    <span className={styles.errorText} role='alert'>{errors.password}</span>) : (!isLogin && (
+                    <span className={styles.hint}>
+                      Пароль должен содержать не менее 8 символов, буквы и цифры
+                    </span>)
+
                   )}
                 </div>
 
