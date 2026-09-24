@@ -18,8 +18,7 @@ const makeSkill = (name: string, likesCount: number): SkillCardProps => ({
     teachTagColor: 'red',
   },
   learn: {
-    learnValue: ['Учиться'],
-    learnTagColor: 'yellow',
+    learnValue: [{ value: 'Учиться', color: 'yellow' }],
   },
   moreTagColor: 'pink',
   withButton: true,
