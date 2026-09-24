@@ -13,8 +13,11 @@ import type { Skill as SkillEntity, User } from '@/shared/types'
 import { fetchUserById } from '@/api/users'
 import { toSkillCardProps } from '@/entities/skill/model/toSkillCardProps'
 import NotFoundPage from '@/pages/NotFoundPage'
+import { useNavigate } from 'react-router-dom'
 
 export default function SkillPage() {
+  const navigate = useNavigate()
+
   const { id } = useParams<{ id: string }>()
 
   const [skill, setSkill] = useState<SkillEntity>()
@@ -128,6 +131,7 @@ export default function SkillPage() {
                   withButton={true}
                   withDescription={false}
                   withLikeButton={true}
+                  onNavigate={(id) => navigate(`/skill/${id}`)}
                 />
               )
             })}

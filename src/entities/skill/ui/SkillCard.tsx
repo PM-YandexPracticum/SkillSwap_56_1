@@ -31,10 +31,13 @@ export interface SkillCardProps {
   withLikeButton?: boolean,
   withDescription?: boolean,
   isLiked?: boolean,
-  onLikeToggle?: () => void
+  onLikeToggle?: () => void,
+  onNavigate?: (id: string) => void
 }
 
 export const SkillCard = (props: SkillCardProps) => {
+  const { id, onNavigate } = props;
+
   const learnBoxRef = useRef<HTMLDivElement>(null);
   const [visibleSkillsCount, setVisibleSkillsCount] = useState(props.learn.learnValue.length);
 
@@ -73,6 +76,12 @@ export const SkillCard = (props: SkillCardProps) => {
 
   const moreSkills = props.learn.learnValue.length - visibleSkillsCount;
 
+  const handleDetailsClick = () => {
+    if (onNavigate) {
+      onNavigate(id)
+    }
+  }
+
   return (
     <div className={styles.skillcard}>
       <div className={styles.like}>
@@ -97,7 +106,7 @@ export const SkillCard = (props: SkillCardProps) => {
           </div>
         </div>
       </div>
-      {props.withButton && <Button text='Подробнее' className={buttonStyles.primary} />}
+      {props.withButton && <Button text='Подробнее' className={buttonStyles.primary} onClick={handleDetailsClick}/>}
     </div>
   )
 };

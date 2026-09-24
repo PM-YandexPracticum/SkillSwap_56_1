@@ -14,10 +14,13 @@ import { SkillSearch } from '@/features/skill-search'
 import { FilterState, initialFilterState, useFilteredUsers } from '@/features/skill-filter'
 
 import styles from './CatalogPage.module.css'
+import { useNavigate } from 'react-router-dom'
 import { useActiveChips } from '@/features/skill-filter/useActiveChips'
 import { FilterChip } from '@/shared/ui/FilterChip/FilterChip'
 
 export default function CatalogPage() {
+  const navigate = useNavigate()
+
   const [searchQuery, setSearchQuery] = useState('')
   const [users, setUsers] = useState<User[]>([])
 
@@ -91,7 +94,12 @@ export default function CatalogPage() {
                   {catalogCards.length > 0 && (
                     <div className={styles.cards}>
                       {catalogCards.map((card) => (
-                        <SkillCard key={card.id} {...card} withButton={false} />
+                        <SkillCard
+                          key={card.id}
+                          {...card}
+                          withButton={true}
+                          onNavigate={(id) => navigate(`/skill/${id}`)}
+                        />
                       ))}
                     </div>
                   )}
