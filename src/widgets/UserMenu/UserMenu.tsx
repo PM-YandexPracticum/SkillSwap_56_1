@@ -1,25 +1,35 @@
-import { useState } from 'react';
-import defaultAvatar from '@/shared/assets/defaultAvatar.svg';
-import styles from './UserMenu.module.css';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import defaultAvatar from '@/shared/assets/defaultAvatar.svg'
+import { ROUTES } from '@/shared/lib/constants'
+import { clearAuthUser } from '@/features/auth/model/authUtils'
+import styles from './UserMenu.module.css'
 
 interface UserMenuProps {
-  userName: string;
-  userAvatar?: string | null;
+  userName: string
+  userAvatar?: string | null
 }
 
-export const UserMenu = ({
-  userName,
-  userAvatar,
-}: UserMenuProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const UserMenu = ({ userName, userAvatar }: UserMenuProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleToggle = () => {
-    setIsOpen((prev) => !prev);
-  };
+    setIsOpen((prev) => !prev)
+  }
 
-  const handleMenuItemClick = () => {
-    setIsOpen(false);
-  };
+  const handleProfileClick = () => {
+    setIsOpen(false)
+    navigate(ROUTES.PROFILE)
+  }
+
+  const handleLogout = () => {
+    clearAuthUser()
+    setIsOpen(false)
+    navigate(ROUTES.HOME, { replace: true })
+    // reload the state (to exit and show main page 4 any guests)
+    window.location.reload()
+  }
 
   return (
     <div className={styles.container}>
@@ -31,7 +41,6 @@ export const UserMenu = ({
         aria-haspopup="menu"
       >
         <span className={styles.userName}>{userName}</span>
-
         <img
           src={userAvatar ?? defaultAvatar}
           alt={userName}
@@ -45,7 +54,7 @@ export const UserMenu = ({
             type="button"
             className={styles.menuItem}
             role="menuitem"
-            onClick={handleMenuItemClick}
+            onClick={handleProfileClick}
           >
             Личный кабинет
           </button>
@@ -54,10 +63,9 @@ export const UserMenu = ({
             type="button"
             className={styles.menuItem}
             role="menuitem"
-            onClick={handleMenuItemClick}
+            onClick={handleLogout}
           >
             <span>Выйти из аккаунта</span>
-
             <svg
               className={styles.logoutIcon}
               width="24"
@@ -85,5 +93,5 @@ export const UserMenu = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}

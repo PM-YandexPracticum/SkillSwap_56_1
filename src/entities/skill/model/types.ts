@@ -2,6 +2,7 @@
 export type { Skill, SkillType } from '@/shared/types'
 
 export interface SkillCardData {
+  id: string
   user: {
     avatarUrl: string | null
     name: string

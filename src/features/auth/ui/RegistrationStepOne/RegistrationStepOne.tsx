@@ -3,35 +3,68 @@ import { useNavigate } from 'react-router-dom'
 import styles from './RegistrationStepOne.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { SocialAuthButtons } from '@/features/auth/ui/SocialAuthButtons/SocialAuthButtons'
 import { ROUTES } from '@/shared/lib/constants'
 import eyeIcon from '@/shared/assets/eye.svg'
 import lightBulbImage from '@/shared/assets/light-bulb.svg'
+import { validateAuthForm, type AuthFormErrors } from '@/features/auth/model/authValidation'
 
 type AuthMode = 'register' | 'login'
 
 interface RegistrationStepOneProps {
-  onNext?: () => void
+  onNext?: (email: string, password: string) => void
+  onLogin?: (email: string) => void
   mode?: AuthMode
 }
 
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 export function RegistrationStepOne({
-  onNext,
-  mode = 'register',
-}: RegistrationStepOneProps) {
+                                      onNext,
+                                      onLogin,
+                                      mode = 'register',
+                                    }: RegistrationStepOneProps) {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const [errors, setErrors] = useState<AuthFormErrors>({})
 
   const isLogin = mode === 'login'
+
+  const isFormValid = isValidEmail(email) && password.length >= 8
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!isLogin) {
-      onNext?.()
+    const validationErrors = validateAuthForm( email, password )
+    if (validationErrors.email || validationErrors.password) {
+      setErrors(validationErrors)
+      return
+    }
+
+    if (isLogin) {
+      onLogin?.(email)
+    } else if (isFormValid) {
+      onNext?.(email, password)
+    }
+  }
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value)
+    if (errors.email) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: undefined }))
+    }
+  }
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value)
+    if (errors.password) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: undefined }))
     }
   }
 
@@ -45,22 +78,9 @@ export function RegistrationStepOne({
           onClick={() => navigate(ROUTES.HOME)}
         >
           <span>Закрыть</span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M16.7438 8.28754L8.25847 16.7728C7.96856 17.0627 7.48772 17.0627 7.19781 16.7728C6.9079 16.4829 6.9079 16.0021 7.19781 15.7122L15.6831 7.22688C15.973 6.93697 16.4538 6.93697 16.7438 7.22688C17.0337 7.51679 17.0337 7.99763 16.7438 8.28754Z"
-              fill="currentColor"
-            />
-            <path
-              d="M16.7438 16.7728C16.4538 17.0627 15.973 17.0627 15.6831 16.7728L7.19781 8.28755C6.9079 7.99763 6.9079 7.5168 7.19781 7.22689C7.48772 6.93697 7.96856 6.93697 8.25847 7.22689L16.7438 15.7122C17.0337 16.0021 17.0337 16.4829 16.7438 16.7728Z"
-              fill="currentColor"
-            />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16.7438 8.28754L8.25847 16.7728C7.96856 17.0627 7.48772 17.0627 7.19781 16.7728C6.9079 16.4829 6.9079 16.0021 7.19781 15.7122L15.6831 7.22688C15.973 6.93697 16.4538 6.93697 16.7438 7.22688C17.0337 7.51679 17.0337 7.99763 16.7438 8.28754Z" fill="currentColor" />
+            <path d="M16.7438 16.7728C16.4538 17.0627 15.973 17.0627 15.6831 16.7728L7.19781 8.28755C6.9079 7.99763 6.9079 7.5168 7.19781 7.22689C7.48772 6.93697 7.96856 6.93697 8.25847 7.22689L16.7438 15.7122C17.0337 16.0021 17.0337 16.4829 16.7438 16.7728Z" fill="currentColor" />
           </svg>
         </button>
       </header>
@@ -89,58 +109,65 @@ export function RegistrationStepOne({
               <div className={styles.divider}>или</div>
 
               <form className={styles.fields} onSubmit={handleSubmit}>
-                <div className={styles.fieldGroup}>
+                <div className={`${styles.fieldGroup} ${errors.email ? styles.fieldError : ''}`}>
                   <label htmlFor={isLogin ? 'login-email' : 'email'}>Email</label>
                   <Input
                     id={isLogin ? 'login-email' : 'email'}
                     type="email"
                     name="email"
+                    aria-invalid={errors.email ? 'true' : undefined}
                     placeholder="Введите email"
                     autoComplete="email"
                     value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={(event) => handleEmailChange(event.target.value)}
                   />
+                  {errors.email && <span className={styles.errorText} role='alert'>{errors.email}</span>}
                 </div>
 
-                <div className={styles.fieldGroup}>
+
+                <div className={`${styles.fieldGroup} ${errors.password ? styles.fieldError : ''}`}>
                   <label htmlFor={isLogin ? 'login-password' : 'password'}>
                     Пароль
                   </label>
+
+
                   <div className={styles.passwordWrap}>
                     <Input
                       id={isLogin ? 'login-password' : 'password'}
                       type={isPasswordVisible ? 'text' : 'password'}
                       name="password"
-                      placeholder={
-                        isLogin ? 'Введите ваш пароль' : 'Придумайте надёжный пароль'
-                      }
+                      placeholder={isLogin ? 'Введите ваш пароль' : 'Придумайте надёжный пароль'}
                       autoComplete={isLogin ? 'current-password' : 'new-password'}
+                      aria-invalid={errors.password ? 'true' : undefined}
                       value={password}
-                      onChange={(event) => setPassword(event.target.value)}
+                      onChange={(event) => handlePasswordChange(event.target.value)}
                     />
                     <button
                       type="button"
                       className={styles.eyeButton}
-                      aria-label={
-                        isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'
-                      }
+                      aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
                       onClick={() => setIsPasswordVisible((visible) => !visible)}
                     >
                       <img src={eyeIcon} alt="" />
                     </button>
                   </div>
 
-                  {!isLogin && (
+                  {errors.password ? (
+                    <span className={styles.errorText} role='alert'>{errors.password}</span>) : (!isLogin && (
                     <span className={styles.hint}>
-                      Пароль должен содержать не менее 8 знаков
-                    </span>
+                      Пароль должен содержать не менее 8 символов, буквы и цифры
+                    </span>)
+
                   )}
                 </div>
 
                 <Button
-                  text={isLogin ? 'Войти' : 'Далее'}
-                  className={`${buttonStyles.primary} ${styles.submit}`}
-                />
+                  variant='primary'
+                  className={`${styles.submit}`}
+                  disabled={!isLogin && !isFormValid}
+                >
+                  {isLogin ? 'Войти' : 'Далее'}
+                </Button>
 
                 {isLogin && (
                   <button type="button" className={styles.registerLink}>
@@ -156,11 +183,7 @@ export function RegistrationStepOne({
               <img src={lightBulbImage} alt="" />
             </div>
             <div className={styles.textContainer}>
-              <h2>
-                {isLogin
-                  ? 'С возвращением в SkillSwap!'
-                  : 'Добро пожаловать в SkillSwap!'}
-              </h2>
+              <h2>{isLogin ? 'С возвращением в SkillSwap!' : 'Добро пожаловать в SkillSwap!'}</h2>
               <p>
                 {isLogin
                   ? 'Обменивайтесь знаниями и навыками с другими людьми'

@@ -1,5 +1,5 @@
 // Размер одной порции карточек при «бесконечной» прокрутке каталога
-export const PAGE_SIZE = 6
+export const PAGE_SIZE = 20
 
 // Имитация сетевой задержки при подгрузке порции (мс)
 export const LOAD_DELAY_MS = 500

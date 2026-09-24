@@ -1,57 +1,116 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import type { User } from '@/shared/types'
 import { isAuthenticated } from '@/shared/lib/auth'
+import { fetchUsers } from '@/api/users'
 import { GuestHeader } from '@/widgets/GuestHeader/GuestHeader'
 import { AuthenticatedHeader } from '@/widgets/AuthenticatedHeader/AuthenticatedHeader'
 import FiltersSidebar from '@/widgets/FiltersSidebar/FiltersSidebar'
-import { PopularSkills } from '@/widgets/PopularSkills/PopularSkills'
-import { NewSkills } from '@/widgets/NewSkills/NewSkills'
-import { RecommendedSkills } from '@/widgets/RecommendedSkills/RecommendedSkills'
 import { Footer } from '@/widgets/Footer/Footer'
-import { SKILLS_DATA } from '@/features/skill-search/data/skills'
+import { SkillCard } from '@/entities/skill/ui/SkillCard'
+import { toSkillCardProps } from '@/entities/skill/model/toSkillCardProps'
+import { InfiniteScrollTrigger, usePaginatedSkills } from '@/features/skill-pagination'
 import { SkillSearch } from '@/features/skill-search'
 
+import { FilterState, initialFilterState, useFilteredUsers } from '@/features/skill-filter'
+
 import styles from './CatalogPage.module.css'
+import { useNavigate } from 'react-router-dom'
+import { useActiveChips } from '@/features/skill-filter/useActiveChips'
+import { FilterChip } from '@/shared/ui/FilterChip/FilterChip'
 
 export default function CatalogPage() {
+  const navigate = useNavigate()
+
   const [searchQuery, setSearchQuery] = useState('')
-  const catalogSkills = SKILLS_DATA.map((skill) => ({
-    ...skill,
-    withButton: false,
-  }))
+  const [users, setUsers] = useState<User[]>([])
+
+  const [filters, setFilters] = useState<FilterState>(initialFilterState)
+
+  const { visibleSkills, hasMore, isLoading, loadMore } = usePaginatedSkills()
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const data = await fetchUsers()
+      setUsers(data)
+    }
+
+    void loadUsers()
+  }, [])
+
+  const filteredUsers = useFilteredUsers(users, filters)
+  const activeChips = useActiveChips(filters, setFilters)
+
+  //  мap только из отфильтрованных пользователей
+  const usersById = useMemo(
+    () => new Map(filteredUsers.map((user) => [user.id, user])),
+    [filteredUsers],
+  )
+
+  const catalogCards = useMemo(
+    () =>
+      visibleSkills.flatMap((skill) => {
+        const user = usersById.get(skill.authorId)
+
+        if (!user) {
+          return []
+        }
+
+        return [toSkillCardProps(skill, user)]
+      }),
+    [visibleSkills, usersById],
+  )
 
   return (
     <div className={styles.page}>
       {isAuthenticated() ? (
-        <AuthenticatedHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <AuthenticatedHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       ) : (
-        <GuestHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <GuestHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       )}
 
       <main className={styles.main}>
-        <FiltersSidebar />
+        <FiltersSidebar filters={filters} setFilters={setFilters} />
 
         <section className={styles.content}>
           {searchQuery.trim() ? (
             <SkillSearch query={searchQuery} />
           ) : (
             <>
-              <div className={styles.section}>
-                <PopularSkills skills={catalogSkills} />
-              </div>
+              {/*  отрисовка активных чипсов над каталогом */}
+              {activeChips.length > 0 && (
+                <div className={styles.chipsList}>
+                  {activeChips.map((chip) => (
+                    <FilterChip key={chip.id} label={chip.label} onRemove={chip.onRemove} />
+                  ))}
+                </div>
+              )}
 
-              <div className={styles.section}>
-                <NewSkills skills={catalogSkills} />
-              </div>
+              {catalogCards.length === 0 && !isLoading && !hasMore ? (
+                <div className={styles.emptyState}>
+                  <p>Ничего не найдено по выбранным фильтрам</p>
+                </div>
+              ) : (
+                <div className={styles.section}>
+                  {catalogCards.length > 0 && (
+                    <div className={styles.cards}>
+                      {catalogCards.map((card) => (
+                        <SkillCard
+                          key={card.id}
+                          {...card}
+                          withButton={true}
+                          onNavigate={(id) => navigate(`/skill/${id}`)}
+                        />
+                      ))}
+                    </div>
+                  )}
 
-              <div className={styles.section}>
-                <RecommendedSkills recommendedUsers={catalogSkills} />
-              </div>
+                  <InfiniteScrollTrigger
+                    hasMore={hasMore}
+                    isLoading={isLoading}
+                    onLoadMore={loadMore}
+                  />
+                </div>
+              )}
             </>
           )}
         </section>

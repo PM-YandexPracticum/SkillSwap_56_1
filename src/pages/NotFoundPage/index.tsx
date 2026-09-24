@@ -31,15 +31,17 @@ export default function NotFoundPage() {
 
         <div className={styles.actions}>
           <Button
-            text="Сообщить об ошибке"
             className={`${styles.button} ${styles.secondaryButton}`}
-          />
+          >
+            Сообщить об ошибке
+          </Button>
 
           <Button
-            text="На главную"
             className={`${styles.button} ${styles.primaryButton}`}
             onClick={handleClickToHome}
-          />
+          >
+            На главную
+          </Button>
         </div>
       </div>
     </main>

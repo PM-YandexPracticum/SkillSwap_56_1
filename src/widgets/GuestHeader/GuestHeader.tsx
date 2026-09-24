@@ -1,20 +1,24 @@
-import { Logo } from '../../shared/ui/Logo/logo';
-import { Input } from '../../shared/ui/Input/Input';
-import { Button, buttonStyles } from '../../shared/ui/button/Button';
-import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu';
-import styles from './GuestHeader.module.css';
-import MoonIcon from './moon.svg?react';
-import SearchIcon from './search.svg?react';
+import { useNavigate } from 'react-router-dom'
+import { Logo } from '../../shared/ui/Logo/logo'
+import { Input } from '../../shared/ui/Input/Input'
+import { Button } from '../../shared/ui/button/Button'
+import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
+import { ROUTES } from '@/shared/lib/constants'
+import styles from './GuestHeader.module.css'
+import MoonIcon from './moon.svg?react'
+import SearchIcon from './search.svg?react'
 
 interface GuestHeaderProps {
-  searchQuery?: string;
-  onSearchChange?: (query: string) => void;
+  searchQuery?: string
+  onSearchChange?: (query: string) => void
 }
 
 export const GuestHeader = ({
-  searchQuery = '',
-  onSearchChange,
-}: GuestHeaderProps) => {
+                              searchQuery = '',
+                              onSearchChange,
+                            }: GuestHeaderProps) => {
+  const navigate = useNavigate()
+
   return (
     <header className={styles.header}>
       <Logo />
@@ -46,12 +50,19 @@ export const GuestHeader = ({
       </button>
 
       <div className={styles.authButtons}>
-        <Button text="Войти" className={buttonStyles.secondary} />
         <Button
-          text="Зарегистрироваться"
-          className={buttonStyles.primary}
-        />
+          variant="secondary"
+          onClick={() => navigate(ROUTES.LOGIN)}
+        >
+          Войти
+        </Button>
+        <Button
+          variant="primary"
+          onClick={() => navigate(ROUTES.REGISTER)}
+        >
+          Зарегистрироваться
+        </Button>
       </div>
     </header>
-  );
-};
+  )
+}

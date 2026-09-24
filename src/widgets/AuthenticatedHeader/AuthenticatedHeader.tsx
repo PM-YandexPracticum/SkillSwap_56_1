@@ -1,51 +1,55 @@
-import { Logo } from '../../shared/ui/Logo/logo'
-import { Input } from '../../shared/ui/Input/Input'
+import { useState, useEffect } from 'react'
+import { Logo } from '@/shared/ui/Logo/logo'
+import { Input } from '@/shared/ui/Input/Input'
+import { NotificationsPanel } from '@/features/notifications/ui/NotificationsPanel'
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
 import { UserMenu } from '../UserMenu/UserMenu'
 import SearchIcon from '../GuestHeader/search.svg?react'
 import MoonIcon from './moon.svg?react'
-import NotificationIcon from './notification.svg?react'
 import FavoriteIcon from './like.svg?react'
+import { getAuthUser } from '@/features/auth/model/authUtils'
 import styles from './AuthenticatedHeader.module.css'
 
 interface AuthenticatedHeaderProps {
-  userName?: string
-  userAvatar?: string | null
-  notificationsCount?: number
   likesCount?: number
   isLiked?: boolean
   onLikeToggle?: () => void
-  searchQuery?: string;
-  onSearchChange?: (query: string) => void;
+  searchQuery?: string
+  onSearchChange?: (value: string) => void
+  notificationsCount?: number
 }
 
 export const AuthenticatedHeader = ({
-  userName = 'Ким',
-  userAvatar = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg/500px-Kim_Jong-un_and_Vladimir_Putin_%282023-09-13%29_12_%28cropped%29.jpg',
-  notificationsCount = 0,
-  likesCount = 5,
-  onLikeToggle,
-  searchQuery = '',
-  onSearchChange,
-}: AuthenticatedHeaderProps) => {
+                                      likesCount = 5,
+                                      onLikeToggle,
+                                      searchQuery = '',
+                                      onSearchChange,
+                                    }: AuthenticatedHeaderProps) => {
+  const [userName, setUserName] = useState('Пользователь')
+
+  useEffect(() => {
+    const user = getAuthUser()
+    if (user) {
+      setUserName(user.name)
+    }
+  }, [])
+
   return (
     <header className={styles.header}>
       <Logo />
 
       <nav className={styles.nav}>
-        <a href="#" className={styles.navLink}>
-          О проекте
-        </a>
+        <a href="#" className={styles.navLink}>О проекте</a>
         <AllSkillsMenu />
       </nav>
 
       <div className={styles.search}>
         <SearchIcon />
-        <Input 
-          placeholder="Искать навык" 
+        <Input
+          placeholder="Искать навык"
           className={styles.searchInput}
           value={searchQuery}
-          onChange={(e) => onSearchChange?.(e.target.value)} 
+          onChange={(e) => onSearchChange?.(e.target.value)}
         />
       </div>
 
@@ -54,12 +58,7 @@ export const AuthenticatedHeader = ({
           <MoonIcon />
         </button>
 
-        <div className={styles.iconWrapper}>
-          <button type="button" aria-label="Уведомления" className={styles.iconButton}>
-            <NotificationIcon />
-          </button>
-          {notificationsCount > 0 && <span className={styles.badge}>{notificationsCount}</span>}
-        </div>
+        <NotificationsPanel />
 
         <div className={styles.iconWrapper}>
           <button
@@ -73,7 +72,7 @@ export const AuthenticatedHeader = ({
           {likesCount > 0 && <span className={styles.badge}>{likesCount}</span>}
         </div>
 
-        <UserMenu userName={userName} userAvatar={userAvatar} />
+        <UserMenu userName={userName} />
       </div>
     </header>
   )

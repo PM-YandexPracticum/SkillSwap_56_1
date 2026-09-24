@@ -1,19 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import styles from './RegistrationStepTwo.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
 import { Select } from '@/shared/ui/Select'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { citiesData } from './mockData'
 import avatarAddIcon from './Icon+Add.svg'
 import infoImage from './user-info.svg'
-import calendarIcon from './calendar.svg'
-import {
-  getSubcategoryOptions,
-  categoryOptions,
-  CategoryId,
-  SubcategoryId,
-} from '@/entities/skill/model/categories'
+import { categoryOptions } from '@/entities/skill/model/categories'
+import { useCategorySubcategorySelection } from '@/features/skill-category-selection/model/useCategorySubcategorySelection'
 
 const genderOptions = [
   { value: 'not-specified', label: 'Не указан' },
@@ -26,49 +21,42 @@ const cityOptions = citiesData.map((city) => ({
   label: city,
 }))
 
-export function RegistrationStepTwo() {
-  const [categoryIds, setCategoryIds] = useState<CategoryId[]>([])
-  const [subcategoryIds, setSubcategoryIds] = useState<SubcategoryId[]>([])
+interface RegistrationStepTwoProps {
+  onBack?: () => void
+  onNext?: (name: string) => void
+}
 
-  const subcategoryOptions = useMemo(() => getSubcategoryOptions(categoryIds), [categoryIds])
+export function RegistrationStepTwo({ onBack, onNext }: RegistrationStepTwoProps) {
+  const [name, setName] = useState('')
+  const [birthDate, setBirthDate] = useState('')
+  const [gender, setGender] = useState<string | null>(null)
+  const [city, setCity] = useState<string | null>(null)
 
-  const handleCategoriesChange = (value: CategoryId[]) => {
-    setCategoryIds(value)
-    const available = new Set(getSubcategoryOptions(value).map((o) => o.value))
-    setSubcategoryIds((prev) => prev.filter((id) => available.has(id)))
-  }
+  const {
+    categoryIds,
+    subcategoryIds,
+    subcategoryOptions,
+    handleCategoriesChange,
+    handleSubcategoriesChange,
+  } = useCategorySubcategorySelection()
+
+  const isFormValid = name.trim().length > 0
 
   return (
     <section className={styles.container}>
-      {/* Шапка */}
       <header className={styles.header}>
         <Logo />
         <button type="button" className={styles.closeButton}>
           <span>Закрыть</span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M16.7438 8.28754L8.25847 16.7728C7.96856 17.0627 7.48772 17.0627 7.19781 16.7728C6.9079 16.4829 6.9079 16.0021 7.19781 15.7122L15.6831 7.22688C15.973 6.93697 16.4538 6.93697 16.7438 7.22688C17.0337 7.51679 17.0337 7.99763 16.7438 8.28754Z"
-              fill="currentColor"
-            />
-            <path
-              d="M16.7438 16.7728C16.4538 17.0627 15.973 17.0627 15.6831 16.7728L7.19781 8.28755C6.9079 7.99763 6.9079 7.5168 7.19781 7.22689C7.48772 6.93697 7.96856 6.93697 8.25847 7.22689L16.7438 15.7122C17.0337 16.0021 17.0337 16.4829 16.7438 16.7728Z"
-              fill="currentColor"
-            />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16.7438 8.28754L8.25847 16.7728C7.96856 17.0627 7.48772 17.0627 7.19781 16.7728C6.9079 16.4829 6.9079 16.0021 7.19781 15.7122L15.6831 7.22688C15.973 6.93697 16.4538 6.93697 16.7438 7.22688C17.0337 7.51679 17.0337 7.99763 16.7438 8.28754Z" fill="currentColor" />
+            <path d="M16.7438 16.7728C16.4538 17.0627 15.973 17.0627 15.6831 16.7728L7.19781 8.28755C6.9079 7.99763 6.9079 7.5168 7.19781 7.22689C7.48772 6.93697 7.96856 6.93697 8.25847 7.22689L16.7438 15.7122C17.0337 16.0021 17.0337 16.4829 16.7438 16.7728Z" fill="currentColor" />
           </svg>
         </button>
       </header>
       <div className={styles.content}>
-        {/* Индикатор */}
         <div className={styles.stepIndicator}>
           <span className={styles.stepText}>Шаг 2 из 3</span>
-
           <div className={styles.stepProgress}>
             <span className={styles.stepProgressActive} />
             <span className={styles.stepProgressActive} />
@@ -77,54 +65,50 @@ export function RegistrationStepTwo() {
         </div>
         <div className={styles.columns}>
           <div className={styles.formColumn}>
-            {/* Добавление аватарки */}
             <button type="button" className={styles.avatarButton} aria-label="Добавить аватар">
               <img src={avatarAddIcon} alt="" />
             </button>
 
             <div className={styles.form}>
-              {/* Имя */}
               <div className={styles.fieldGroup}>
                 <label htmlFor="name">Имя</label>
-                <Input id="name" type="text" placeholder="Введите имя" />
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Введите имя"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
               </div>
 
-              {/* Дата рождения + Пол */}
               <div className={styles.formRow}>
                 <div className={styles.dateField}>
                   <label htmlFor="birthDate">Дата рождения</label>
-                  <div className={styles.dateInput}>
-                    <Input id="birthDate" type="text" placeholder="дд.мм.гггг" />
-
-                    <button
-                      type="button"
-                      className={styles.calendarButton}
-                      aria-label="Открыть календарь"
-                    >
-                      <img src={calendarIcon} alt="" />
-                    </button>
-                  </div>
+                  <Input
+                    id="birthDate"
+                    type="date"
+                    value={birthDate}
+                    onChange={(event) => setBirthDate(event.target.value)}
+                  />
                 </div>
                 <Select
                   label="Пол"
-                  value={null}
-                  onChange={() => {}}
+                  value={gender}
+                  onChange={setGender}
                   options={genderOptions}
                   placeholder="Выберите пол"
                 />
               </div>
 
-              {/* Город */}
               <Select
                 label="Город"
-                value={null}
-                onChange={() => {}}
+                value={city}
+                onChange={setCity}
                 options={cityOptions}
                 placeholder="Выберите город"
                 searchable
               />
 
-              {/* Категория навыка */}
               <Select
                 multiple
                 label="Категория навыка, которому хотите научиться"
@@ -134,20 +118,31 @@ export function RegistrationStepTwo() {
                 placeholder="Выберите категорию"
               />
 
-              {/* Подкатегория навыка */}
               <Select
                 multiple
                 label="Подкатегория навыка, которому хотите научиться"
                 value={subcategoryIds}
-                onChange={setSubcategoryIds}
+                onChange={handleSubcategoriesChange}
                 options={subcategoryOptions}
                 placeholder="Выберите подкатегорию"
               />
             </div>
-            {/* Кнопки */}
             <div className={styles.actions}>
-              <Button type="button" text="Назад" className={buttonStyles.secondary} />
-              <Button type="button" text="Продолжить" className={buttonStyles.primary} />
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => onBack?.()}
+              >
+                Назад
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                disabled={!isFormValid}
+                onClick={() => onNext?.(name)}
+              >
+                Продолжить
+              </Button>
             </div>
           </div>
 
