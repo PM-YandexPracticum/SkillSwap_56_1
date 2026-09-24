@@ -9,7 +9,7 @@ import { SkillCard, SkillCardProps } from '@/entities/skill/ui/SkillCard'
 import { Input } from '@/shared/ui/Input/Input'
 import { Select } from '@/shared/ui/Select'
 import { Textarea } from '@/shared/ui/Textarea'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { getProfileUser, updateProfileUser } from '@/features/profile-edit/model/profileUtils'
 import { RequestsSection } from '@/features/exchange/ui/RequestsSection'
 import styles from './ProfilePage.module.css'
@@ -188,8 +188,9 @@ function ProfilePage() {
                       setPassword('')
                     }}
                     className={styles.changePasswordLink}
-                    text={isPasswordEditing ? 'Отменить' : 'Изменить пароль'}
-                  />
+                  >
+                    {isPasswordEditing ? 'Отменить' : 'Изменить пароль'}
+                  </Button>
                   {isPasswordEditing && (
                     <div className={styles.fieldGroup}>
                       <label className={styles.label}>Новый пароль</label>
@@ -271,11 +272,13 @@ function ProfilePage() {
                 </div>
 
                 <Button
-                  text="Сохранить"
+                  variant='primary'
                   type="submit"
                   disabled={!hasChanges}
-                  className={`${buttonStyles.primary} ${styles.saveButton}`}
-                />
+                  className={`${styles.saveButton}`}
+                >
+                  Сохранить
+                </Button>
               </form>
 
               <div className={styles.avatarWrapper}>
@@ -285,8 +288,9 @@ function ProfilePage() {
                   onClick={handleChangeAvatar}
                   aria-label="Изменить аватар"
                   className={styles.editAvatarBtn}
-                  icon={<img src={editIcon} alt="Редактировать" className={styles.editIcon} />}
-                />
+                >
+                  <img src={editIcon} alt="Редактировать" className={styles.editIcon} />
+                </Button>
               </div>
             </div>
           ) : activeSection === 'skills' ? (

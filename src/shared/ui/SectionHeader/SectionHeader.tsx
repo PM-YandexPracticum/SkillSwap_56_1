@@ -1,6 +1,6 @@
 import React from 'react'
 import './SectionHeader.css'
-import { Button, buttonStyles } from '../button/Button'
+import { Button } from '../button/Button'
 import ChevronSvg from '../../assets/chevron-right.svg?react'
 
 interface SectionHeaderProps {
@@ -22,11 +22,13 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 
       {showButton && (
         <Button
-          text={buttonText}
-          className={`${buttonStyles.tertiary} see-all-button`}
+          variant="tertiary"
+          className="see-all-button"
           onClick={onSeeAllClick}
-          icon={<ChevronSvg />}
-        />
+        >
+          <ChevronSvg />
+          {buttonText}
+        </Button>
       )}
     </div>
   )

@@ -3,7 +3,7 @@ import styles from './RegistrationStepTwo.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
 import { Select } from '@/shared/ui/Select'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { citiesData } from './mockData'
 import avatarAddIcon from './Icon+Add.svg'
 import infoImage from './user-info.svg'
@@ -130,17 +130,19 @@ export function RegistrationStepTwo({ onBack, onNext }: RegistrationStepTwoProps
             <div className={styles.actions}>
               <Button
                 type="button"
-                text="Назад"
-                className={buttonStyles.secondary}
+                variant="secondary"
                 onClick={() => onBack?.()}
-              />
+              >
+                Назад
+              </Button>
               <Button
                 type="button"
-                text="Продолжить"
-                className={buttonStyles.primary}
+                variant="primary"
                 disabled={!isFormValid}
                 onClick={() => onNext?.(name)}
-              />
+              >
+                Продолжить
+              </Button>
             </div>
           </div>
 

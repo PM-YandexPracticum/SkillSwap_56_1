@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { ROUTES } from '@/shared/lib/constants'
 import { useProposeExchange } from '@/features/exchange/model/useProposeExchange'
 import { RegistrationRequiredModal } from '@/features/exchange/ui/RegistrationRequiredModal'
@@ -25,18 +25,21 @@ export const ProposeExchangeButton = ({ skillId, toUserId }: ProposeExchangeButt
     <>
       {isProposed ? (
         <Button
-          text="Обмен предложен"
-          icon={<img src={clockUrl} alt="" className={styles.clockIcon} />}
-          className={`${buttonStyles.secondary} ${styles.pendingButton}`}
+          variant="secondary"
+          className={`${styles.pendingButton}`}
           disabled
-        />
+        >
+          <img src={clockUrl} alt="" className={styles.clockIcon} />
+          Обмен предложен
+        </Button>
       ) : (
         <Button
-          text="Предложить обмен"
-          className={buttonStyles.primary}
+          variant="primary"
           style={{ width: '100%' }}
           onClick={proposeExchange}
-        />
+        >
+          Предложить обмен
+        </Button>
       )}
 
       {modal === 'registrationRequired' && (

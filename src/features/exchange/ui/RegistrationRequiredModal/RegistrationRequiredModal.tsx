@@ -29,7 +29,7 @@ export const RegistrationRequiredModal = ({
           Чтобы предложить обмен, войдите в систему или зарегистрируйтесь
         </p>
 
-        <Button className={styles.button} text="Зарегистрироваться" onClick={handleRegisterClick} />
+        <Button className={styles.button} onClick={handleRegisterClick}>Зарегистрироваться</Button>
       </div>
     </div>
   )
