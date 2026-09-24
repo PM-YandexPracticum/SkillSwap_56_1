@@ -70,12 +70,10 @@ export default function FavoritesPage() {
         ) : (
           <div className={styles.empty}>
             <p className={styles.emptyTitle}>Пока нет избранных навыков</p>
-
             <Button
-              text="Вернуться в каталог"
               onClick={() => navigate(ROUTES.HOME)}
               className={`${styles.button} ${styles.primaryButton}`}
-            />
+            >Вернуться в каталог</Button>
           </div>
         )}
       </main>
