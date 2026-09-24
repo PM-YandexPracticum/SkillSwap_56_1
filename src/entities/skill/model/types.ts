@@ -1,6 +1,10 @@
 // Переэкспортируем доменные типы из shared
 export type { Skill, SkillType } from '@/shared/types'
 
+export interface LearnTag {
+  value: string
+  color: string
+}
 export interface SkillCardData {
   id: string
   user: {
@@ -15,8 +19,7 @@ export interface SkillCardData {
     teachTagColor: string
   }
   learn: {
-    learnValue: string[]
-    learnTagColor: string
+    learnValue: LearnTag[]
   }
   moreTagColor: string
   likesCount: number
