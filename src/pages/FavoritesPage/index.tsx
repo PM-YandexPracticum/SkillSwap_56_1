@@ -8,14 +8,21 @@ import skillsIcon from '../../shared/assets/skills.svg'
 import profileIcon from '../../shared/assets/profile.svg'
 import { FavoriteSkillCard } from '@/features/favorites/ui/FavoriteSkillCard'
 import { SKILLS_DATA } from '@/features/skill-search/data/skills'
+import { ROUTES } from '@/shared/lib/constants'
 import { useFavoriteIds } from '@/features/favorites/model/useFavoriteIds'
+import { Button } from '@/shared/ui/button/Button'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 export default function FavoritesPage() {
+  const navigate = useNavigate()
+  const [, setFavoritesUpdate] = useState(false)
   const favoriteIds = useFavoriteIds()
+
   const favoriteSkills = SKILLS_DATA.filter((skill) => favoriteIds.includes(skill.id))
 
   return (
-    <>
+    <div className={styles.pageWrapper}>
       <AuthenticatedHeader />
       <main className={styles.main}>
         <aside className={styles.sidebar}>
@@ -55,15 +62,22 @@ export default function FavoritesPage() {
                   likesCount={skill.likesCount}
                   withButton
                   withLikeButton
+                  onFavoriteChange={() => setFavoritesUpdate((prev) => !prev)}
                 />
               </li>
             ))}
           </ul>
         ) : (
-          <p>Пока нет избранных навыков</p>
+          <div className={styles.empty}>
+            <p className={styles.emptyTitle}>Пока нет избранных навыков</p>
+            <Button
+              onClick={() => navigate(ROUTES.HOME)}
+              className={`${styles.button} ${styles.primaryButton}`}
+            >Вернуться в каталог</Button>
+          </div>
         )}
       </main>
       <Footer />
-    </>
+    </div>
   )
 }
