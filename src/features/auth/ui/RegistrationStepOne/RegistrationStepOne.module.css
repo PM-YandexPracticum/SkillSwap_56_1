@@ -233,3 +233,13 @@
 .registerLink:hover {
   color: var(--color-text-secondary);
 }
+
+.fieldError input {
+  border-color: var(--color-error, red);
+}
+
+.errorText {
+  font-size: var(--font-size-caption, 12px);
+  line-height: var(--line-height-caption, 16px);
+  color: var(--color-error, red);
+}

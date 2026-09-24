@@ -1,0 +1,68 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.groupTitle {
+  font-family: var(--font-family-body), sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color-text);
+  margin: 0 0 16px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--color-accent-hover, #DEEBC5);
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skillTitle {
+  font-family: var(--font-family-body), sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.counterpart {
+  font-family: var(--font-family-body), sans-serif;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.status {
+  font-family: var(--font-family-body), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.empty {
+  font-family: var(--font-family-body), sans-serif;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}

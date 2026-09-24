@@ -8,26 +8,25 @@ import FiltersSidebar from '@/widgets/FiltersSidebar/FiltersSidebar'
 import { Footer } from '@/widgets/Footer/Footer'
 import { SkillCard } from '@/entities/skill/ui/SkillCard'
 import { toSkillCardProps } from '@/entities/skill/model/toSkillCardProps'
-import {
-  InfiniteScrollTrigger,
-  usePaginatedSkills,
-} from '@/features/skill-pagination'
+import { InfiniteScrollTrigger, usePaginatedSkills } from '@/features/skill-pagination'
 import { SkillSearch } from '@/features/skill-search'
+
+import { FilterState, initialFilterState, useFilteredUsers } from '@/features/skill-filter'
+
 import styles from './CatalogPage.module.css'
 import { useNavigate } from 'react-router-dom'
+import { useActiveChips } from '@/features/skill-filter/useActiveChips'
+import { FilterChip } from '@/shared/ui/FilterChip/FilterChip'
 
 export default function CatalogPage() {
   const navigate = useNavigate()
-  
+
   const [searchQuery, setSearchQuery] = useState('')
   const [users, setUsers] = useState<User[]>([])
 
-  const {
-    visibleSkills,
-    hasMore,
-    isLoading,
-    loadMore,
-  } = usePaginatedSkills()
+  const [filters, setFilters] = useState<FilterState>(initialFilterState)
+
+  const { visibleSkills, hasMore, isLoading, loadMore } = usePaginatedSkills()
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -38,9 +37,13 @@ export default function CatalogPage() {
     void loadUsers()
   }, [])
 
+  const filteredUsers = useFilteredUsers(users, filters)
+  const activeChips = useActiveChips(filters, setFilters)
+
+  //  мap только из отфильтрованных пользователей
   const usersById = useMemo(
-    () => new Map(users.map((user) => [user.id, user])),
-    [users],
+    () => new Map(filteredUsers.map((user) => [user.id, user])),
+    [filteredUsers],
   )
 
   const catalogCards = useMemo(
@@ -60,43 +63,54 @@ export default function CatalogPage() {
   return (
     <div className={styles.page}>
       {isAuthenticated() ? (
-        <AuthenticatedHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <AuthenticatedHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       ) : (
-        <GuestHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <GuestHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       )}
 
       <main className={styles.main}>
-        <FiltersSidebar />
+        <FiltersSidebar filters={filters} setFilters={setFilters} />
 
         <section className={styles.content}>
           {searchQuery.trim() ? (
             <SkillSearch query={searchQuery} />
           ) : (
             <>
-              <div className={styles.section}>
-                <div className={styles.cards}>
-                  {catalogCards.map((card) => (
-                    <SkillCard
-                      key={card.id}
-                      {...card}
-                      withButton={true}
-                      onNavigate={(id) => navigate(`/skill/${id}`)}
-                    />
+              {/*  отрисовка активных чипсов над каталогом */}
+              {activeChips.length > 0 && (
+                <div className={styles.chipsList}>
+                  {activeChips.map((chip) => (
+                    <FilterChip key={chip.id} label={chip.label} onRemove={chip.onRemove} />
                   ))}
                 </div>
+              )}
 
-                <InfiniteScrollTrigger
-                  hasMore={hasMore}
-                  isLoading={isLoading}
-                  onLoadMore={loadMore}
-                />
-              </div>
+              {catalogCards.length === 0 && !isLoading && !hasMore ? (
+                <div className={styles.emptyState}>
+                  <p>Ничего не найдено по выбранным фильтрам</p>
+                </div>
+              ) : (
+                <div className={styles.section}>
+                  {catalogCards.length > 0 && (
+                    <div className={styles.cards}>
+                      {catalogCards.map((card) => (
+                        <SkillCard
+                          key={card.id}
+                          {...card}
+                          withButton={true}
+                          onNavigate={(id) => navigate(`/skill/${id}`)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  <InfiniteScrollTrigger
+                    hasMore={hasMore}
+                    isLoading={isLoading}
+                    onLoadMore={loadMore}
+                  />
+                </div>
+              )}
             </>
           )}
         </section>

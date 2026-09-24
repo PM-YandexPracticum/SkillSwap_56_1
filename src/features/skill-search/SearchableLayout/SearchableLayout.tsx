@@ -16,8 +16,8 @@ interface SearchableLayoutProps {
 
 export const SearchableLayout = ({
   isAuth = false,
-  userName = 'Ким',
-  userAvatar = null,
+ // userName = 'Ким',
+ // userAvatar = null,
   notificationsCount = 0,
   likesCount = 5,
   onLikeToggle,
@@ -28,13 +28,11 @@ export const SearchableLayout = ({
     <div className={styles.layout}>
       {isAuth ? (
         <AuthenticatedHeader
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          userName={userName}
-          userAvatar={userAvatar}
-          notificationsCount={notificationsCount}
           likesCount={likesCount}
           onLikeToggle={onLikeToggle}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          notificationsCount={notificationsCount}
         />
       ) : (
         <GuestHeader

@@ -24,13 +24,12 @@ export const UserMenu = ({ userName, userAvatar }: UserMenuProps) => {
   }
 
   const handleLogout = () => {
-    //console.log('1. Нажали “Выйти”')
     clearAuthUser()
-   // console.log('2. Вызвали clearAuthUser')
+    setIsOpen(false)
     navigate(ROUTES.HOME, { replace: true })
-   // console.log('3. Вызвали navigate')
+    // reload the state (to exit and show main page 4 any guests)
+    window.location.reload()
   }
-
 
   return (
     <div className={styles.container}>
@@ -42,7 +41,6 @@ export const UserMenu = ({ userName, userAvatar }: UserMenuProps) => {
         aria-haspopup="menu"
       >
         <span className={styles.userName}>{userName}</span>
-
         <img
           src={userAvatar ?? defaultAvatar}
           alt={userName}
@@ -68,7 +66,6 @@ export const UserMenu = ({ userName, userAvatar }: UserMenuProps) => {
             onClick={handleLogout}
           >
             <span>Выйти из аккаунта</span>
-
             <svg
               className={styles.logoutIcon}
               width="24"
