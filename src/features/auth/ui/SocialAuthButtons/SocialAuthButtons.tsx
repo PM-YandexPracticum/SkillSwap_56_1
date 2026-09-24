@@ -1,6 +1,6 @@
 import { Button } from '@/shared/ui/button/Button';
-import AppleLogo from '@/shared/assets/apple.png';
-import GoogleLogo from '@/shared/assets/google.png';
+import AppleLogo from '@/shared/assets/apple.svg';
+import GoogleLogo from '@/shared/assets/google.svg';
 
 export function SocialAuthButtons() {
   return (
