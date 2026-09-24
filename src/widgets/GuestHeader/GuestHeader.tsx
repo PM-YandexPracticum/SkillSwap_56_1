@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Logo } from '../../shared/ui/Logo/logo'
 import { Input } from '../../shared/ui/Input/Input'
-import { Button, buttonStyles } from '../../shared/ui/button/Button'
+import { Button } from '../../shared/ui/button/Button'
 import AllSkillsMenu from '../AllSkillsMenu/AllSkillsMenu'
 import { ROUTES } from '@/shared/lib/constants'
 import styles from './GuestHeader.module.css'
@@ -51,15 +51,17 @@ export const GuestHeader = ({
 
       <div className={styles.authButtons}>
         <Button
-          text="Войти"
-          className={buttonStyles.secondary}
+          variant="secondary"
           onClick={() => navigate(ROUTES.LOGIN)}
-        />
+        >
+          Войти
+        </Button>
         <Button
-          text="Зарегистрироваться"
-          className={buttonStyles.primary}
+          variant="primary"
           onClick={() => navigate(ROUTES.REGISTER)}
-        />
+        >
+          Зарегистрироваться
+        </Button>
       </div>
     </header>
   )

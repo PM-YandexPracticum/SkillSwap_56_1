@@ -59,9 +59,10 @@ export const OfferCreatedModal = ({
 
           <Button
             className={styles.button}
-            text={buttonText}
             onClick={onClose}
-          />
+          >
+            {buttonText}
+          </Button>
         </div>
       </div>
     </FocusTrap>,

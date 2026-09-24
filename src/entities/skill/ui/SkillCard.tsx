@@ -2,7 +2,7 @@ import styles from './SkillCard.module.css';
 import { UserInfo } from '@/entities/user/ui/UserInfo/UserInfo';
 import { SkillTag } from '@/shared/ui/SkillTag/SkillTag';
 import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
-import { Button, buttonStyles } from '@/shared/ui/button/Button';
+import { Button } from '@/shared/ui/button/Button';
 import { mock } from './mock';
 import { useState, useEffect, useRef } from 'react';
 
@@ -106,7 +106,9 @@ export const SkillCard = (props: SkillCardProps) => {
           </div>
         </div>
       </div>
-      {props.withButton && <Button text='Подробнее' className={buttonStyles.primary} onClick={handleDetailsClick}/>}
+      {props.withButton && <Button variant='primary' onClick={handleDetailsClick}>
+        Подробнее
+      </Button>}
     </div>
   )
 };

@@ -3,7 +3,7 @@ import styles from './RegistrationStepThree.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
 import { Select } from '@/shared/ui/Select'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { Textarea } from '@/shared/ui/Textarea'
 import onboardingImg from './step-three-img.svg'
 import { categoryOptions } from '@/entities/skill/model/categories'
@@ -111,17 +111,19 @@ export const RegistrationStepThree: React.FC<RegistrationStepThreeProps> = ({ on
           <div className={styles.buttons}>
             <Button
               type="button"
-              text="Назад"
-              className={buttonStyles.secondary}
+              variant="secondary"
               onClick={() => onBack?.()}
-            />
+            >
+              Назад
+            </Button>
             <Button
               type="button"
-              text="Продолжить"
-              className={buttonStyles.primary}
+              variant="primary"
               disabled={!isFormValid}
               onClick={() => onComplete?.()}
-            />
+            >
+              Продолжить
+            </Button>
           </div>
         </form>
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './RegistrationStepOne.module.css'
 import { Logo } from '@/shared/ui/Logo/logo'
 import { Input } from '@/shared/ui/Input/Input'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { SocialAuthButtons } from '@/features/auth/ui/SocialAuthButtons/SocialAuthButtons'
 import { ROUTES } from '@/shared/lib/constants'
 import eyeIcon from '@/shared/assets/eye.svg'
@@ -162,10 +162,12 @@ export function RegistrationStepOne({
                 </div>
 
                 <Button
-                  text={isLogin ? 'Войти' : 'Далее'}
-                  className={`${buttonStyles.primary} ${styles.submit}`}
+                  variant='primary'
+                  className={`${styles.submit}`}
                   disabled={!isLogin && !isFormValid}
-                />
+                >
+                  {isLogin ? 'Войти' : 'Далее'}
+                </Button>
 
                 {isLogin && (
                   <button type="button" className={styles.registerLink}>
