@@ -106,9 +106,11 @@ export const SkillCard = (props: SkillCardProps) => {
           </div>
         </div>
       </div>
-      {props.withButton && <Button variant='primary' onClick={handleDetailsClick}>
-        Подробнее
-      </Button>}
+      {props.withButton && (
+        <Button variant="primary" onClick={handleDetailsClick}>
+          Подробнее
+        </Button>
+      )}
     </div>
   )
 };

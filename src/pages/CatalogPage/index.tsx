@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom' 
 import type { User } from '@/shared/types'
 import { isAuthenticated } from '@/shared/lib/auth'
 import { fetchUsers } from '@/api/users'
@@ -14,17 +15,21 @@ import { SkillSearch } from '@/features/skill-search'
 import { FilterState, initialFilterState, useFilteredUsers } from '@/features/skill-filter'
 
 import styles from './CatalogPage.module.css'
-import { useNavigate } from 'react-router-dom'
 import { useActiveChips } from '@/features/skill-filter/useActiveChips'
 import { FilterChip } from '@/shared/ui/FilterChip/FilterChip'
+import { useLikes } from '@/features/likes'
+import { ROUTES } from '@/shared/lib/constants'
 
 export default function CatalogPage() {
   const navigate = useNavigate()
+  const auth = isAuthenticated()
 
   const [searchQuery, setSearchQuery] = useState('')
   const [users, setUsers] = useState<User[]>([])
 
   const [filters, setFilters] = useState<FilterState>(initialFilterState)
+
+  const { isLiked, toggleLike } = useLikes()
 
   const { visibleSkills, hasMore, isLoading, loadMore } = usePaginatedSkills()
 
@@ -60,9 +65,18 @@ export default function CatalogPage() {
     [visibleSkills, usersById],
   )
 
+  //Гость - редирект на логин. Авторизованный - переключаем лайк.
+  const handleLikeToggle = (skillId: string) => {
+    if (!auth) {
+      navigate(ROUTES.LOGIN)
+      return
+    }
+    toggleLike(skillId)
+  }
+
   return (
     <div className={styles.page}>
-      {isAuthenticated() ? (
+      {auth ? (
         <AuthenticatedHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       ) : (
         <GuestHeader searchQuery={searchQuery} onSearchChange={setSearchQuery} />
@@ -73,7 +87,7 @@ export default function CatalogPage() {
 
         <section className={styles.content}>
           {searchQuery.trim() ? (
-            <SkillSearch query={searchQuery} />
+            <SkillSearch query={searchQuery} cards={catalogCards} />
           ) : (
             <>
               {/*  отрисовка активных чипсов над каталогом */}
@@ -93,14 +107,23 @@ export default function CatalogPage() {
                 <div className={styles.section}>
                   {catalogCards.length > 0 && (
                     <div className={styles.cards}>
-                      {catalogCards.map((card) => (
-                        <SkillCard
-                          key={card.id}
-                          {...card}
-                          withButton={true}
-                          onNavigate={(id) => navigate(`/skill/${id}`)}
-                        />
-                      ))}
+                      {catalogCards.map((card) => {
+                        const liked = isLiked(card.id)
+                        const likesCount = (card.likesCount ?? 0) + (liked ? 1 : 0)
+
+                        return (
+                          <SkillCard
+                            key={card.id}
+                            {...card}
+                            likesCount={likesCount}
+                            isLiked={liked}
+                            onLikeToggle={() => handleLikeToggle(card.id)}
+                            withButton
+                            onNavigate={(id) => navigate(`/skill/${id}`)}
+                            withLikeButton
+                          />
+                        )
+                      })}
                     </div>
                   )}
 
