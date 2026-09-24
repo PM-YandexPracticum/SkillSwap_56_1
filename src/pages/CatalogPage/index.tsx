@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom' 
+import { useLocation, useNavigate } from 'react-router-dom' 
 import type { User } from '@/shared/types'
 import { isAuthenticated } from '@/shared/lib/auth'
 import { fetchUsers } from '@/api/users'
@@ -19,9 +19,12 @@ import { useActiveChips } from '@/features/skill-filter/useActiveChips'
 import { FilterChip } from '@/shared/ui/FilterChip/FilterChip'
 import { useLikes } from '@/features/likes'
 import { ROUTES } from '@/shared/lib/constants'
+import { SkillSection, useSections } from '@/features/skill-sections'
 
 export default function CatalogPage() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const isHome = location.pathname === ROUTES.HOME
   const auth = isAuthenticated()
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -31,7 +34,7 @@ export default function CatalogPage() {
 
   const { isLiked, toggleLike } = useLikes()
 
-  const { visibleSkills, hasMore, isLoading, loadMore } = usePaginatedSkills()
+  const { allSkills, visibleSkills, hasMore, isLoading, loadMore } = usePaginatedSkills()
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -45,7 +48,6 @@ export default function CatalogPage() {
   const filteredUsers = useFilteredUsers(users, filters)
   const activeChips = useActiveChips(filters, setFilters)
 
-  //  мap только из отфильтрованных пользователей
   const usersById = useMemo(
     () => new Map(filteredUsers.map((user) => [user.id, user])),
     [filteredUsers],
@@ -65,7 +67,19 @@ export default function CatalogPage() {
     [visibleSkills, usersById],
   )
 
-  //Гость - редирект на логин. Авторизованный - переключаем лайк.
+  const allUsersById = useMemo(
+    () => new Map(users.map((user) => [user.id, user])),
+    [users],
+  )
+
+  const { popular, newest, recommended } = useSections(allSkills, allUsersById)
+
+  const hasActiveFilters =
+    filters.cities.length > 0 ||
+    filters.skills.length > 0 ||
+    filters.gender !== 'any' ||
+    (filters.interaction && filters.interaction !== 'all')
+
   const handleLikeToggle = (skillId: string) => {
     if (!auth) {
       navigate(ROUTES.LOGIN)
@@ -85,12 +99,11 @@ export default function CatalogPage() {
       <main className={styles.main}>
         <FiltersSidebar filters={filters} setFilters={setFilters} />
 
-        <section className={styles.content}>
+                <section className={styles.content}>
           {searchQuery.trim() ? (
             <SkillSearch query={searchQuery} cards={catalogCards} />
-          ) : (
+          ) : hasActiveFilters || !isHome ? (
             <>
-              {/*  отрисовка активных чипсов над каталогом */}
               {activeChips.length > 0 && (
                 <div className={styles.chipsList}>
                   {activeChips.map((chip) => (
@@ -134,6 +147,33 @@ export default function CatalogPage() {
                   />
                 </div>
               )}
+            </>
+          ) : (
+            <>
+              <SkillSection
+                title="Популярное"
+                cards={popular}
+                onSeeAll={() => navigate(ROUTES.CATALOG)}
+                isLiked={isLiked}
+                onLikeToggle={handleLikeToggle}
+                onNavigate={(id) => navigate(`/skill/${id}`)}
+              />
+              <SkillSection
+                title="Новое"
+                cards={newest}
+                onSeeAll={() => navigate(ROUTES.CATALOG)}
+                isLiked={isLiked}
+                onLikeToggle={handleLikeToggle}
+                onNavigate={(id) => navigate(`/skill/${id}`)}
+              />
+              <SkillSection
+                title="Рекомендуем"
+                cards={recommended}
+                onSeeAll={() => navigate(ROUTES.CATALOG)}
+                isLiked={isLiked}
+                onLikeToggle={handleLikeToggle}
+                onNavigate={(id) => navigate(`/skill/${id}`)}
+              />
             </>
           )}
         </section>
