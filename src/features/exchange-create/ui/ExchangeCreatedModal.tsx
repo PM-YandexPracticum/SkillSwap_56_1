@@ -55,9 +55,10 @@ export const ExchangeCreatedModal = ({
           <div className={styles.buttonBlock}>
             <Button
               className={styles.button}
-              text={buttonText}
               onClick={onClose}
-            />
+            >
+              {buttonText}
+            </Button>
           </div>
         </div>
       </div>

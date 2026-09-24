@@ -45,7 +45,7 @@ export const ExchangeCreatedModal = ({
             Теперь дождитесь подтверждения. Вам придёт уведомление
           </p>
 
-          <Button className={styles.button} text={buttonText} onClick={onClose} />
+          <Button className={styles.button} onClick={onClose}>{buttonText}</Button>
         </div>
       </div>
     </FocusTrap>,

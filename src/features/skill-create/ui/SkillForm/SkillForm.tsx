@@ -2,7 +2,7 @@ import { type ChangeEvent, type FormEvent } from 'react'
 import { Input } from '@/shared/ui/Input/Input'
 import { Textarea } from '@/shared/ui/Textarea/Textarea'
 import { Select } from '@/shared/ui/Select'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import { categoryOptions } from '@/entities/skill/model/categories'
 import type { SkillFormData } from '../../model/types'
 import { MAX_IMAGES } from '../../model/validation'
@@ -147,16 +147,18 @@ export const SkillForm = ({
       <div className={styles.buttons}>
         <Button
           type="button"
-          text="Назад"
-          className={buttonStyles.secondary}
+          variant="secondary"
           onClick={onBack}
-        />
+        >
+          Назад
+        </Button>
         <Button
           type="submit"
-          text={submitText}
-          className={buttonStyles.primary}
+          variant="primary"
           disabled={!isValid}
-        />
+        >
+          {submitText}
+        </Button>
       </div>
     </form>
   )

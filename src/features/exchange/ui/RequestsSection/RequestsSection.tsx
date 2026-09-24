@@ -3,7 +3,7 @@ import type { Skill, SwapRequest, User } from '@/shared/types'
 import { fetchSkillById } from '@/api/skills'
 import { fetchUserById } from '@/api/users'
 import { useMyRequests } from '@/features/exchange/model/useMyRequests'
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import styles from './RequestsSection.module.css'
 
 const STATUS_LABELS: Record<SwapRequest['status'], string> = {
@@ -74,21 +74,25 @@ function RequestCard({ entry, counterpartLabel, onAccept, onReject, onComplete }
       <div className={styles.actions}>
         {request.status === 'pending' && onAccept && onReject && (
           <>
-            <Button text="Принять" className={buttonStyles.primary} onClick={() => onAccept(request.id)} />
+            <Button variant="primary" onClick={() => onAccept(request.id)}>
+              Принять
+            </Button>
             <Button
-              text="Отклонить"
-              className={buttonStyles.secondary}
+              variant="secondary"
               onClick={() => onReject(request.id)}
-            />
+            >
+              Отклонить
+            </Button>
           </>
         )}
 
         {request.status === 'inProgress' && onComplete && (
           <Button
-            text="Завершить обмен"
-            className={buttonStyles.primary}
+            variant="primary"
             onClick={() => onComplete(request.id)}
-          />
+          >
+            Завершить обмен
+          </Button>
         )}
       </div>
     </div>

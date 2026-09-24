@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom'
 import { FocusTrap } from 'focus-trap-react'
 
-import { Button, buttonStyles } from '@/shared/ui/button/Button'
+import { Button } from '@/shared/ui/button/Button'
 import edit from '@/shared/assets/edit.svg'
 
 import styles from './SkillPreview.module.css'
@@ -54,18 +54,21 @@ export const SkillPreview = (props: SkillPreviewProps) => {
               <div className={styles.buttons}>
                 <Button
                   type="button"
-                  icon={<>Редактировать {editImg}</>}
-                  className={buttonStyles.secondary}
+                  variant="secondary"
                   style={{ width: '204px', display: 'flex', gap: '8px' }}
                   onClick={props.onEdit}
-                />
+                >
+                  Редактировать
+                  {editImg}
+                </Button>
                 <Button
                   type="button"
-                  text="Готово"
-                  className={buttonStyles.primary}
+                  variant="primary"
                   style={{ width: '204px' }}
                   onClick={props.onDone}
-                />
+                >
+                  Готово
+                </Button>
               </div>
             </div>
             <div className={styles.images}>

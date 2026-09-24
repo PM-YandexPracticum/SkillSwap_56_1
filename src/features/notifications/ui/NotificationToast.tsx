@@ -26,7 +26,7 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({
       </button>
       {showAction && onAction && (
         <div className={styles.actionWrapper}>
-          <Button className={styles.actionBtn} text="Перейти" onClick={onAction} />
+          <Button variant='actionBtn' onClick={onAction}>Перейти</Button>
         </div>
       )}
     </div>

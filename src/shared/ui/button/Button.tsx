@@ -1,16 +1,12 @@
-import React from "react";
+import React from 'react';
 import styles from './Button.module.css';
-export { styles as buttonStyles };
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  text?: string,
-  icon?: React.ReactNode,
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'socialLogin' | 'actionBtn'
 }
 
-export function Button({ className, style, text, icon, ...props }: ButtonProps) {
+export function Button({children, variant, className, ...restProps }: ButtonProps) {
   return (
-    <button className={className} style={style} {...props}>
-      {icon}{text}
-    </button>
+    <button className={[variant ? styles[variant] : undefined, className].filter(Boolean).join(' ')} {...restProps}>{children}</button>
   )
 }

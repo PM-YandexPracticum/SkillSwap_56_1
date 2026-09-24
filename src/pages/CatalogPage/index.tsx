@@ -119,7 +119,7 @@ export default function CatalogPage() {
                             isLiked={liked}
                             onLikeToggle={() => handleLikeToggle(card.id)}
                             withButton
-                            onDetailsClick={() => navigate(`/skill/${card.id}`)}
+                            onNavigate={(id) => navigate(`/skill/${id}`)}
                             withLikeButton
                           />
                         )
