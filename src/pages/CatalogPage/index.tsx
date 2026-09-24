@@ -19,7 +19,7 @@ import { useActiveChips } from '@/features/skill-filter/useActiveChips'
 import { FilterChip } from '@/shared/ui/FilterChip/FilterChip'
 import { useLikes } from '@/features/likes'
 import { ROUTES } from '@/shared/lib/constants'
-import { SkillSection, useSections } from '@/features/skill-sections'
+import { SkillSection, useSections, RECOMMENDED_PAGE_SIZE } from '@/features/skill-sections'
 
 export default function CatalogPage() {
   const navigate = useNavigate()
@@ -73,6 +73,25 @@ export default function CatalogPage() {
   )
 
   const { popular, newest, recommended } = useSections(allSkills, allUsersById)
+
+  const [recommendedVisible, setRecommendedVisible] = useState(RECOMMENDED_PAGE_SIZE)
+  const [isLoadingRecommended, setIsLoadingRecommended] = useState(false)
+
+  const recommendedTotal = recommended.length
+  const hasMoreRecommended = recommendedVisible < recommendedTotal
+
+  const loadMoreRecommended = () => {
+    if (isLoadingRecommended || !hasMoreRecommended) return
+    setIsLoadingRecommended(true)
+    window.setTimeout(() => {
+      setRecommendedVisible((prev) =>
+        Math.min(prev + RECOMMENDED_PAGE_SIZE, recommendedTotal),
+      )
+      setIsLoadingRecommended(false)
+    }, 300)
+  }
+
+  const visibleRecommended = recommended.slice(0, recommendedVisible)
 
   const hasActiveFilters =
     filters.cities.length > 0 ||
@@ -149,11 +168,10 @@ export default function CatalogPage() {
               )}
             </>
           ) : (
-            <>
+                        <>
               <SkillSection
                 title="Популярное"
                 cards={popular}
-                onSeeAll={() => navigate(ROUTES.CATALOG)}
                 isLiked={isLiked}
                 onLikeToggle={handleLikeToggle}
                 onNavigate={(id) => navigate(`/skill/${id}`)}
@@ -161,18 +179,23 @@ export default function CatalogPage() {
               <SkillSection
                 title="Новое"
                 cards={newest}
-                onSeeAll={() => navigate(ROUTES.CATALOG)}
                 isLiked={isLiked}
                 onLikeToggle={handleLikeToggle}
                 onNavigate={(id) => navigate(`/skill/${id}`)}
               />
               <SkillSection
                 title="Рекомендуем"
-                cards={recommended}
-                onSeeAll={() => navigate(ROUTES.CATALOG)}
+                cards={visibleRecommended}
+                expandable={false}
                 isLiked={isLiked}
                 onLikeToggle={handleLikeToggle}
                 onNavigate={(id) => navigate(`/skill/${id}`)}
+              />
+
+              <InfiniteScrollTrigger
+                hasMore={hasMoreRecommended}
+                isLoading={isLoadingRecommended}
+                onLoadMore={loadMoreRecommended}
               />
             </>
           )}
