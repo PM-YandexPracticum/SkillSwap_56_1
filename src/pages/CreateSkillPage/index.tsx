@@ -70,8 +70,8 @@ export default function CreateSkillPage() {
       description: authUser.about || '',
     },
     moreTagColor: 'purple',
-    teach: { teachValue: formData.title.trim(), teachTagColor: 'green' },
-    learn: { learnValue: [], learnTagColor: 'yellow' },
+    teach: { teachValue: formData.title.trim(), teachTagColor: 'var(--color-tag-more)' },
+    learn: { learnValue: [] },
     likesCount: 0,
   })
 

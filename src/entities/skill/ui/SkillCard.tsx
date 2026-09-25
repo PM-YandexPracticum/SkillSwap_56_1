@@ -3,6 +3,7 @@ import { UserInfo } from '@/entities/user/ui/UserInfo/UserInfo';
 import { SkillTag } from '@/shared/ui/SkillTag/SkillTag';
 import { LikeButton } from '@/shared/ui/LikeButton/LikeButton';
 import { Button } from '@/shared/ui/button/Button';
+import type { LearnTag } from '@/entities/skill/model/types';
 import { mock } from './mock';
 import { useState, useEffect, useRef } from 'react';
 
@@ -22,8 +23,7 @@ export interface SkillCardProps {
     teachTagColor: string
   },
   learn: {
-    learnValue: string[],
-    learnTagColor: string
+    learnValue: LearnTag[]
   },
   moreTagColor: string,
   withButton: boolean,
@@ -101,7 +101,9 @@ export const SkillCard = (props: SkillCardProps) => {
         <div>
           <p>Хочет научиться:</p>
           <div ref={learnBoxRef} className={styles.learnbox}>
-            {props.learn.learnValue.slice(0, visibleSkillsCount).map((item, i) => <SkillTag key={i} color={props.learn.learnTagColor} value={item} />)}
+            {props.learn.learnValue.slice(0, visibleSkillsCount).map((tag, i) => (
+              <SkillTag key={i} color={tag.color} value={tag.value} />
+            ))}
             {moreSkills > 0 && <SkillTag color={props.moreTagColor} value={`+${moreSkills}`} />}
           </div>
         </div>

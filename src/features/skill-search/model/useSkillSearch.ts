@@ -8,9 +8,9 @@ export const useSkillSearch = (query: string, cards: SkillCardData[]) => {
 
     return cards.filter((card) => {
       const teachMatch = card.teach.teachValue.toLowerCase().includes(trimmed)
-      const learnMatch = card.learn.learnValue.some((item) =>
-        item.toLowerCase().includes(trimmed),
-      )
+      const learnMatch = card.learn.learnValue.some((tag) =>
+        tag.value.toLowerCase().includes(trimmed),
+      ) 
       return teachMatch || learnMatch
     })
   }, [query, cards])
