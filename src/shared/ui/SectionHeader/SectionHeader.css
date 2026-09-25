@@ -24,3 +24,14 @@
     background-color 0.2s ease,
     border-color 0.2s ease;
 }
+
+.see-all-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.see-all-icon--expanded {
+  transform: rotate(90deg);
+}

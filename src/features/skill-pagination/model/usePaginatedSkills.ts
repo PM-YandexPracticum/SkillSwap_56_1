@@ -4,6 +4,8 @@ import type { Skill } from '@/shared/types'
 import { LOAD_DELAY_MS, PAGE_SIZE } from './constants'
 
 interface UsePaginatedSkillsResult {
+  /** Все загруженные навыки (для секций) */
+  allSkills: Skill[]
   /** Карточки, доступные на текущем «экране» (порция + уже подгруженные) */
   visibleSkills: Skill[]
   /** Общее количество результатов с учётом поиска/фильтра */
@@ -82,6 +84,7 @@ export const usePaginatedSkills = (): UsePaginatedSkillsResult => {
 
 
   return {
+    allSkills: skills,
     visibleSkills: skills.slice(0, visibleCount),
     totalCount,
     shownCount: Math.min(visibleCount, totalCount),

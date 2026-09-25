@@ -8,6 +8,7 @@ interface SectionHeaderProps {
   showButton?: boolean
   buttonText?: string
   onSeeAllClick?: () => void
+  isExpanded?: boolean
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = ({
@@ -15,6 +16,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   showButton = true,
   buttonText = 'Смотреть все',
   onSeeAllClick = () => {},
+  isExpanded = false,
 }) => {
   return (
     <div className="section-header">
@@ -26,7 +28,11 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
           className="see-all-button"
           onClick={onSeeAllClick}
         >
-          <ChevronSvg />
+          <span
+            className={`see-all-icon${isExpanded ? ' see-all-icon--expanded' : ''}`}
+          >
+            <ChevronSvg />
+          </span>
           {buttonText}
         </Button>
       )}
